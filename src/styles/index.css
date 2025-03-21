@@ -6,16 +6,16 @@
 @theme {
   --color-dark-bg: #0e0e0e;
   --color-dark-bg2: #102020;
-  --color-dark-bg3: #594959;
+  --color-dark-bg3: #1f2f3b;
   --color-dark-fg: #f2f2f2;
-  --color-dark-fg2: #c0c0c0;
+  --color-dark-fg2: #a0a0a0;
   --color-dark-fg3: #909090;
 
   --color-light-bg: #f2f2f2;
   --color-light-bg2: #d9d9d9;
   --color-light-bg3: #b9a9b9;
   --color-light-fg: #0e0e0e;
-  --color-light-fg2: #4a5565;
+  --color-light-fg2: #5a6575;
   --color-light-fg3: #6a7585;
 
   --color-highlight-1: #ef4444; /* red-500 */
