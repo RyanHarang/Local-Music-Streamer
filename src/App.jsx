@@ -3,7 +3,6 @@ import Layout from "./layouts/Layout.jsx";
 import Home from "./pages/Home.jsx";
 import Library from "./pages/Library.jsx";
 import Settings from "./pages/Settings.jsx";
-import Navigation from "./components/Navigation/Navigation";
 
 const App = () => {
   const [currentPage, setCurrentPage] = useState("home");
@@ -21,11 +20,7 @@ const App = () => {
     }
   };
 
-  return (
-    <Layout>
-      <Navigation onNavChange={setCurrentPage} /> {renderPage()}
-    </Layout>
-  );
+  return <Layout onNavChange={setCurrentPage}>{renderPage()}</Layout>;
 };
 
 export default App;
