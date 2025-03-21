@@ -23,7 +23,7 @@ const NowPlaying = () => {
   };
 
   return (
-    <footer className="flex h-20 items-center justify-between bg-gray-800 p-4">
+    <footer className="bg-light-bg2 dark:bg-dark-bg2 flex h-20 items-center justify-between p-4">
       <div className="flex w-1/3 items-center gap-4">
         <div className="h-12 w-12 overflow-hidden rounded bg-gray-600">
           {/* Album cover goes here */}
