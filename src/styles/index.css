@@ -1,0 +1,64 @@
+@import "tailwindcss";
+@import "./fonts.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-dark-bg: #0e0e0e;
+  --color-dark-bg2: #102020;
+  --color-dark-bg3: #594959;
+  --color-dark-fg: #f2f2f2;
+  --color-dark-fg2: #c0c0c0;
+  --color-dark-fg3: #909090;
+
+  --color-light-bg: #f2f2f2;
+  --color-light-bg2: #d9d9d9;
+  --color-light-bg3: #b9a9b9;
+  --color-light-fg: #0e0e0e;
+  --color-light-fg2: #4a5565;
+  --color-light-fg3: #6a7585;
+
+  --color-highlight-1: #ef4444; /* red-500 */
+  --color-highlight-2: #3b82f6; /* blue-500 */
+  --color-highlight-3: #10b981; /* emerald-500 */
+  --color-highlight-4: #f59e0b; /* amber-500 */
+
+  --color-accent: var(--color-highlight-1);
+}
+
+@layer utilities {
+  .bg-accent {
+    background-color: var(--color-accent);
+  }
+  .text-accent {
+    color: var(--color-accent);
+  }
+  .border-accent {
+    border-color: var(--color-accent);
+  }
+  .outline-accent {
+    outline-color: var(--color-accent);
+  }
+  .stroke-accent {
+    stroke: var(--color-accent);
+  }
+}
+
+html,
+body,
+#root {
+  min-height: 100vh;
+  min-width: 100vw;
+  font-family: inherit;
+  scroll-behavior: smooth;
+}
+
+:root {
+  font-family: "Mukta", sans-serif;
+  line-height: 1.5;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
