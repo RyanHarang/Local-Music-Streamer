@@ -18,7 +18,7 @@ const VolumeControls = ({ onVolumeChange }) => {
 
   return (
     <div className="flex w-1/3 items-center justify-end gap-2">
-      <button onClick={handleMute} className="cursor-pointer">
+      <button onClick={handleMute} className="group cursor-pointer">
         {volume == 0 || isMuted ? <MutedIcon /> : <VolumeIcon />}
       </button>
       <input

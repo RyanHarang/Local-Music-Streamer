@@ -18,21 +18,21 @@ const ButtonControls = ({ onPlayPause, onNext, onPrev }) => {
       <button
         onClick={onPrev}
         aria-label="Previous track"
-        className="cursor-pointer"
+        className="group cursor-pointer"
       >
         <SkipBackwardIcon />
       </button>
       <button
         onClick={handlePlayPause}
         aria-label={isPlaying ? "Pause" : "Play"}
-        className="cursor-pointer"
+        className="group cursor-pointer"
       >
         {isPlaying ? <PauseIcon /> : <PlayIcon />}
       </button>
       <button
         onClick={onNext}
         aria-label="Next track"
-        className="cursor-pointer"
+        className="group cursor-pointer"
       >
         <SkipForwardIcon />
       </button>
