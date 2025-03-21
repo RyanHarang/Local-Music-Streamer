@@ -27,7 +27,7 @@ const VolumeControls = ({ onVolumeChange }) => {
         max="100"
         value={volume}
         onChange={(e) => handleVolumeChange(e)}
-        className="w-24 cursor-pointer"
+        className="cursor-pointer"
       />
     </div>
   );
