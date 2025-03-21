@@ -1,25 +1,26 @@
-import { useState } from "react";
+import { usePlayer } from "../../context/PlayerContext.jsx";
 import MutedIcon from "../../assets/svg/controls/MutedIcon.jsx";
+import NoVolumeIcon from "../../assets/svg/controls/NoVolumeIcon.jsx";
 import VolumeIcon from "../../assets/svg/controls/VolumeIcon.jsx";
 
-const VolumeControls = ({ onVolumeChange }) => {
-  const [volume, setVolume] = useState(100);
-  const [isMuted, setIsMuted] = useState(false);
+const VolumeControls = () => {
+  const { volume, isMuted, setPlayerVolume, toggleMute } = usePlayer();
 
   const handleVolumeChange = (e) => {
-    setVolume(e.target.value);
-    onVolumeChange(e.target.value); // Pass volume change to parent
-  };
-
-  const handleMute = () => {
-    setIsMuted(!isMuted);
-    onVolumeChange(isMuted ? volume : 0); // Pass mute state to parent
+    const newVolume = e.target.value;
+    setPlayerVolume(newVolume);
   };
 
   return (
     <div className="flex w-1/3 items-center justify-end gap-2">
-      <button onClick={handleMute} className="group cursor-pointer">
-        {volume == 0 || isMuted ? <MutedIcon /> : <VolumeIcon />}
+      <button onClick={toggleMute} className="group cursor-pointer">
+        {isMuted ? (
+          <MutedIcon />
+        ) : volume == 0 ? (
+          <NoVolumeIcon />
+        ) : (
+          <VolumeIcon />
+        )}
       </button>
       <input
         type="range"

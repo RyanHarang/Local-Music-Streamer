@@ -1,24 +1,42 @@
-const Playlists = () => {
+const Playlists = ({ onPlaylistClick }) => {
   // Placeholder data
   const playlists = [
-    { id: 1, name: "Chill Vibes", songCount: 24 },
-    { id: 2, name: "Workout Mix", songCount: 15 },
-    { id: 3, name: "Old Favorites", songCount: 30 },
+    {
+      id: 1,
+      title: "Chill Vibes",
+      creator: "You",
+      description: "Relaxing beats to focus.",
+      cover: "/covers/chill-vibes.jpg",
+      tracks: [
+        {
+          id: 1,
+          title: "Smooth Track",
+          artist: "Cool Artist",
+          duration: "3:30",
+        },
+        { id: 2, title: "Relaxation", artist: "Zen Master", duration: "4:10" },
+      ],
+    },
+    // Add more
   ];
 
   return (
-    <section className="mb-8">
-      <h2 className="mb-4 text-xl font-semibold">Your Playlists</h2>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <section className="space-y-8 p-4">
+      <h2 className="mb-4 text-2xl font-bold">Playlists</h2>
+      <div className="grid grid-cols-2 gap-4">
         {playlists.map((playlist) => (
           <div
             key={playlist.id}
-            className="bg-light-bg dark:bg-dark-bg hover:bg-light-bg2 dark:hover:bg-dark-bg3 cursor-pointer rounded border p-4 transition"
+            onClick={() => onPlaylistClick(playlist)}
+            className="cursor-pointer rounded p-4 shadow hover:bg-gray-100 dark:hover:bg-gray-700"
           >
-            <h3 className="text-lg font-bold">{playlist.name}</h3>
-            <p className="text-light-fg2 dark:text-dark-fg2 text-sm">
-              {playlist.songCount} songs
-            </p>
+            <img
+              src={playlist.cover}
+              alt={playlist.title}
+              className="h-32 w-full rounded object-cover"
+            />
+            <h3 className="mt-2 text-lg font-semibold">{playlist.title}</h3>
+            <p className="text-sm text-gray-500">{playlist.creator}</p>
           </div>
         ))}
       </div>

@@ -1,6 +1,6 @@
 import Track from "../Track/Track.jsx";
 
-const SongList = ({ tracks, currentTrackId, onPlay }) => {
+const SongList = ({ tracks, currentTrackId }) => {
   return (
     <div className="flex w-full flex-col overflow-hidden rounded-md border border-gray-300 dark:border-gray-700">
       {tracks.length === 0 ? (
@@ -11,7 +11,6 @@ const SongList = ({ tracks, currentTrackId, onPlay }) => {
             key={track.id}
             track={track}
             index={index}
-            onPlay={onPlay}
             isPlaying={track.id === currentTrackId}
           />
         ))

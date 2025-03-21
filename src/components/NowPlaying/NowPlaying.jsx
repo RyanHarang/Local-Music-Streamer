@@ -1,25 +1,27 @@
+import { usePlayer } from "../../context/PlayerContext.jsx";
 import ButtonControls from "../Controls/ButtonControls.jsx";
 import VolumeControls from "../Controls/VolumeControls.jsx";
 
 const NowPlaying = () => {
-  const handlePlayPause = (isPlaying) => {
-    console.log(isPlaying ? "Playing" : "Paused");
-    // You can use this to control your audio player (e.g., toggle play/pause)
+  const {
+    currentTrack,
+    isPlaying,
+    togglePlayPause,
+    skipNext,
+    skipPrev,
+    addToQueue,
+  } = usePlayer();
+
+  const handlePlayPause = () => {
+    togglePlayPause();
   };
 
   const handleNext = () => {
-    console.log("Next track");
-    // Logic for skipping to the next track
+    skipNext();
   };
 
   const handlePrev = () => {
-    console.log("Previous track");
-    // Logic for skipping to the previous track
-  };
-
-  const handleVolumeChange = (volume) => {
-    console.log(`Volume set to ${volume}`);
-    // Logic to update the volume in your audio player
+    skipPrev();
   };
 
   return (
@@ -29,8 +31,10 @@ const NowPlaying = () => {
           {/* Album cover goes here */}
         </div>
         <div>
-          <div className="text-sm font-semibold">Song Title</div>
-          <div className="text-xs">Artist Name</div>
+          <div className="text-sm font-semibold">
+            {currentTrack?.title || "No track playing"}
+          </div>
+          <div className="text-xs">{currentTrack?.artist}</div>
         </div>
       </div>
       <div className="flex w-1/3 items-center justify-center">
@@ -40,7 +44,7 @@ const NowPlaying = () => {
           onPrev={handlePrev}
         />
       </div>
-      <VolumeControls onVolumeChange={handleVolumeChange} />
+      <VolumeControls />
     </footer>
   );
 };
