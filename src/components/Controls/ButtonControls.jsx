@@ -15,13 +15,25 @@ const ButtonControls = ({ onPlayPause, onNext, onPrev }) => {
 
   return (
     <div className="flex gap-4">
-      <button onClick={onPrev} className="cursor-pointer">
+      <button
+        onClick={onPrev}
+        aria-label="Previous track"
+        className="cursor-pointer"
+      >
         <SkipBackwardIcon />
       </button>
-      <button onClick={handlePlayPause} className="cursor-pointer">
+      <button
+        onClick={handlePlayPause}
+        aria-label={isPlaying ? "Pause" : "Play"}
+        className="cursor-pointer"
+      >
         {isPlaying ? <PauseIcon /> : <PlayIcon />}
       </button>
-      <button onClick={onNext} className="cursor-pointer">
+      <button
+        onClick={onNext}
+        aria-label="Next track"
+        className="cursor-pointer"
+      >
         <SkipForwardIcon />
       </button>
     </div>
