@@ -1,18 +1,19 @@
 import { useState } from "react";
 import Queue from "../Queue/Queue.jsx";
+import UpcomingSongs from "../UpcomingSongs/UpcomingSongs.jsx";
 import ChevronLeftIcon from "../../assets/svg/sidebar/ChevronLeftIcon.jsx";
 import ChevronRightIcon from "../../assets/svg/sidebar/ChevronRightIcon.jsx";
 
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [showQueue, setShowQueue] = useState(true);
+  const [showContent, setShowContent] = useState(true);
 
   const toggleSidebar = () => {
     if (!isCollapsed) {
-      setShowQueue(false);
+      setShowContent(false);
     } else {
       setTimeout(() => {
-        setShowQueue(true);
+        setShowContent(true);
       }, 200);
     }
     setIsCollapsed((prev) => !prev);
@@ -31,7 +32,13 @@ const Sidebar = () => {
       >
         {isCollapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
       </button>
-      {showQueue && <Queue />}
+      {showContent && (
+        <div className="h-full flex-1 overflow-y-auto">
+          <Queue />
+          <hr className="my-8" />
+          <UpcomingSongs />
+        </div>
+      )}
     </aside>
   );
 };
