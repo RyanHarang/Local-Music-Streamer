@@ -19,7 +19,7 @@ const NowPlaying = () => {
           <div className="text-xs">{currentTrack?.artist}</div>
         </div>
       </div>
-      <div className="w-1/3 flex-col items-center justify-center">
+      <div className="h-full w-1/3 flex-col items-center justify-center space-y-2">
         <ButtonControls />
         <ProgressBar />
         <AudioPlayer />

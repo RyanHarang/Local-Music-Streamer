@@ -1,22 +1,10 @@
 import Songlist from "../components/Songlist/Songlist.jsx";
+import BackButton from "../components/Controls/Buttons/BackButton.jsx";
 
 const PlaylistPage = ({ playlist, goBack }) => {
-  if (!playlist) {
-    return (
-      <div className="p-4">
-        <button onClick={goBack} className="mb-4 text-blue-500 hover:underline">
-          Back
-        </button>
-        <p>No playlist selected.</p>
-      </div>
-    );
-  }
-
   return (
     <div className="p-4">
-      <button onClick={goBack} className="mb-6 text-blue-500 hover:underline">
-        ⬅️ Back
-      </button>
+      <BackButton goBack={goBack} />
 
       <div className="mb-6 flex gap-6">
         <img
