@@ -4,7 +4,7 @@ import PlayIcon from "../../../assets/svg/controls/PlayIcon.jsx";
 
 const PlayButton = ({ track, disabled = false }) => {
   const { isPlaying, currentTrack, play, pause } = usePlayer();
-  const isCurrentTrack = currentTrack?.id === track.id;
+  const isCurrentTrack = track && currentTrack?.id === track.id;
 
   const handleClick = () => {
     if (disabled) return;
@@ -20,7 +20,7 @@ const PlayButton = ({ track, disabled = false }) => {
       onClick={handleClick}
       aria-label={isPlaying && isCurrentTrack ? "Pause" : "Play"}
       disabled={disabled}
-      className={`group cursor-pointer ${disabled ? "cursor-not-allowed opacity-50" : ""}`}
+      className={`${disabled ? "cursor-not-allowed opacity-50" : "group cursor-pointer"}`}
     >
       {track && isCurrentTrack && isPlaying ? <PauseIcon /> : <PlayIcon />}
     </button>

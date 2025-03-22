@@ -1,13 +1,11 @@
 import React, { createContext, useState, useContext } from "react";
 
 const PlayerContext = createContext();
-export const usePlayer = () => {
-  return useContext(PlayerContext);
-};
+export const usePlayer = () => useContext(PlayerContext);
 
 export const PlayerProvider = ({ children }) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTrack, setCurrentTrack] = useState({});
+  const [currentTrack, setCurrentTrack] = useState(null);
   const [queue, setQueue] = useState([]);
   const [volume, setVolume] = useState(100);
   const [isMuted, setIsMuted] = useState(false);
@@ -19,10 +17,6 @@ export const PlayerProvider = ({ children }) => {
 
   const pause = () => {
     setIsPlaying(false);
-  };
-
-  const togglePlayPause = () => {
-    setIsPlaying((prevState) => !prevState);
   };
 
   const skipNext = () => {
@@ -45,6 +39,14 @@ export const PlayerProvider = ({ children }) => {
     setQueue((prevQueue) => [...prevQueue, track]);
   };
 
+  const removeFromQueue = (index) => {
+    setQueue((prevQueue) => {
+      const newQueue = [...prevQueue];
+      newQueue.splice(index, 1);
+      return newQueue;
+    });
+  };
+
   const setPlayerVolume = (newVolume) => {
     if (newVolume >= 0 && newVolume <= 100) {
       setVolume(newVolume);
@@ -63,10 +65,10 @@ export const PlayerProvider = ({ children }) => {
     isMuted,
     play,
     pause,
-    togglePlayPause,
     skipNext,
     skipPrev,
     addToQueue,
+    removeFromQueue,
     setPlayerVolume,
     toggleMute,
   };

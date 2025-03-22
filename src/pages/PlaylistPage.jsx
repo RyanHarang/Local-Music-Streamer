@@ -12,11 +12,6 @@ const PlaylistPage = ({ playlist, goBack }) => {
     );
   }
 
-  const handlePlay = (track) => {
-    console.log(`Playing track: ${track.title}`);
-    // Add your play logic here
-  };
-
   return (
     <div className="p-6">
       <button onClick={goBack} className="mb-6 text-blue-500 hover:underline">
@@ -44,7 +39,7 @@ const PlaylistPage = ({ playlist, goBack }) => {
         </div>
       </div>
 
-      <SongList tracks={playlist.tracks} onPlay={handlePlay} />
+      <SongList tracks={playlist.tracks} />
     </div>
   );
 };

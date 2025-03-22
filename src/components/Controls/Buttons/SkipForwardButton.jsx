@@ -13,7 +13,7 @@ const SkipForwardButton = ({ disabled = false }) => {
     <button
       onClick={handleClick}
       aria-label="Next track"
-      className={`group cursor-pointer ${disabled ? "cursor-not-allowed opacity-50" : ""}`}
+      className={`${disabled ? "cursor-not-allowed opacity-50" : "group cursor-pointer"}`}
     >
       <SkipForwardIcon />
     </button>
