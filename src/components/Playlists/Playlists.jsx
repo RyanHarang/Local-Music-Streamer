@@ -3,18 +3,32 @@ const Playlists = ({ onPlaylistClick }) => {
   const playlists = [
     {
       id: 1,
-      title: "Chill Vibes",
+      title: "LS",
       creator: "You",
-      description: "Relaxing beats to focus.",
+      description: "Testing",
       cover: "/covers/chill-vibes.jpg",
       tracks: [
         {
           id: 1,
-          title: "Smooth Track",
-          artist: "Cool Artist",
-          duration: "3:30",
+          title: "On 1",
+          artist: "Yeat",
+          duration: "3:04",
+          path: "/sampleAudio/13-on-1.flac",
         },
-        { id: 2, title: "Relaxation", artist: "Zen Master", duration: "4:10" },
+        {
+          id: 2,
+          title: "For Lyfe",
+          artist: "Yeat",
+          duration: "2:22",
+          path: "/sampleAudio/24-for-lyfe.flac",
+        },
+        {
+          id: 3,
+          title: "STFU",
+          artist: "Yeat",
+          duration: "1:44",
+          path: "/sampleAudio/02-stfu.flac",
+        },
       ],
     },
     // Add more

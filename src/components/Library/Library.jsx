@@ -1,18 +1,25 @@
-import SongList from "../SongList/SongList.jsx";
+import Songlist from "../Songlist/Songlist.jsx";
 
 const Library = () => {
   // Placeholder data
   const tracks = [
     {
       id: 1,
-      title: "Smooth Track",
-      artist: "Cool Artist",
-      duration: "3:30",
+      title: "On 1",
+      artist: "Yeat",
+      duration: "3:04",
+      path: "/sampleAudio/13-on-1.flac",
     },
-    { id: 2, title: "Relaxation", artist: "Zen Master", duration: "4:10" },
+    {
+      id: 2,
+      title: "For Lyfe",
+      artist: "Yeat",
+      duration: "2:22",
+      path: "/sampleAudio/24-for-lyfe.flac",
+    },
   ];
 
-  return <SongList tracks={tracks} />;
+  return <Songlist tracks={tracks} />;
 };
 
 export default Library;

@@ -15,7 +15,6 @@ const Sidebar = () => {
         setShowQueue(true);
       }, 200);
     }
-
     setIsCollapsed((prev) => !prev);
   };
 
@@ -28,7 +27,7 @@ const Sidebar = () => {
       <button
         onClick={toggleSidebar}
         aria-label="Toggle sidebar"
-        className="absolute right-1 bottom-2 z-10 flex h-6 w-6 items-center justify-center"
+        className="group absolute right-2 bottom-2 z-10 flex cursor-pointer items-center justify-center"
       >
         {isCollapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
       </button>

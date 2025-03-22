@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import SongList from "../components/SongList/SongList.jsx";
+import Songlist from "../components/Songlist/Songlist.jsx";
 
 const AlbumPage = ({ albumId }) => {
   const [album, setAlbum] = useState(null);
@@ -53,7 +53,7 @@ const AlbumPage = ({ albumId }) => {
         </div>
       </div>
 
-      <SongList
+      <Songlist
         tracks={album.tracks}
         currentTrackId={currentTrackId}
         onPlay={handlePlay}

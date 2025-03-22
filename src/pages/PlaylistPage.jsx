@@ -1,4 +1,4 @@
-import SongList from "../components/SongList/SongList.jsx";
+import Songlist from "../components/Songlist/Songlist.jsx";
 
 const PlaylistPage = ({ playlist, goBack }) => {
   if (!playlist) {
@@ -13,7 +13,7 @@ const PlaylistPage = ({ playlist, goBack }) => {
   }
 
   return (
-    <div className="p-6">
+    <div className="p-4">
       <button onClick={goBack} className="mb-6 text-blue-500 hover:underline">
         ⬅️ Back
       </button>
@@ -39,7 +39,7 @@ const PlaylistPage = ({ playlist, goBack }) => {
         </div>
       </div>
 
-      <SongList tracks={playlist.tracks} />
+      <Songlist tracks={playlist.tracks} />
     </div>
   );
 };

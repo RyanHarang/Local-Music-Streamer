@@ -5,14 +5,21 @@ import SkipForwardButton from "./Buttons/SkipForwardButton.jsx";
 // import ShuffleIcon from "../../assets/svg/controls/ShuffleIcon.jsx";
 
 const ButtonControls = () => {
-  const { currentTrack } = usePlayer();
+  const { isPlaying, currentTrack, play, pause, skipNext, skipPrev } =
+    usePlayer();
   const disabled = !currentTrack;
 
   return (
-    <div className="flex gap-4">
-      <SkipBackwardButton disabled={disabled} />
-      <PlayButton track={currentTrack} disabled={disabled} />
-      <SkipForwardButton disabled={disabled} />
+    <div className="flex items-center justify-center gap-4">
+      <SkipBackwardButton skipPrev={skipPrev} disabled={disabled} />
+      <PlayButton
+        track={currentTrack}
+        isCurrentTrack={true}
+        isPlaying={isPlaying}
+        handleClick={isPlaying ? () => pause() : () => play(currentTrack)}
+        disabled={disabled}
+      />
+      <SkipForwardButton skipNext={skipNext} disabled={disabled} />
     </div>
   );
 };
