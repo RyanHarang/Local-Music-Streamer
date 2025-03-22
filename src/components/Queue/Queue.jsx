@@ -1,10 +1,11 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { usePlayer } from "../../context/PlayerContext.jsx";
 import TrashButton from "../Controls/Buttons/TrashButton.jsx";
 
 const Queue = () => {
   const { queue, clearQueue, setQueue } = usePlayer();
   const [draggedIndex, setDraggedIndex] = useState(null);
+  const [dropTargetIndex, setDropTargetIndex] = useState(null);
   const draggedItemRef = useRef(null);
 
   const handleDragStart = (e, index) => {
@@ -22,6 +23,7 @@ const Queue = () => {
 
   const handleDragEnd = (e) => {
     setDraggedIndex(null);
+    setDropTargetIndex(null);
     if (e.target.classList) {
       e.target.classList.remove("opacity-50");
     }
@@ -30,6 +32,11 @@ const Queue = () => {
   const handleDragOver = (e, index) => {
     e.preventDefault();
     e.dataTransfer.dropEffect = "move";
+
+    if (index !== draggedIndex) {
+      setDropTargetIndex(index);
+    }
+
     return false;
   };
 
@@ -40,10 +47,19 @@ const Queue = () => {
 
     const newQueue = [...queue];
     newQueue.splice(draggedIndex, 1);
-    newQueue.splice(targetIndex, 0, draggedItemRef.current);
+
+    const adjustedTargetIndex =
+      draggedIndex < targetIndex ? targetIndex - 1 : targetIndex;
+    newQueue.splice(adjustedTargetIndex, 0, draggedItemRef.current);
 
     setQueue(newQueue);
     setDraggedIndex(null);
+    setDropTargetIndex(null);
+  };
+
+  const handleContainerDragOver = (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "move";
   };
 
   return (
@@ -61,27 +77,48 @@ const Queue = () => {
           </button>
         </div>
       )}
-      <div className="flex-1 overflow-y-auto">
+      <div
+        className="flex-1 overflow-y-auto"
+        onDragOver={handleContainerDragOver}
+      >
         {queue.map((track, index) => (
-          <div
-            key={index}
-            draggable
-            onDragStart={(e) => handleDragStart(e, index)}
-            onDragEnd={handleDragEnd}
-            onDragOver={(e) => handleDragOver(e, index)}
-            onDrop={(e) => handleDrop(e, index)}
-            className="dark:hover:bg-dark-bg3 hover:bg-light-bg2 cursor-grab rounded px-2 py-1 transition active:cursor-grabbing"
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="text-light-fg2 dark:text-dark-fg2">≡</span>
-                <span className="p-1 text-sm font-medium">{track.title}</span>
+          <React.Fragment key={index}>
+            {dropTargetIndex === index && draggedIndex !== index && (
+              <div className="my-1 h-1 w-full bg-blue-500" />
+            )}
+
+            <div
+              draggable
+              onDragStart={(e) => handleDragStart(e, index)}
+              onDragEnd={handleDragEnd}
+              onDragOver={(e) => handleDragOver(e, index)}
+              onDrop={(e) => handleDrop(e, index)}
+              className={`dark:hover:bg-dark-bg3 hover:bg-light-bg2 cursor-grab rounded px-2 py-1 transition active:cursor-grabbing ${
+                draggedIndex === index ? "opacity-50" : ""
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-light-fg2 dark:text-dark-fg2 cursor-grab">
+                    ≡
+                  </span>
+                  <span className="p-1 text-sm font-medium">{track.title}</span>
+                </div>
+                <span className="text-xs text-gray-500">{track.artist}</span>
+                <TrashButton track={index} />
               </div>
-              <span className="text-xs text-gray-500">{track.artist}</span>
-              <TrashButton track={index} />
             </div>
-          </div>
+          </React.Fragment>
         ))}
+        <div
+          onDragOver={(e) => handleDragOver(e, queue.length)}
+          onDrop={(e) => handleDrop(e, queue.length)}
+          className="flex h-4 w-full items-center justify-center"
+        >
+          {dropTargetIndex === queue.length && (
+            <div className="h-1 w-full bg-blue-500" />
+          )}
+        </div>
       </div>
     </div>
   );
