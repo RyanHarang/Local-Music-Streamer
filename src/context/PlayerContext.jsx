@@ -47,6 +47,10 @@ export const PlayerProvider = ({ children }) => {
     });
   };
 
+  const clearQueue = () => {
+    setQueue([]);
+  };
+
   const setPlayerVolume = (newVolume) => {
     if (newVolume >= 0 && newVolume <= 100) {
       setVolume(newVolume);
@@ -69,6 +73,7 @@ export const PlayerProvider = ({ children }) => {
     skipPrev,
     addToQueue,
     removeFromQueue,
+    clearQueue,
     setPlayerVolume,
     toggleMute,
   };
