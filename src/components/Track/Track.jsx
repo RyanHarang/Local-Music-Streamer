@@ -29,7 +29,7 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
         />
         <div className="flex flex-col">
           <span
-            className={`font-medium ${isCurrentTrack ? "text-green-500" : ""}`}
+            className={`font-medium ${isCurrentTrack ? "text-accent" : ""}`}
           >
             {track.title}
           </span>
