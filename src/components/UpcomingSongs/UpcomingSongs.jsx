@@ -1,11 +1,8 @@
 import { usePlayer } from "../../context/PlayerContext.jsx";
 
 const UpcomingSongs = () => {
-  const { activeSonglist, songlistIndex } = usePlayer();
-  const upcomingTracks =
-    activeSonglist && activeSonglist.length > 0
-      ? activeSonglist.slice(songlistIndex + 1)
-      : [];
+  const { getUpcomingSongs } = usePlayer();
+  const upcomingTracks = getUpcomingSongs();
 
   return (
     <div className="flex w-full flex-col">

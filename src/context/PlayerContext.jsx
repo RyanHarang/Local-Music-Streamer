@@ -218,8 +218,12 @@ export const PlayerProvider = ({ children }) => {
    */
   const startSonglist = (songlist, index = 0) => {
     if (!songlist || songlist.length === 0) return;
+
     setActiveSonglist(songlist);
     setSonglistIndex(index);
+
+    if (isShuffle) handleShufflePath(index);
+
     play(songlist[index]);
   };
 
@@ -284,15 +288,14 @@ export const PlayerProvider = ({ children }) => {
   /**
    * Handles creation of shuffle path
    */
-  const handleShufflePath = () => {
+  const handleShufflePath = (index = songlistIndex) => {
     if (!activeSonglist || activeSonglist.length === 0) return;
     if (!isShuffle) {
       setShufflePath(null);
+      return;
     } else {
-      const totalIndexes = activeSonglist.map((_, index) => index);
-      const remainingIndexes = totalIndexes.filter(
-        (index) => index !== songlistIndex,
-      );
+      const totalIndexes = activeSonglist.map((_, i) => i);
+      const remainingIndexes = totalIndexes.filter((i) => i !== index);
 
       for (let i = remainingIndexes.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -302,7 +305,8 @@ export const PlayerProvider = ({ children }) => {
         ];
       }
 
-      const newShufflePath = [songlistIndex, ...remainingIndexes];
+      const newShufflePath = [index, ...remainingIndexes];
+      console.log(newShufflePath);
       setShufflePath(newShufflePath);
     }
   };
@@ -315,6 +319,17 @@ export const PlayerProvider = ({ children }) => {
   const updateTime = (time, dur) => {
     setCurrentTime(time);
     if (dur && !isNaN(dur)) setDuration(dur);
+  };
+
+  const getUpcomingSongs = () => {
+    if (!activeSonglist || activeSonglist.length === 0) return [];
+
+    if (isShuffle && shufflePath) {
+      const nextIndexes = shufflePath.slice(shufflePathIndex + 1);
+      return nextIndexes.map((index) => activeSonglist[index]);
+    }
+
+    return activeSonglist.slice(songlistIndex + 1);
   };
 
   useEffect(() => {
@@ -336,8 +351,6 @@ export const PlayerProvider = ({ children }) => {
     isRepeat,
     currentTrack,
     queue,
-    activeSonglist,
-    songlistIndex,
     volume,
     isMuted,
     currentTime,
@@ -359,6 +372,7 @@ export const PlayerProvider = ({ children }) => {
     updateTime,
     seekTo: seekToFn,
     setSeekToFn,
+    getUpcomingSongs,
   };
 
   return (
