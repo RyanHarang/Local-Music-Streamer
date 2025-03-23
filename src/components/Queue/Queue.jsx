@@ -1,6 +1,7 @@
 import { usePlayer } from "../../context/PlayerContext.jsx";
-import TrashButton from "../Controls/Buttons/TrashButton.jsx";
 import DraggableList from "../DraggableList/DraggableList.jsx";
+import TrashButton from "../Controls/Buttons/TrashButton.jsx";
+import GripIcon from "../../assets/svg/sidebar/GripIcon.jsx";
 
 const Queue = () => {
   const { queue, clearQueue, setQueue } = usePlayer();
@@ -13,11 +14,13 @@ const Queue = () => {
             className="text-light-fg2 dark:text-dark-fg2"
             {...dragHandleProps}
           >
-            ≡
+            <GripIcon />
           </span>
-          <span className="p-1 text-sm font-medium">{track.title}</span>
+          <div className="flex flex-col">
+            <span className="p-1 text-sm font-medium">{track.title}</span>
+            <span className="text-xs text-gray-500">{track.artist}</span>
+          </div>
         </div>
-        <span className="text-xs text-gray-500">{track.artist}</span>
         <TrashButton index={index} />
       </div>
     </div>
@@ -32,7 +35,7 @@ const Queue = () => {
       {queue && queue.length === 0 ? (
         <h2 className="text-md font-semibold">Queue Empty</h2>
       ) : (
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between pb-2">
           <h2 className="text-md font-semibold">Queue</h2>
           <button
             onClick={clearQueue}

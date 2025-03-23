@@ -4,12 +4,11 @@ import { useState, useRef, useEffect } from "react";
  * A reusable wrapper component that adds drag-and-drop functionality to lists
  *
  * @param {Object} props
- * @param {Array} props.items - The array of items to render
- * @param {Function} props.setItems - Function to update the items array
- * @param {Function} props.renderItem - Function to render each item
- * @param {Function} props.renderDropIndicator - Function to render the drop indicator (optional)
- * @param {string} props.className - Additional CSS classes for the container
- * @param {Object} props.containerProps - Additional props for the container
+ * @param {Array} props.items - Array of items to render
+ * @param {Function} props.setItems - Function to update array
+ * @param {Function} props.renderItem - Function to render items
+ * @param {Function} props.renderDropIndicator - Function to render drop indicator (optional)
+ * @param {string} props.className - CSS classes for container
  */
 const DraggableList = ({
   items,
@@ -19,7 +18,6 @@ const DraggableList = ({
     <div className="bg-accent my-1 h-1 w-full" />
   ),
   className = "",
-  containerProps = {},
 }) => {
   const [draggedIndex, setDraggedIndex] = useState(null);
   const [dropTargetIndex, setDropTargetIndex] = useState(null);
@@ -113,7 +111,6 @@ const DraggableList = ({
       className={`${className}`}
       ref={containerRef}
       onDragOver={handleContainerDragOver}
-      {...containerProps}
     >
       {items.map((item, index) => (
         <div key={index}>

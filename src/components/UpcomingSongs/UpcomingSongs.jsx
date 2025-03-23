@@ -12,7 +12,7 @@ const UpcomingSongs = () => {
       {!upcomingTracks || upcomingTracks.length === 0 ? (
         <h2 className="text-md font-semibold">No Upcoming Songs</h2>
       ) : (
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between pb-2">
           <h2 className="text-md font-semibold">Upcoming Songs</h2>
         </div>
       )}
