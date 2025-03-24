@@ -30,9 +30,5 @@ dist-ssr
 # Cover Art
 *.jpg
 
-# Notes
-backend/deleting-identifers.txt
-
 # json Database
-frontend/src/data/library.json
-frontend/src/data/playlists.json
+*.json
