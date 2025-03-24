@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import MoonIcon from "../../../assets/svg/mode/MoonIcon.jsx";
 import SunIcon from "../../../assets/svg/mode/SunIcon.jsx";
 

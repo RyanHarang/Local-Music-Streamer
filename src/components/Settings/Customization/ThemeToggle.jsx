@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const highlightColors = {
   "Highlight 1": "--color-highlight-1",

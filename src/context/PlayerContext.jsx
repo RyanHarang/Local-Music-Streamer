@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 /**
  * Context for music player functionality across application
@@ -45,6 +45,7 @@ export const PlayerProvider = ({ children }) => {
    */
   const play = (track) => {
     setCurrentTrack(track);
+    console.log(track);
     setIsPlaying(true);
   };
 
@@ -219,6 +220,7 @@ export const PlayerProvider = ({ children }) => {
   const startSonglist = (songlist, index = 0) => {
     if (!songlist || songlist.length === 0) return;
 
+    console.log("Starting songlist:", songlist, index);
     setActiveSonglist(songlist);
     setSonglistIndex(index);
 
