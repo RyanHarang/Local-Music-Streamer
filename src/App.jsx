@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ScrollProvider } from "./context/ScrollContext";
 import Layout from "./layouts/Layout.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import LibraryPage from "./pages/LibraryPage.jsx";
@@ -55,9 +56,11 @@ const App = () => {
   };
 
   return (
-    <Layout onNavChange={setCurrentPage} currentPage={currentPage}>
-      {renderPage()}
-    </Layout>
+    <ScrollProvider>
+      <Layout onNavChange={setCurrentPage} currentPage={currentPage}>
+        {renderPage()}
+      </Layout>
+    </ScrollProvider>
   );
 };
 

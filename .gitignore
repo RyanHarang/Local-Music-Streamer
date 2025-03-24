@@ -32,3 +32,6 @@ dist-ssr
 
 # json Database
 *.json
+
+# organizational scripts
+*.py
