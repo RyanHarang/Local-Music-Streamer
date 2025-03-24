@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 import Album from "../Album/Album.jsx";
 import libraryData from "../../data/library.json";
 
