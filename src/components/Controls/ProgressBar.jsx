@@ -28,7 +28,7 @@ const ProgressBar = () => {
         onClick={handleSeek}
       >
         <div
-          className="h-2 rounded bg-green-500"
+          className="bg-accent h-2 rounded"
           style={{ width: `${progressPercent}%` }}
         />
       </div>

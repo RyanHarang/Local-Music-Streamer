@@ -44,6 +44,53 @@
   }
 }
 
+@layer components {
+  .volume-slider {
+    @apply h-2 w-32 appearance-none rounded-lg;
+  }
+
+  /* Chrome, Safari (WebKit) */
+  .volume-slider::-webkit-slider-runnable-track {
+    @apply h-2 rounded-lg bg-gray-300;
+  }
+
+  .volume-slider::-webkit-slider-thumb {
+    @apply bg-accent h-4 w-4 appearance-none rounded-full border-2 border-white;
+    margin-top: -6px; /* Position thumb vertically centered */
+  }
+
+  /* Firefox */
+  .volume-slider::-moz-range-track {
+    @apply h-2 rounded-lg bg-gray-300;
+  }
+
+  /* Filled track in Firefox */
+  .volume-slider::-moz-range-progress {
+    @apply bg-accent h-2 rounded-lg;
+  }
+
+  .volume-slider::-moz-range-thumb {
+    @apply bg-accent h-4 w-4 rounded-full border-2 border-white;
+  }
+
+  /* IE - optional, mostly deprecated */
+  .volume-slider::-ms-track {
+    @apply border-0 bg-transparent text-transparent;
+  }
+
+  .volume-slider::-ms-fill-lower {
+    @apply bg-accent rounded-lg;
+  }
+
+  .volume-slider::-ms-fill-upper {
+    @apply rounded-lg bg-gray-300;
+  }
+
+  .volume-slider::-ms-thumb {
+    @apply bg-accent h-4 w-4 rounded-full border-2 border-white;
+  }
+}
+
 html,
 body,
 #root {

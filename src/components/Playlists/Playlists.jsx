@@ -59,7 +59,6 @@ const Playlists = ({ onPlaylistClick }) => {
         },
       ],
     },
-    // Add more
   ];
 
   return (

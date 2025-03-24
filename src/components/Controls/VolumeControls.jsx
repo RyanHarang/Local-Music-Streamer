@@ -28,7 +28,7 @@ const VolumeControls = () => {
         max="100"
         value={volume}
         onChange={(e) => handleVolumeChange(e)}
-        className="cursor-pointer"
+        className="volume-slider cursor-pointer"
       />
     </div>
   );
