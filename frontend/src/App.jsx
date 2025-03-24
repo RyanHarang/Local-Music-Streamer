@@ -17,6 +17,12 @@ const App = () => {
     setCurrentPage("home");
   };
 
+  const goToLibraryPage = () => {
+    setSelectedAlbum(null);
+    setSelectedPlaylist(null);
+    setCurrentPage("library");
+  };
+
   const goToAlbumPage = (album) => {
     setSelectedAlbum(album);
     setSelectedPlaylist(null);
@@ -32,21 +38,11 @@ const App = () => {
   const renderPage = () => {
     switch (currentPage) {
       case "home":
-        return (
-          <HomePage
-            onAlbumClick={goToAlbumPage}
-            onPlaylistClick={goToPlaylistPage}
-          />
-        );
+        return <HomePage onPlaylistClick={goToPlaylistPage} />;
       case "library":
-        return (
-          <LibraryPage
-            onAlbumClick={goToAlbumPage}
-            onPlaylistClick={goToPlaylistPage}
-          />
-        );
+        return <LibraryPage onAlbumClick={goToAlbumPage} />;
       case "album":
-        return <AlbumPage album={selectedAlbum} goBack={goToHomePage} />;
+        return <AlbumPage album={selectedAlbum} goBack={goToLibraryPage} />;
       case "playlist":
         return (
           <PlaylistPage playlist={selectedPlaylist} goBack={goToHomePage} />

@@ -8,7 +8,7 @@ const Songlist = ({ tracks }) => {
       ) : (
         tracks.map((track, index) => (
           <Track
-            key={track.id}
+            key={track.albumArtist + track.title}
             track={track}
             index={index}
             inSonglist={true}
