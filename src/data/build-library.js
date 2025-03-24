@@ -59,6 +59,7 @@ const buildLibrary = async () => {
       const year = common.year || null;
       const genres = common.genre || [];
       const relativePath = path.relative(MUSIC_DIR, filepath);
+      const webPath = `/music/${relativePath}`;
 
       // Cover Art
       const picture = common.picture && common.picture[0];
@@ -75,6 +76,10 @@ const buildLibrary = async () => {
       const albumReleaseDate = year;
 
       const trackInfo = {
+        id: crypto
+          .createHash("sha1")
+          .update(`${albumArtist}-${album}-${title}`)
+          .digest("hex"),
         title,
         trackNumber,
         album,
@@ -82,7 +87,7 @@ const buildLibrary = async () => {
         artists,
         year,
         genres,
-        path: relativePath,
+        path: webPath,
         cover: coverPath,
       };
 
