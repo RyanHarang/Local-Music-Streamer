@@ -170,7 +170,7 @@ export const PlayerProvider = ({ children }) => {
         checkNextTrack(nextTrack);
       }
     } else {
-      replay();
+      pause();
     }
   };
 
@@ -321,6 +321,10 @@ export const PlayerProvider = ({ children }) => {
     if (dur && !isNaN(dur)) setDuration(dur);
   };
 
+  /**
+   * Returns array of upcoming tracks
+   * @returns {Array} Array of upcoming tracks
+   */
   const getUpcomingSongs = () => {
     if (!activeSonglist || activeSonglist.length === 0) return [];
 
