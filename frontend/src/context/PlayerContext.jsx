@@ -306,7 +306,6 @@ export const PlayerProvider = ({ children }) => {
       }
 
       const newShufflePath = [index, ...remainingIndexes];
-      console.log(newShufflePath);
       setShufflePath(newShufflePath);
     }
   };
