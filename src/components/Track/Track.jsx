@@ -3,7 +3,14 @@ import PlayButton from "../Controls/Buttons/PlayButton.jsx";
 import QueueButton from "../Controls/Buttons/QueueButton.jsx";
 
 const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
-  const { isPlaying, currentTrack, play, pause, startSonglist } = usePlayer();
+  const {
+    isPlaying,
+    currentTrack,
+    play,
+    pause,
+    startSonglist,
+    formatDuration,
+  } = usePlayer();
   const isCurrentTrack = currentTrack?.id === track.id;
 
   const handlePlay = () => {
@@ -32,12 +39,16 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
           >
             {track.title}
           </span>
-          <span className="text-sm text-gray-500">{track.artist}</span>
+          <span className="text-sm text-gray-500">
+            {Array.isArray(track.artists)
+              ? track.artists.join(", ")
+              : track.artists}
+          </span>
         </div>
       </div>
       <div className="flex items-center gap-8 text-sm">
         <QueueButton track={track} />
-        <span>{track.duration}</span>
+        <span>{formatDuration(track.duration)}</span>
       </div>
     </div>
   );

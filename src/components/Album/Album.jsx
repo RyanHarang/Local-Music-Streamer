@@ -1,12 +1,14 @@
+import { usePlayer } from "../../context/PlayerContext.jsx";
 import Songlist from "../Songlist/Songlist.jsx";
 
-const Album = ({ albumName, albumData, onAlbumClick, showTracks }) => {
+const Album = ({ albumName, albumData, onAlbumClick, onAlbumPage }) => {
+  const { formatDuration } = usePlayer();
   const { albumReleaseDate, tracks, cover } = albumData;
   return (
     <div className="mb-6">
       <div
         onClick={() => onAlbumClick && onAlbumClick({ albumName, albumData })}
-        className="group mb-4 flex w-fit cursor-pointer items-center gap-4"
+        className={`mb-4 flex items-center gap-4 ${!onAlbumPage && "group outline-accent cursor-pointer hover:outline"}`}
       >
         {cover && (
           <img
@@ -17,13 +19,19 @@ const Album = ({ albumName, albumData, onAlbumClick, showTracks }) => {
           />
         )}
         <div className="flex flex-col">
-          <h3 className="group-hover:decoration-accent text-xl font-semibold decoration-3 underline-offset-6 group-hover:underline">
+          <h3 className="group-hover:decoration-accent pb-2 text-xl font-semibold decoration-3 underline-offset-6 group-hover:underline">
             {albumName}
           </h3>
+          <p className="text-sm text-gray-500">
+            Tracks: {albumData.trackCount}
+          </p>
+          <p className="text-sm text-gray-500">
+            Duration: {formatDuration(albumData.albumDuration)}
+          </p>
           <p className="text-sm text-gray-500">Released: {albumReleaseDate}</p>
         </div>
       </div>
-      {showTracks && <Songlist tracks={tracks} />}
+      {onAlbumPage && <Songlist tracks={tracks} />}
     </div>
   );
 };

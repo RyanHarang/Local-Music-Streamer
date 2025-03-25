@@ -45,7 +45,6 @@ export const PlayerProvider = ({ children }) => {
    */
   const play = (track) => {
     setCurrentTrack(track);
-    console.log(track);
     setIsPlaying(true);
   };
 
@@ -220,7 +219,6 @@ export const PlayerProvider = ({ children }) => {
   const startSonglist = (songlist, index = 0) => {
     if (!songlist || songlist.length === 0) return;
 
-    console.log("Starting songlist:", songlist, index);
     setActiveSonglist(songlist);
     setSonglistIndex(index);
 
@@ -337,6 +335,20 @@ export const PlayerProvider = ({ children }) => {
     return activeSonglist.slice(songlistIndex + 1);
   };
 
+  const formatDuration = (durationInSeconds) => {
+    const minutes = Math.floor(durationInSeconds / 60);
+    const seconds = Math.floor(durationInSeconds % 60);
+    const hours = Math.floor(minutes / 60);
+    const formattedMinutes = minutes % 60;
+    const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+
+    if (hours > 0) {
+      return `${hours}:${formattedMinutes < 10 ? `0${formattedMinutes}` : formattedMinutes}:${formattedSeconds}`;
+    } else {
+      return `${formattedMinutes}:${formattedSeconds}`;
+    }
+  };
+
   useEffect(() => {
     if (!activeSonglist || activeSonglist.length === 0) return;
     if (isShuffle) {
@@ -378,6 +390,7 @@ export const PlayerProvider = ({ children }) => {
     seekTo: seekToFn,
     setSeekToFn,
     getUpcomingSongs,
+    formatDuration,
   };
 
   return (
