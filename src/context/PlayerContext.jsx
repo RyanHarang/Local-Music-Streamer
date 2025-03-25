@@ -221,8 +221,7 @@ export const PlayerProvider = ({ children }) => {
 
     setActiveSonglist(songlist);
     setSonglistIndex(index);
-
-    if (isShuffle) handleShufflePath(index);
+    // handleShufflePath(index);
 
     play(songlist[index]);
   };
@@ -293,6 +292,8 @@ export const PlayerProvider = ({ children }) => {
     if (!isShuffle) {
       setShufflePath(null);
       return;
+    } else if (activeSonglist.length === 1) {
+      setShufflePath([0]);
     } else {
       const totalIndexes = activeSonglist.map((_, i) => i);
       const remainingIndexes = totalIndexes.filter((i) => i !== index);
