@@ -38,7 +38,7 @@ const Library = ({ onAlbumClick }) => {
                       onAlbumClick={onAlbumClick}
                       key={albumName}
                       albumName={albumName}
-                      showTracks={false}
+                      onAlbumPage={false}
                       albumData={{
                         ...albumData,
                         tracks: sortedAlbumTracks,

@@ -6,7 +6,7 @@ const AlbumPage = ({ album, goBack }) => {
   return (
     <div className="p-4">
       <BackButton goBack={goBack} />
-      <Album albumName={albumName} albumData={albumData} showTracks={true} />
+      <Album albumName={albumName} albumData={albumData} onAlbumPage={true} />
     </div>
   );
 };
