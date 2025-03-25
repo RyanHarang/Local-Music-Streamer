@@ -28,7 +28,7 @@ const Sidebar = () => {
       <button
         onClick={toggleSidebar}
         aria-label="Toggle sidebar"
-        className="group absolute right-2 bottom-2 z-10 flex cursor-pointer items-center justify-center"
+        className="group absolute right-2 bottom-2 flex cursor-pointer items-center justify-center"
       >
         {isCollapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
       </button>
