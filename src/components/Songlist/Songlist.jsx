@@ -4,7 +4,7 @@ import Track from "../Track/Track.jsx";
 const Songlist = ({ tracks }) => {
   const { startSonglist } = usePlayer();
   const handlePlay = () => {
-    startSonglist(tracks, 0);
+    if (tracks && tracks.length > 0) startSonglist(tracks, 0);
   };
   return (
     <>
