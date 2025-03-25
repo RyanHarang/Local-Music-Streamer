@@ -33,7 +33,7 @@ const Sidebar = () => {
         {isCollapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
       </button>
       {showContent && (
-        <div className="h-full flex-1 overflow-y-auto">
+        <div className="scrollbar-thin scrollbar-track-transparent h-full flex-1 overflow-y-auto">
           <Queue />
           <hr className="my-8" />
           <UpcomingSongs />
