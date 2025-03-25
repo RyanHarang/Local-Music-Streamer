@@ -4,7 +4,7 @@ import Sidebar from "../components/Sidebar/Sidebar.jsx";
 import NowPlaying from "../components/NowPlaying/NowPlaying.jsx";
 import Navigation from "../components/Navigation/Navigation.jsx";
 
-const Layout = ({ children, onNavChange, currentPage }) => {
+const Layout = ({ children, onNavChange, currentPage, onAlbumClick }) => {
   const mainRef = useRef(null);
   usePageScroll(currentPage, mainRef);
 
@@ -17,7 +17,7 @@ const Layout = ({ children, onNavChange, currentPage }) => {
           {children}
         </main>
       </div>
-      <NowPlaying />
+      <NowPlaying onAlbumClick={onAlbumClick} />
     </div>
   );
 };

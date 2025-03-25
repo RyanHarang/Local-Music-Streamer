@@ -39,7 +39,7 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
           >
             {track.title}
           </span>
-          <span className="text-sm text-gray-500">
+          <span className="text-light-fg2 dark:text-dark-fg2 text-sm">
             {Array.isArray(track.artists)
               ? track.artists.join(", ")
               : track.artists}

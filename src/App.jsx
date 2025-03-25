@@ -57,7 +57,11 @@ const App = () => {
 
   return (
     <ScrollProvider>
-      <Layout onNavChange={setCurrentPage} currentPage={currentPage}>
+      <Layout
+        onNavChange={setCurrentPage}
+        onAlbumClick={goToAlbumPage}
+        currentPage={currentPage}
+      >
         {renderPage()}
       </Layout>
     </ScrollProvider>
