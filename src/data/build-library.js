@@ -43,9 +43,22 @@ const saveCoverImage = (picture) => {
   return `covers/${filename}`;
 };
 
+const formatDate = (dateStr) => {
+  if (!dateStr) return null;
+  const date = new Date(dateStr);
+  if (isNaN(date.getTime())) return null;
+  date.setDate(date.getDate() + 1);
+  return date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+};
+
 const buildLibrary = async () => {
   const library = {}; // artist -> album -> tracks
   const albumCovers = {}; // albumArtist + album => coverPath (deduplicates)
+  const albumDates = {}; // albumArtist + album => release date (from first track)
 
   const processFile = async (filepath) => {
     try {
@@ -60,6 +73,7 @@ const buildLibrary = async () => {
       const genres = common.genre || [];
       const relativePath = path.relative(MUSIC_DIR, filepath);
       const webPath = `/music/${relativePath}`;
+      const releaseDate = formatDate(common.date) || null;
 
       // Cover Art
       const picture = common.picture && common.picture[0];
@@ -73,7 +87,11 @@ const buildLibrary = async () => {
 
       // If album cover exists, reuse it
       coverPath = albumCovers[albumKey] || null;
-      const albumReleaseDate = year;
+
+      // Store first track's release date for the album
+      if (!albumDates[albumKey] && releaseDate) {
+        albumDates[albumKey] = releaseDate;
+      }
 
       const trackInfo = {
         id: crypto
@@ -97,7 +115,7 @@ const buildLibrary = async () => {
 
       if (!library[albumArtist][album]) {
         library[albumArtist][album] = {
-          albumReleaseDate,
+          albumReleaseDate: albumDates[albumKey] || null,
           cover: coverPath,
           tracks: [],
         };

@@ -4,8 +4,6 @@ import libraryData from "../../data/library.json";
 
 const Library = ({ onAlbumClick }) => {
   const [library] = useState(libraryData);
-
-  if (!library) return <div>Loading...</div>;
   return (
     <div className="p-4">
       {Object.keys(library).map((artistName) => {
@@ -20,10 +18,15 @@ const Library = ({ onAlbumClick }) => {
                 .sort((a, b) => {
                   const albumA = artistData[a];
                   const albumB = artistData[b];
-                  const yearA = parseInt(albumA.albumReleaseDate, 10);
-                  const yearB = parseInt(albumB.albumReleaseDate, 10);
-                  if (yearA !== yearB) return yearB - yearA;
-                  return a.localeCompare(b);
+
+                  const dateA = albumA.albumReleaseDate
+                    ? new Date(albumA.albumReleaseDate)
+                    : new Date(0);
+                  const dateB = albumB.albumReleaseDate
+                    ? new Date(albumB.albumReleaseDate)
+                    : new Date(0);
+
+                  return dateB - dateA || a.localeCompare(b);
                 })
                 .map((albumName) => {
                   const albumData = artistData[albumName];
