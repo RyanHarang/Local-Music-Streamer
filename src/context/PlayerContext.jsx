@@ -336,6 +336,11 @@ export const PlayerProvider = ({ children }) => {
     return activeSonglist.slice(songlistIndex + 1);
   };
 
+  /**
+   * Formats duration into HH:MM:SS format
+   * @param {number} durationInSeconds - Duration in seconds
+   * @returns {string} Formatted duration string
+   */
   const formatDuration = (durationInSeconds) => {
     const minutes = Math.floor(durationInSeconds / 60);
     const seconds = Math.floor(durationInSeconds % 60);
@@ -350,6 +355,9 @@ export const PlayerProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Updates shuffle path when active songlist changes
+   */
   useEffect(() => {
     if (!activeSonglist || activeSonglist.length === 0) return;
     if (isShuffle) {
