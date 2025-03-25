@@ -13,9 +13,6 @@ const ButtonControls = () => {
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      const targetTag = e.target.tagName.toLowerCase();
-      if (targetTag === "input" || targetTag === "textarea") return;
-
       switch (e.code) {
         case "Space":
           e.preventDefault();
