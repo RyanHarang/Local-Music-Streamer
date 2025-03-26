@@ -14,17 +14,18 @@ const UpcomingSongs = () => {
         </div>
       )}
       <div className="flex-1 overflow-y-auto">
-        {upcomingTracks.map((track, index) => (
-          <div
-            key={index}
-            className="dark:hover:bg-dark-bg3 hover:bg-light-bg2 cursor-pointer rounded px-2 py-1 transition"
-          >
-            <div className="flex items-center justify-between">
-              <span className="p-1 text-sm font-medium">{track.title}</span>
-              <span className="text-xs text-gray-500">{track.artist}</span>
+        {upcomingTracks &&
+          upcomingTracks.map((track, index) => (
+            <div
+              key={index}
+              className="dark:hover:bg-dark-bg3 hover:bg-light-bg2 cursor-pointer rounded px-2 py-1 transition"
+            >
+              <div className="flex items-center justify-between">
+                <span className="p-1 text-sm font-medium">{track.title}</span>
+                <span className="text-xs text-gray-500">{track.artist}</span>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );
