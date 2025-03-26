@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { usePlayer } from "../../context/PlayerContext.jsx";
 import PlayButton from "../Controls/Buttons/PlayButton.jsx";
 import QueueButton from "../Controls/Buttons/QueueButton.jsx";
+import PlaylistButton from "../Controls/Buttons/PlaylistButton.jsx";
+import AddToPlaylistModal from "./AddToPlaylistModal.jsx";
 
 const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
   const {
@@ -11,6 +14,7 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
     startSonglist,
     formatDuration,
   } = usePlayer();
+  const [showModal, setShowModal] = useState(false);
   const isCurrentTrack = currentTrack?.id === track.id;
 
   const handlePlay = () => {
@@ -48,8 +52,17 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
       </div>
       <div className="flex items-center gap-8 text-sm">
         <QueueButton track={track} />
-        <span>{formatDuration(track.duration)}</span>
+        <PlaylistButton handleClick={() => setShowModal(true)} />
+        <span className="text-light-fg2 dark:text-dark-fg2 w-6">
+          {formatDuration(track.duration)}
+        </span>
       </div>
+      {showModal && (
+        <AddToPlaylistModal
+          track={track}
+          closeModal={() => setShowModal(false)}
+        />
+      )}
     </div>
   );
 };
