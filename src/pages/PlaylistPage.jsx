@@ -6,7 +6,8 @@ import BackButton from "../components/Controls/Buttons/BackButton.jsx";
 import libraryData from "../data/library.json";
 
 const PlaylistPage = () => {
-  const { selectedPlaylist, goToHomePage } = useNavigation();
+  const { selectedPlaylist, previousPage, goToPreviousPage, goToHomePage } =
+    useNavigation();
   const { playlists, renamePlaylist } = usePlaylists();
   const [currentPlaylist, setCurrentPlaylist] = useState(selectedPlaylist);
   const [newName, setNewName] = useState(selectedPlaylist.name);
@@ -34,7 +35,7 @@ const PlaylistPage = () => {
   };
   return (
     <div className="p-4">
-      <BackButton goBack={goToHomePage} />
+      <BackButton goBack={previousPage ? goToPreviousPage : goToHomePage} />
 
       <div>
         {isEditing ? (
