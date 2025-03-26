@@ -13,6 +13,7 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
     pause,
     startSonglist,
     formatDuration,
+    addToQueue,
   } = usePlayer();
   const [showModal, setShowModal] = useState(false);
   const isCurrentTrack = currentTrack?.id === track.id;
@@ -51,7 +52,7 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
         </div>
       </div>
       <div className="flex items-center gap-8 text-sm">
-        <QueueButton track={track} />
+        <QueueButton handleClick={() => addToQueue(track)} />
         <PlaylistButton handleClick={() => setShowModal(true)} />
         <span className="text-light-fg2 dark:text-dark-fg2 w-6">
           {formatDuration(track.duration)}
