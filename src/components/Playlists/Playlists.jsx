@@ -5,7 +5,6 @@ import NewPlaylistModal from "./NewPlaylistModal.jsx";
 const Playlists = ({ onPlaylistClick }) => {
   const [showModal, setShowModal] = useState(false);
   const { playlists } = usePlaylists();
-  // console.log(playlists);
 
   return (
     <section className="space-y-8 p-4">
