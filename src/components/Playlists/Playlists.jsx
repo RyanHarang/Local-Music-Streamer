@@ -1,10 +1,16 @@
 import { useState } from "react";
 import { usePlaylists } from "../../context/PlaylistContext.jsx";
+import TrashButton from "../Controls/Buttons/TrashButton.jsx";
 import NewPlaylistModal from "./NewPlaylistModal.jsx";
 
 const Playlists = ({ onPlaylistClick }) => {
+  const { playlists, deletePlaylist } = usePlaylists();
   const [showModal, setShowModal] = useState(false);
-  const { playlists } = usePlaylists();
+
+  const handleDelete = (e, id) => {
+    e.stopPropagation();
+    deletePlaylist(id);
+  };
 
   return (
     <section className="space-y-8 p-4">
@@ -26,9 +32,10 @@ const Playlists = ({ onPlaylistClick }) => {
             <div
               key={playlist.id}
               onClick={() => onPlaylistClick(playlist)}
-              className="via-accent/40 to-accent cursor-pointer rounded bg-gradient-to-br from-black p-4 shadow transition-all duration-300 ease-in-out hover:underline"
+              className="via-accent/40 to-accent flex cursor-pointer justify-between rounded bg-gradient-to-br from-black p-4 shadow hover:underline"
             >
               <h3 className="mt-2 text-lg font-semibold">{playlist.name}</h3>
+              <TrashButton handleClick={(e) => handleDelete(e, playlist.id)} />
             </div>
           ))}
         </div>
