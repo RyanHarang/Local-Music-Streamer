@@ -99,12 +99,12 @@ const buildLibrary = async () => {
         .update(`${albumArtist}-${album}-${title}`)
         .digest("hex");
 
-      // Track Info
       library.tracks[trackId] = {
         id: trackId,
         title,
         trackNumber,
         albumId,
+        albumName: album,
         artists,
         year,
         genres,
