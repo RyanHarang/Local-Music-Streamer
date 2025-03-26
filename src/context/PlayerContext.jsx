@@ -228,8 +228,11 @@ export const PlayerProvider = ({ children }) => {
    * Adds a track to end of queue.
    * @param {Object} track - Track to add to queue
    */
-  const addToQueue = (track) => {
-    setQueue((prevQueue) => [...prevQueue, track]);
+  const addToQueue = (tracks) => {
+    setQueue((prevQueue) => [
+      ...prevQueue,
+      ...(Array.isArray(tracks) ? tracks : [tracks]),
+    ]);
   };
 
   /**
