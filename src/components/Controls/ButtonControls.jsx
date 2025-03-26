@@ -13,6 +13,14 @@ const ButtonControls = () => {
 
   useEffect(() => {
     const handleKeyDown = (e) => {
+      const activeElement = document.activeElement;
+      if (
+        activeElement instanceof HTMLInputElement ||
+        activeElement instanceof HTMLTextAreaElement ||
+        activeElement instanceof HTMLSelectElement
+      )
+        return;
+
       switch (e.code) {
         case "Space":
           e.preventDefault();
