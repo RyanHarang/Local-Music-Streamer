@@ -1,13 +1,9 @@
-import { usePlayer } from "../../../context/PlayerContext.jsx";
 import TrashIcon from "../../../assets/svg/controls/TrashIcon.jsx";
 
-const TrashButton = ({ index }) => {
-  const { removeFromQueue } = usePlayer();
+const TrashButton = ({ handleClick }) => {
   return (
     <button
-      onClick={() => {
-        removeFromQueue(index);
-      }}
+      onClick={handleClick}
       aria-label="Remove from queue"
       className="group cursor-pointer"
     >

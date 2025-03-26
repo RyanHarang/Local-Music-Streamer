@@ -4,7 +4,7 @@ import TrashButton from "../Controls/Buttons/TrashButton.jsx";
 import GripIcon from "../../assets/svg/sidebar/GripIcon.jsx";
 
 const Queue = () => {
-  const { queue, clearQueue, setQueue } = usePlayer();
+  const { queue, removeFromQueue, clearQueue, setQueue } = usePlayer();
 
   const renderQueueItem = ({ item: track, index, dragHandleProps }) => (
     <div className="dark:hover:bg-dark-bg3 hover:bg-light-bg2 cursor-grab rounded px-2 py-1 transition active:cursor-grabbing">
@@ -21,7 +21,7 @@ const Queue = () => {
             <span className="text-xs text-gray-500">{track.artist}</span>
           </div>
         </div>
-        <TrashButton index={index} />
+        <TrashButton handleClick={() => removeFromQueue(index)} />
       </div>
     </div>
   );
