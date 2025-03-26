@@ -2,7 +2,7 @@ import Sidebar from "../components/Sidebar/Sidebar.jsx";
 import NowPlaying from "../components/NowPlaying/NowPlaying.jsx";
 import Navigation from "../components/Navigation/Navigation.jsx";
 
-const Layout = ({ children, currentPage }) => {
+const Layout = ({ children }) => {
   return (
     <div className="flex h-screen flex-col">
       <Navigation />
