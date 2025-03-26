@@ -3,7 +3,7 @@ import { usePlayer } from "../../context/PlayerContext.jsx";
 import PlayButton from "../Controls/Buttons/PlayButton.jsx";
 import QueueButton from "../Controls/Buttons/QueueButton.jsx";
 import PlaylistButton from "../Controls/Buttons/PlaylistButton.jsx";
-import AddToPlaylistModal from "./AddToPlaylistModal.jsx";
+import TrackPlaylistModal from "./TrackPlaylistModal.jsx";
 
 const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
   const {
@@ -58,7 +58,7 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
         </span>
       </div>
       {showModal && (
-        <AddToPlaylistModal
+        <TrackPlaylistModal
           track={track}
           closeModal={() => setShowModal(false)}
         />

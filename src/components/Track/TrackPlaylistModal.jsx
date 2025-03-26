@@ -1,10 +1,24 @@
 import { useState, useEffect, useRef } from "react";
 import { usePlaylists } from "../../context/PlaylistContext.jsx";
 
-const AddTrackToPlaylistModal = ({ track, closeModal }) => {
-  const { playlists, addTrackToPlaylist } = usePlaylists();
+const TrackPlaylistModal = ({ track, closeModal }) => {
+  const { playlists, addTrackToPlaylist, removeTrackFromPlaylist } =
+    usePlaylists();
   const [selectedPlaylists, setSelectedPlaylists] = useState([]);
+  const [initialPlaylists, setInitialPlaylists] = useState([]);
   const dialogRef = useRef(null);
+
+  useEffect(() => {
+    const dialogElement = dialogRef.current;
+    if (dialogElement) dialogElement.showModal();
+
+    const trackPlaylists = playlists
+      .filter((playlist) => playlist.tracks.some((t) => t.id === track.id))
+      .map((playlist) => playlist.id);
+
+    setSelectedPlaylists(trackPlaylists);
+    setInitialPlaylists(trackPlaylists);
+  }, [closeModal, track, playlists]);
 
   const handleCheckboxChange = (playlistId) => {
     setSelectedPlaylists((prev) =>
@@ -15,16 +29,24 @@ const AddTrackToPlaylistModal = ({ track, closeModal }) => {
   };
 
   const handleSubmit = () => {
-    selectedPlaylists.forEach((playlistId) => {
-      addTrackToPlaylist(playlistId, track.id);
-    });
+    const toAdd = selectedPlaylists.filter(
+      (id) => !initialPlaylists.includes(id),
+    );
+    const toRemove = initialPlaylists.filter(
+      (id) => !selectedPlaylists.includes(id),
+    );
+
+    toAdd.forEach((playlistId) => addTrackToPlaylist(playlistId, track.id));
+    toRemove.forEach((playlistId) =>
+      removeTrackFromPlaylist(playlistId, track.id),
+    );
     closeModal();
   };
 
-  useEffect(() => {
-    const dialogElement = dialogRef.current;
-    if (dialogElement) dialogElement.showModal();
-  }, [closeModal]);
+  const hasChanges =
+    selectedPlaylists.length !== initialPlaylists.length ||
+    selectedPlaylists.some((id) => !initialPlaylists.includes(id)) ||
+    initialPlaylists.some((id) => !selectedPlaylists.includes(id));
 
   return (
     <dialog
@@ -37,21 +59,21 @@ const AddTrackToPlaylistModal = ({ track, closeModal }) => {
           Select Playlists
         </h3>
         <p className="mb-4 text-center text-sm">
-          Choose the playlists to which you want to add this track:
+          Select the playlists to add or remove this track:
         </p>
         <div className="mb-6 flex max-h-64 flex-col justify-center space-y-4 overflow-y-auto">
           {playlists.length > 0 ? (
             playlists.map((playlist) => (
               <div
                 key={playlist.id}
-                className="flex items-center space-x-2 rounded-md p-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="hover:bg-light-bg3 dark:hover:bg-dark-bg3 flex items-center space-x-2 rounded-md p-2 transition-colors"
               >
                 <input
                   type="checkbox"
                   id={`playlist-${playlist.id}`}
                   checked={selectedPlaylists.includes(playlist.id)}
                   onChange={() => handleCheckboxChange(playlist.id)}
-                  className="text-accent focus:ring-accent h-5 w-5 cursor-pointer rounded border-gray-300 focus:ring-2"
+                  className="checked:accent-accent text-accent focus:ring-accent h-5 w-5 cursor-pointer rounded focus:ring-2"
                 />
                 <label
                   htmlFor={`playlist-${playlist.id}`}
@@ -68,10 +90,10 @@ const AddTrackToPlaylistModal = ({ track, closeModal }) => {
         <div className="flex justify-between border-t pt-4">
           <button
             onClick={handleSubmit}
-            disabled={selectedPlaylists.length === 0}
+            disabled={!hasChanges}
             className="bg-accent hover:bg-accent/80 disabled:hover:bg-accent rounded-md px-6 py-2 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Add Track
+            Save Changes
           </button>
           <button
             onClick={closeModal}
@@ -85,4 +107,4 @@ const AddTrackToPlaylistModal = ({ track, closeModal }) => {
   );
 };
 
-export default AddTrackToPlaylistModal;
+export default TrackPlaylistModal;
