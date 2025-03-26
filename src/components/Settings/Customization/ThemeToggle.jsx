@@ -14,16 +14,6 @@ const ThemeToggle = () => {
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
 
-  const toggleMenu = () => setMenuOpen((prev) => !prev);
-  const handleSelect = (color) => {
-    setSelected(color);
-    document.documentElement.style.setProperty(
-      "--color-accent",
-      `var(${color})`,
-    );
-    localStorage.setItem("accentColor", color);
-  };
-
   useEffect(() => {
     const storedColor = localStorage.getItem("accentColor");
 
@@ -59,6 +49,16 @@ const ThemeToggle = () => {
       document.removeEventListener("click", handleClickOutside);
     };
   }, []);
+
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
+  const handleSelect = (color) => {
+    setSelected(color);
+    document.documentElement.style.setProperty(
+      "--color-accent",
+      `var(${color})`,
+    );
+    localStorage.setItem("accentColor", color);
+  };
 
   return (
     <div

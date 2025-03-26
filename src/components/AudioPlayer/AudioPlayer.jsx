@@ -13,28 +13,6 @@ const AudioPlayer = () => {
     isMuted,
   } = usePlayer();
 
-  const handleTimeUpdate = () => {
-    const current = audioRef.current.currentTime;
-    const dur = audioRef.current.duration || 0;
-    updateTime(current, dur);
-  };
-
-  const handleLoadedMetadata = () => {
-    const dur = audioRef.current.duration || 0;
-    updateTime(audioRef.current.currentTime, dur);
-  };
-
-  const seekTo = (time) => {
-    if (audioRef.current) {
-      audioRef.current.currentTime = time;
-      updateTime(time, audioRef.current.duration || 0);
-    }
-  };
-
-  const handleEnded = () => {
-    playNextTrack();
-  };
-
   useEffect(() => {
     if (audioRef.current && currentTrack?.path) {
       if (audioRef.current.src !== currentTrack.path) {
@@ -64,6 +42,28 @@ const AudioPlayer = () => {
   useEffect(() => {
     setSeekToFn(() => seekTo);
   }, [setSeekToFn]);
+
+  const handleTimeUpdate = () => {
+    const current = audioRef.current.currentTime;
+    const dur = audioRef.current.duration || 0;
+    updateTime(current, dur);
+  };
+
+  const handleLoadedMetadata = () => {
+    const dur = audioRef.current.duration || 0;
+    updateTime(audioRef.current.currentTime, dur);
+  };
+
+  const seekTo = (time) => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = time;
+      updateTime(time, audioRef.current.duration || 0);
+    }
+  };
+
+  const handleEnded = () => {
+    playNextTrack();
+  };
 
   return (
     <audio

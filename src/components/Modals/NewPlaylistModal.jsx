@@ -7,6 +7,14 @@ const NewPlaylistModal = ({ closeModal }) => {
   const dialogRef = useRef(null);
   const inputRef = useRef(null);
 
+  useEffect(() => {
+    const dialogElement = dialogRef.current;
+    if (dialogElement) {
+      dialogElement.showModal();
+      inputRef.current?.focus();
+    }
+  }, [closeModal]);
+
   const handleSubmit = () => {
     if (playlistName.trim()) {
       createPlaylist(playlistName.trim());
@@ -17,14 +25,6 @@ const NewPlaylistModal = ({ closeModal }) => {
   const handleKeyDown = (e) => {
     if (e.key === "Enter") handleSubmit();
   };
-
-  useEffect(() => {
-    const dialogElement = dialogRef.current;
-    if (dialogElement) {
-      dialogElement.showModal();
-      inputRef.current?.focus();
-    }
-  }, [closeModal]);
 
   return (
     <dialog

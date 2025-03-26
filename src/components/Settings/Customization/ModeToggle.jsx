@@ -7,12 +7,6 @@ const ModeToggle = () => {
     () => localStorage.getItem("darkMode") === "true",
   );
 
-  const toggleMode = () => {
-    setDarkMode(!darkMode);
-    document.documentElement.classList.toggle("dark", !darkMode);
-    localStorage.setItem("darkMode", !darkMode);
-  };
-
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark");
@@ -20,6 +14,12 @@ const ModeToggle = () => {
       document.documentElement.classList.remove("dark");
     }
   }, [darkMode]);
+
+  const toggleMode = () => {
+    setDarkMode(!darkMode);
+    document.documentElement.classList.toggle("dark", !darkMode);
+    localStorage.setItem("darkMode", !darkMode);
+  };
 
   return (
     <button
