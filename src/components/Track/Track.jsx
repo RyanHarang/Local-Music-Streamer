@@ -56,10 +56,10 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
           </span>
         </div>
       </div>
-      <div className="align-center text-dark-fg2 flex max-w-2/5 truncate overflow-hidden">
+      <div className="align-center flex max-w-2/5 truncate overflow-hidden">
         <span
           onClick={() => album && goToAlbumPage(album)}
-          className="cursor-pointer text-nowrap hover:underline"
+          className="text-dark-fg2 hover:text-dark-fg cursor-pointer text-nowrap hover:underline"
         >
           {track.albumName}
         </span>
