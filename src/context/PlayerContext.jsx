@@ -14,7 +14,6 @@ export const usePlayer = () => useContext(PlayerContext);
 
 /**
  * Provider component that wraps  application to make player state available
- *
  * @param {Object} props - Component props
  * @param {React.ReactNode} props.children - Child components to render within provider
  * @returns {JSX.Element} Provider component with player context
@@ -150,6 +149,19 @@ export const PlayerProvider = ({ children }) => {
   };
 
   /**
+   * Automatically plays next track when current track ends
+   */
+  const playNextTrack = () => {
+    if (queue.length > 0) {
+      const nextTrack = queue[0];
+      setQueue((prevQueue) => prevQueue.slice(1));
+      checkNextTrack(nextTrack);
+    } else {
+      findNextTrack();
+    }
+  };
+
+  /**
    * Checks intended behavior when end of songlist is reached
    * If repeat is enabled and there is no active songlist, current track is replayed
    * If repeat is enabled and there is an active songlist, next track is played, either from shuffle path or songlist
@@ -199,19 +211,6 @@ export const PlayerProvider = ({ children }) => {
   };
 
   /**
-   * Automatically plays next track when current track ends
-   */
-  const playNextTrack = () => {
-    if (queue.length > 0) {
-      const nextTrack = queue[0];
-      setQueue((prevQueue) => prevQueue.slice(1));
-      checkNextTrack(nextTrack);
-    } else {
-      findNextTrack();
-    }
-  };
-
-  /**
    * Starts playing a songlist from a specific index
    * @param {Array} songlist - Array of track objects
    * @param {number} [index=0] - Index of track to start playing
@@ -221,7 +220,6 @@ export const PlayerProvider = ({ children }) => {
 
     setActiveSonglist(songlist);
     setSonglistIndex(index);
-    // handleShufflePath(index);
 
     play(songlist[index]);
   };
@@ -251,6 +249,21 @@ export const PlayerProvider = ({ children }) => {
    */
   const clearQueue = () => {
     setQueue([]);
+  };
+
+  /**
+   * Returns array of upcoming tracks
+   * @returns {Array} Array of upcoming tracks
+   */
+  const getUpcomingSongs = () => {
+    if (!activeSonglist || activeSonglist.length === 0) return [];
+
+    if (isShuffle && shufflePath) {
+      const nextIndexes = shufflePath.slice(shufflePathIndex + 1);
+      return nextIndexes.map((index) => activeSonglist[index]);
+    }
+
+    return activeSonglist.slice(songlistIndex + 1);
   };
 
   /**
@@ -319,21 +332,6 @@ export const PlayerProvider = ({ children }) => {
   const updateTime = (time, dur) => {
     setCurrentTime(time);
     if (dur && !isNaN(dur)) setDuration(dur);
-  };
-
-  /**
-   * Returns array of upcoming tracks
-   * @returns {Array} Array of upcoming tracks
-   */
-  const getUpcomingSongs = () => {
-    if (!activeSonglist || activeSonglist.length === 0) return [];
-
-    if (isShuffle && shufflePath) {
-      const nextIndexes = shufflePath.slice(shufflePathIndex + 1);
-      return nextIndexes.map((index) => activeSonglist[index]);
-    }
-
-    return activeSonglist.slice(songlistIndex + 1);
   };
 
   /**
