@@ -1,11 +1,14 @@
 import { useState } from "react";
+import { useNavigation } from "../../context/NavigationContext.jsx";
 import { usePlayer } from "../../context/PlayerContext.jsx";
 import PlayButton from "../Controls/Buttons/PlayButton.jsx";
 import QueueButton from "../Controls/Buttons/QueueButton.jsx";
 import PlaylistButton from "../Controls/Buttons/PlaylistButton.jsx";
 import TrackPlaylistModal from "../Modals/TrackPlaylistModal.jsx";
+import libraryData from "../../data/library.json";
 
 const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
+  const { goToAlbumPage } = useNavigation();
   const {
     isPlaying,
     currentTrack,
@@ -15,8 +18,10 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
     formatDuration,
     addToQueue,
   } = usePlayer();
+  const { albums } = libraryData;
   const [showModal, setShowModal] = useState(false);
   const isCurrentTrack = currentTrack?.id === track.id;
+  const album = track ? albums[track.albumId] : null;
 
   const handlePlay = () => {
     if (isCurrentTrack) {
@@ -29,8 +34,8 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
   };
 
   return (
-    <div className="dark:hover:bg-dark-bg3 hover:bg-light-bg2 flex cursor-pointer items-center justify-between rounded px-4 py-2">
-      <div className="flex items-center gap-4">
+    <div className="dark:hover:bg-dark-bg3 hover:bg-light-bg2 flex items-center justify-between rounded px-4 py-2">
+      <div className="flex w-2/5 items-center gap-4">
         <span className="w-6 text-center text-sm">{index + 1}</span>
         <PlayButton
           track={track}
@@ -51,7 +56,15 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
           </span>
         </div>
       </div>
-      <div className="flex items-center gap-8 text-sm">
+      <div className="align-center text-light-fg2 dark:text-dark-fg2 flex max-w-2/5 truncate overflow-hidden">
+        <span
+          onClick={() => album && goToAlbumPage(album)}
+          className="cursor-pointer text-nowrap hover:underline"
+        >
+          {track.albumName}
+        </span>
+      </div>
+      <div className="flex w-1/5 items-center justify-end gap-8 text-sm">
         <QueueButton handleClick={() => addToQueue(track)} />
         <PlaylistButton handleClick={() => setShowModal(true)} />
         <span className="text-light-fg2 dark:text-dark-fg2 w-6">

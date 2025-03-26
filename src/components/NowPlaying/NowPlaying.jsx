@@ -1,3 +1,4 @@
+import { useNavigation } from "../../context/NavigationContext.jsx";
 import { usePlayer } from "../../context/PlayerContext.jsx";
 import ButtonControls from "../Controls/ButtonControls.jsx";
 import VolumeControls from "../Controls/VolumeControls.jsx";
@@ -5,7 +6,8 @@ import ProgressBar from "../Controls/ProgressBar.jsx";
 import AudioPlayer from "../AudioPlayer/AudioPlayer.jsx";
 import libraryData from "../../data/library.json";
 
-const NowPlaying = ({ onAlbumClick }) => {
+const NowPlaying = () => {
+  const { goToAlbumPage } = useNavigation();
   const { currentTrack } = usePlayer();
   const { albums } = libraryData;
 
@@ -26,8 +28,8 @@ const NowPlaying = ({ onAlbumClick }) => {
         )}
         <div>
           <div
-            onClick={() => onAlbumClick && album && onAlbumClick(album)}
-            className={`${onAlbumClick && album && "cursor-pointer hover:underline"} text-sm font-semibold`}
+            onClick={() => album && goToAlbumPage(album)}
+            className={`${album && "cursor-pointer hover:underline"} text-sm font-semibold`}
           >
             {currentTrack?.title || "No track playing"}
           </div>

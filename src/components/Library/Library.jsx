@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useNavigation } from "../../context/NavigationContext.jsx";
 import Album from "../Album/Album.jsx";
 import libraryData from "../../data/library.json";
 
-const Library = ({ onAlbumClick }) => {
+const Library = () => {
+  const { goToAlbumPage } = useNavigation();
   const [library] = useState(libraryData);
   const { albums } = library;
 
@@ -38,7 +40,7 @@ const Library = ({ onAlbumClick }) => {
                 .map((album) => {
                   return (
                     <Album
-                      onAlbumClick={() => onAlbumClick(album)}
+                      onAlbumClick={() => goToAlbumPage(album)}
                       key={album.id}
                       onAlbumPage={false}
                       album={album}

@@ -1,4 +1,8 @@
-const Navigation = ({ onNavChange, currentPage }) => {
+import { useNavigation } from "../../context/NavigationContext.jsx";
+
+const Navigation = () => {
+  const { currentPage, goToHomePage, goToLibraryPage, goToSettingsPage } =
+    useNavigation();
   const linkClasses = (page) =>
     `relative transition-colors ${
       currentPage === page ? "text-accent underline" : "hover:underline"
@@ -10,20 +14,17 @@ const Navigation = ({ onNavChange, currentPage }) => {
         <h1 className="text-accent text-4xl font-bold">LMS</h1>
       </div>
       <div className="flex items-center gap-12">
-        <button
-          onClick={() => onNavChange("home")}
-          className={linkClasses("home")}
-        >
+        <button onClick={() => goToHomePage()} className={linkClasses("home")}>
           Home
         </button>
         <button
-          onClick={() => onNavChange("library")}
+          onClick={() => goToLibraryPage()}
           className={linkClasses("library")}
         >
           Library
         </button>
         <button
-          onClick={() => onNavChange("settings")}
+          onClick={() => goToSettingsPage()}
           className={linkClasses("settings")}
         >
           Settings

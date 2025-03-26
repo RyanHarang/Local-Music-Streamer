@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
+import { useNavigation } from "../context/NavigationContext.jsx";
 import { usePlaylists } from "../context/PlaylistContext";
 import Songlist from "../components/Songlist/Songlist.jsx";
 import BackButton from "../components/Controls/Buttons/BackButton.jsx";
 import libraryData from "../data/library.json";
 
-const PlaylistPage = ({ playlist, goBack }) => {
+const PlaylistPage = () => {
+  const { selectedPlaylist, goToHomePage } = useNavigation();
   const { playlists, renamePlaylist } = usePlaylists();
-  const [currentPlaylist, setCurrentPlaylist] = useState(playlist);
-  const [newName, setNewName] = useState(playlist.name);
+  const [currentPlaylist, setCurrentPlaylist] = useState(selectedPlaylist);
+  const [newName, setNewName] = useState(selectedPlaylist.name);
   const [isEditing, setIsEditing] = useState(false);
   const { tracks } = libraryData;
 
   useEffect(() => {
-    setCurrentPlaylist(playlists.find((p) => p.id === playlist.id));
+    setCurrentPlaylist(playlists.find((p) => p.id === selectedPlaylist.id));
   }, [playlists]);
 
   const playlistTracks = currentPlaylist.tracks
@@ -32,7 +34,7 @@ const PlaylistPage = ({ playlist, goBack }) => {
   };
   return (
     <div className="p-4">
-      <BackButton goBack={goBack} />
+      <BackButton goBack={goToHomePage} />
 
       <div>
         {isEditing ? (

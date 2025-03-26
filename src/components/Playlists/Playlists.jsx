@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigation } from "../../context/NavigationContext.jsx";
 import { usePlaylists } from "../../context/PlaylistContext.jsx";
 import TrashButton from "../Controls/Buttons/TrashButton.jsx";
 import NewPlaylistModal from "../Modals/NewPlaylistModal.jsx";
 
-const Playlists = ({ onPlaylistClick }) => {
+const Playlists = () => {
+  const { goToPlaylistPage } = useNavigation();
   const { playlists, deletePlaylist } = usePlaylists();
   const [showModal, setShowModal] = useState(false);
 
@@ -31,7 +33,7 @@ const Playlists = ({ onPlaylistClick }) => {
           {playlists.map((playlist) => (
             <div
               key={playlist.id}
-              onClick={() => onPlaylistClick(playlist)}
+              onClick={() => goToPlaylistPage(playlist)}
               className="via-accent/40 to-accent flex cursor-pointer justify-between rounded bg-gradient-to-br from-black p-4 shadow hover:underline"
             >
               <h3 className="mt-2 text-lg font-semibold">{playlist.name}</h3>
