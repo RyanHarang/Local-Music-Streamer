@@ -34,7 +34,7 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
   };
 
   return (
-    <div className="dark:hover:bg-dark-bg3 hover:bg-light-bg2 flex items-center justify-between rounded px-4 py-2">
+    <div className="hover:bg-dark-bg3 flex items-center justify-between rounded px-4 py-2">
       <div className="flex w-2/5 items-center gap-4">
         <span className="w-6 text-center text-sm">{index + 1}</span>
         <PlayButton
@@ -49,14 +49,14 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
           >
             {track.title}
           </span>
-          <span className="text-light-fg2 dark:text-dark-fg2 text-sm">
+          <span className="text-dark-fg2 text-sm">
             {Array.isArray(track.artists)
               ? track.artists.join(", ")
               : track.artists}
           </span>
         </div>
       </div>
-      <div className="align-center text-light-fg2 dark:text-dark-fg2 flex max-w-2/5 truncate overflow-hidden">
+      <div className="align-center text-dark-fg2 flex max-w-2/5 truncate overflow-hidden">
         <span
           onClick={() => album && goToAlbumPage(album)}
           className="cursor-pointer text-nowrap hover:underline"
@@ -67,7 +67,7 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
       <div className="flex w-1/5 items-center justify-end gap-8 text-sm">
         <QueueButton handleClick={() => addToQueue(track)} />
         <PlaylistButton handleClick={() => setShowModal(true)} />
-        <span className="text-light-fg2 dark:text-dark-fg2 w-6">
+        <span className="text-dark-fg2 w-6">
           {formatDuration(track.duration)}
         </span>
       </div>

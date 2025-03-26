@@ -15,7 +15,7 @@ const NowPlaying = () => {
   const albumCover = album?.cover;
 
   return (
-    <footer className="bg-light-bg2 dark:bg-dark-bg2 flex h-20 w-full items-center justify-between p-4">
+    <footer className="bg-dark-bg2 flex h-20 w-full items-center justify-between p-4">
       <div className="flex w-1/3 items-center gap-4">
         {currentTrack ? (
           <img

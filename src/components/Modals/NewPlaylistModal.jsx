@@ -30,7 +30,7 @@ const NewPlaylistModal = ({ closeModal }) => {
     <dialog
       ref={dialogRef}
       onClose={closeModal}
-      className="dark:bg-dark-bg text-light-fg dark:text-dark-fg fixed z-50 m-auto w-11/12 max-w-md overflow-hidden rounded bg-white p-0 shadow-xl backdrop:bg-black/50"
+      className="bg-dark-bg text-dark-fg fixed z-50 m-auto w-11/12 max-w-md overflow-hidden rounded p-0 shadow-xl backdrop:bg-black/50"
     >
       <div className="p-6">
         <h3 className="mb-4 text-center text-2xl font-semibold">
@@ -44,7 +44,7 @@ const NewPlaylistModal = ({ closeModal }) => {
             onChange={(e) => setPlaylistName(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Enter playlist name"
-            className="focus:ring-accent w-full rounded border px-3 py-2 focus:ring-4 focus:outline-none dark:bg-gray-700 dark:text-white"
+            className="focus:ring-accent w-full rounded border bg-gray-700 px-3 py-2 text-white focus:ring-4 focus:outline-none"
           />
         </div>
 
@@ -58,7 +58,7 @@ const NewPlaylistModal = ({ closeModal }) => {
           </button>
           <button
             onClick={closeModal}
-            className="rounded-md px-6 py-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-700"
+            className="rounded-md px-6 py-2 transition-colors hover:bg-gray-700"
           >
             Close
           </button>

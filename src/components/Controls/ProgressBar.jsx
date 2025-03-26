@@ -24,7 +24,7 @@ const ProgressBar = () => {
   return (
     <div className="w-full">
       <div
-        className="bg-light-bg3 dark:bg-dark-bg3 relative h-2 w-full cursor-pointer rounded"
+        className="bg-dark-bg3 relative h-2 w-full cursor-pointer rounded"
         onClick={handleSeek}
       >
         <div

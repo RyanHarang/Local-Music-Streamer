@@ -7,13 +7,10 @@ const Queue = () => {
   const { queue, removeFromQueue, clearQueue, setQueue } = usePlayer();
 
   const renderQueueItem = ({ item: track, index, dragHandleProps }) => (
-    <div className="dark:hover:bg-dark-bg3 hover:bg-light-bg2 cursor-grab rounded px-2 py-1 transition active:cursor-grabbing">
+    <div className="hover:bg-dark-bg3 cursor-grab rounded px-2 py-1 transition active:cursor-grabbing">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span
-            className="text-light-fg2 dark:text-dark-fg2"
-            {...dragHandleProps}
-          >
+          <span className="text-dark-fg2" {...dragHandleProps}>
             <GripIcon />
           </span>
           <div className="flex flex-col">
@@ -39,7 +36,7 @@ const Queue = () => {
           <h2 className="text-md font-semibold">Queue</h2>
           <button
             onClick={clearQueue}
-            className="text-light-fg2 dark:text-dark-fg2 dark:hover:text-dark-fg hover:text-light-fg p-1 text-xs font-medium hover:underline"
+            className="text-dark-fg2 hover:text-dark-fg p-1 text-xs font-medium hover:underline"
           >
             Clear Queue
           </button>

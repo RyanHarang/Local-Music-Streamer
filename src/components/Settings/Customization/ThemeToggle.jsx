@@ -73,7 +73,7 @@ const ThemeToggle = () => {
       {menuOpen && (
         <div
           ref={menuRef}
-          className="bg-light-bg2 dark:bg-dark-bg2 absolute left-1/2 mt-40 w-12 -translate-x-1/2 rounded-lg shadow-lg"
+          className="bg-dark-bg2 absolute left-1/2 mt-40 w-12 -translate-x-1/2 rounded-lg shadow-lg"
         >
           <div className="flex flex-col items-center justify-center gap-2 p-2">
             {Object.entries(highlightColors).map(([label, color]) => (

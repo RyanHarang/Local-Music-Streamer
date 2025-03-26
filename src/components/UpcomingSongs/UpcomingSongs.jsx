@@ -18,7 +18,7 @@ const UpcomingSongs = () => {
           upcomingTracks.map((track, index) => (
             <div
               key={index}
-              className="dark:hover:bg-dark-bg3 hover:bg-light-bg2 cursor-pointer rounded px-2 py-1 transition"
+              className="hover:bg-dark-bg3 cursor-pointer rounded px-2 py-1 transition"
             >
               <div className="flex items-center justify-between">
                 <span className="p-1 text-sm font-medium">{track.title}</span>

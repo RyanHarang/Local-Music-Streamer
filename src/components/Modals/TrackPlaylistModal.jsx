@@ -52,7 +52,7 @@ const TrackPlaylistModal = ({ track, closeModal }) => {
     <dialog
       ref={dialogRef}
       onClose={closeModal}
-      className="dark:bg-dark-bg text-light-fg dark:text-dark-fg fixed z-50 m-auto w-11/12 max-w-md overflow-hidden rounded bg-white p-0 shadow-xl backdrop:bg-black/50"
+      className="bg-dark-bg text-dark-fg fixed z-50 m-auto w-11/12 max-w-md overflow-hidden rounded p-0 shadow-xl backdrop:bg-black/50"
     >
       <div className="p-6">
         <h3 className="mb-4 text-center text-2xl font-semibold">
@@ -66,7 +66,7 @@ const TrackPlaylistModal = ({ track, closeModal }) => {
             playlists.map((playlist) => (
               <div
                 key={playlist.id}
-                className="hover:bg-light-bg3 dark:hover:bg-dark-bg3 flex items-center space-x-2 rounded-md p-2 transition-colors"
+                className="hover:bg-dark-bg3 flex items-center space-x-2 rounded-md p-2 transition-colors"
               >
                 <input
                   type="checkbox"
@@ -97,7 +97,7 @@ const TrackPlaylistModal = ({ track, closeModal }) => {
           </button>
           <button
             onClick={closeModal}
-            className="rounded-md px-6 py-2 transition-colors hover:bg-gray-100 dark:hover:bg-gray-700"
+            className="rounded-md px-6 py-2 transition-colors hover:bg-gray-700"
           >
             Close
           </button>

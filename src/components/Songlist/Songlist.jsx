@@ -26,7 +26,7 @@ const Songlist = ({ tracks }) => {
         </button>
         <QueueButton handleClick={handleAddToQueue} />
       </div>
-      <div className="border-light-fg2 dark:border-dark-fg2 flex w-full flex-col overflow-hidden rounded-md border">
+      <div className="border-dark-fg2 flex w-full flex-col overflow-hidden rounded-md border">
         {!tracks || tracks.length === 0 ? (
           <div className="p-4 text-center text-gray-500">
             No songs available

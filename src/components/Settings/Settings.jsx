@@ -1,5 +1,3 @@
-import ModeToggle from "./Customization/ModeToggle.jsx";
-
 const Settings = () => {
   return (
     <section className="space-y-8 p-4">
@@ -7,7 +5,6 @@ const Settings = () => {
       <div className="mx-auto flex h-full w-full max-w-md flex-col gap-4 p-4">
         <div className="flex items-center justify-between border-b pb-2">
           <span className="text-sm font-medium">Dark Mode</span>
-          <ModeToggle />
         </div>
 
         <div className="flex items-center justify-between border-b py-2">
