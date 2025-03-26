@@ -3,7 +3,7 @@ import { usePlayer } from "../../context/PlayerContext.jsx";
 import PlayButton from "../Controls/Buttons/PlayButton.jsx";
 import QueueButton from "../Controls/Buttons/QueueButton.jsx";
 import PlaylistButton from "../Controls/Buttons/PlaylistButton.jsx";
-import TrackPlaylistModal from "./TrackPlaylistModal.jsx";
+import TrackPlaylistModal from "../Modals/TrackPlaylistModal.jsx";
 
 const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
   const {

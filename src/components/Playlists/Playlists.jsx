@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { usePlaylists } from "../../context/PlaylistContext.jsx";
 import TrashButton from "../Controls/Buttons/TrashButton.jsx";
-import NewPlaylistModal from "./NewPlaylistModal.jsx";
+import NewPlaylistModal from "../Modals/NewPlaylistModal.jsx";
 
 const Playlists = ({ onPlaylistClick }) => {
   const { playlists, deletePlaylist } = usePlaylists();
