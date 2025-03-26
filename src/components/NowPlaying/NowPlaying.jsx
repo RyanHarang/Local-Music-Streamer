@@ -26,8 +26,8 @@ const NowPlaying = ({ onAlbumClick }) => {
         )}
         <div>
           <div
-            onClick={() => onAlbumClick && album && onAlbumClick(album)} // Pass the full album object
-            className="cursor-pointer text-sm font-semibold hover:underline"
+            onClick={() => onAlbumClick && album && onAlbumClick(album)}
+            className={`${onAlbumClick && album && "cursor-pointer hover:underline"} text-sm font-semibold`}
           >
             {currentTrack?.title || "No track playing"}
           </div>
