@@ -28,7 +28,7 @@ const NowPlaying = () => {
         <div>
           <div
             onClick={() => album && goToAlbumPage(album)}
-            className={`${album && "cursor-pointer hover:underline"} text-lg font-semibold`}
+            className={`${album && "cursor-pointer hover:underline"} text-xl font-semibold`}
           >
             {currentTrack?.title || "No track playing"}
           </div>
@@ -38,7 +38,7 @@ const NowPlaying = () => {
               currentTrack.artists.map((artist, index) => (
                 <span
                   key={`${artist}-${index}`}
-                  className="hover:text-dark-fg mr-1 cursor-pointer hover:underline"
+                  className="hover:text-dark-fg text-dark-fg2 mr-1 cursor-pointer hover:underline"
                   onClick={() => goToLibraryPage(artist)}
                 >
                   {artist}
