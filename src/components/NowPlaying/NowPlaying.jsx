@@ -7,7 +7,7 @@ import AudioPlayer from "../AudioPlayer/AudioPlayer.jsx";
 import libraryData from "../../data/library.json";
 
 const NowPlaying = () => {
-  const { goToAlbumPage } = useNavigation();
+  const { goToAlbumPage, goToLibraryPage } = useNavigation();
   const { currentTrack } = usePlayer();
   const { albums } = libraryData;
   const album = currentTrack ? albums[currentTrack.albumId] : null;
@@ -33,9 +33,18 @@ const NowPlaying = () => {
             {currentTrack?.title || "No track playing"}
           </div>
           <div className="text-xs">
-            {Array.isArray(currentTrack?.artists)
-              ? currentTrack?.artists.join(", ")
-              : currentTrack?.artists}
+            {currentTrack &&
+              Array.isArray(currentTrack.artists) &&
+              currentTrack.artists.map((artist, index) => (
+                <span
+                  key={`${artist}-${index}`}
+                  className="hover:text-dark-fg mr-1 cursor-pointer hover:underline"
+                  onClick={() => goToLibraryPage(artist)}
+                >
+                  {artist}
+                  {index < currentTrack.artists.length - 1 && ", "}
+                </span>
+              ))}
           </div>
         </div>
       </div>

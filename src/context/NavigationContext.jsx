@@ -17,6 +17,7 @@ export const NavigationProvider = ({ children }) => {
   const [previousPage, setPreviousPage] = useState(null);
   const [selectedAlbum, setSelectedAlbum] = useState(null);
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
+  const [initialQuery, setInitialQuery] = useState("");
 
   /**
    * Navigates to previous page
@@ -40,8 +41,10 @@ export const NavigationProvider = ({ children }) => {
 
   /**
    * Navigates to library page
+   * * @param {Object} initialQuery - Query to filter library
    */
-  const goToLibraryPage = () => {
+  const goToLibraryPage = (initialQuery = "") => {
+    setInitialQuery(initialQuery);
     setSelectedAlbum(null);
     setSelectedPlaylist(null);
     setPreviousPage(currentPage);
@@ -87,6 +90,7 @@ export const NavigationProvider = ({ children }) => {
     previousPage,
     selectedAlbum,
     selectedPlaylist,
+    initialQuery,
     goToPreviousPage,
     goToHomePage,
     goToLibraryPage,

@@ -8,7 +8,7 @@ import TrackPlaylistModal from "../Modals/TrackPlaylistModal.jsx";
 import libraryData from "../../data/library.json";
 
 const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
-  const { goToAlbumPage } = useNavigation();
+  const { goToAlbumPage, goToLibraryPage } = useNavigation();
   const {
     isPlaying,
     currentTrack,
@@ -50,9 +50,17 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
             {track.title}
           </span>
           <span className="text-dark-fg2 text-sm">
-            {Array.isArray(track.artists)
-              ? track.artists.join(", ")
-              : track.artists}
+            {Array.isArray(track.artists) &&
+              track.artists.map((artist, index) => (
+                <span
+                  key={`${artist}-${index}`}
+                  className="hover:text-dark-fg mr-1 cursor-pointer hover:underline"
+                  onClick={() => goToLibraryPage(artist)}
+                >
+                  {artist}
+                  {index < track.artists.length - 1 && ", "}
+                </span>
+              ))}
           </span>
         </div>
       </div>

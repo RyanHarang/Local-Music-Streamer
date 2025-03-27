@@ -4,8 +4,8 @@ import Album from "../Album/Album.jsx";
 import libraryData from "../../data/library.json";
 
 const Library = () => {
-  const { goToAlbumPage } = useNavigation();
-  const [searchQuery, setSearchQuery] = useState("");
+  const { goToAlbumPage, initialQuery } = useNavigation();
+  const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [searchMode, setSearchMode] = useState("artist");
   const { albums } = libraryData;
 
