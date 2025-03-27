@@ -63,7 +63,7 @@ const Library = () => {
           className="focus:ring-accent w-4/5 rounded border p-2 focus:ring-4 focus:outline-none"
         />
         <button
-          className="bg-accent w-1/5 cursor-pointer rounded p-2"
+          className="bg-accent hover:bg-accent/80 w-1/5 cursor-pointer rounded p-2"
           onClick={() =>
             setSearchMode(searchMode === "artist" ? "album" : "artist")
           }
