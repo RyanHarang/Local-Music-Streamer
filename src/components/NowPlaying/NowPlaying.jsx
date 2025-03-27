@@ -28,11 +28,11 @@ const NowPlaying = () => {
         <div>
           <div
             onClick={() => album && goToAlbumPage(album)}
-            className={`${album && "cursor-pointer hover:underline"} text-sm font-semibold`}
+            className={`${album && "cursor-pointer hover:underline"} text-lg font-semibold`}
           >
             {currentTrack?.title || "No track playing"}
           </div>
-          <div className="text-xs">
+          <div className="text-md">
             {currentTrack &&
               Array.isArray(currentTrack.artists) &&
               currentTrack.artists.map((artist, index) => (
