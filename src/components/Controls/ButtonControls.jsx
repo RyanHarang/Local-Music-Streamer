@@ -7,8 +7,15 @@ import ShuffleButton from "./Buttons/ShuffleButton.jsx";
 import RepeatButton from "./Buttons/RepeatButton.jsx";
 
 const ButtonControls = () => {
-  const { isPlaying, currentTrack, play, pause, skipNext, skipPrev } =
-    usePlayer();
+  const {
+    isPlaying,
+    currentTrack,
+    play,
+    pause,
+    skipNext,
+    skipPrev,
+    toggleMute,
+  } = usePlayer();
   const disabled = !currentTrack;
 
   useEffect(() => {
@@ -17,23 +24,24 @@ const ButtonControls = () => {
       if (
         activeElement instanceof HTMLInputElement ||
         activeElement instanceof HTMLTextAreaElement ||
-        activeElement instanceof HTMLSelectElement
+        activeElement instanceof HTMLSelectElement ||
+        disabled
       )
         return;
 
       switch (e.code) {
         case "Space":
           e.preventDefault();
-          if (disabled) return;
           isPlaying ? pause() : play(currentTrack);
           break;
         case "ArrowRight":
-          if (disabled) return;
           skipNext();
           break;
         case "ArrowLeft":
-          if (disabled) return;
           skipPrev();
+          break;
+        case "KeyM":
+          toggleMute();
           break;
         default:
           break;
