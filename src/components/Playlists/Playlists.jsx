@@ -29,14 +29,21 @@ const Playlists = () => {
       {!playlists || playlists.length === 0 ? (
         <p>No playlists yet. Create one!</p>
       ) : (
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-3 gap-4">
           {playlists.map((playlist) => (
             <div
               key={playlist.id}
               onClick={() => goToPlaylistPage(playlist)}
-              className="via-accent/40 to-accent flex cursor-pointer justify-between rounded bg-gradient-to-br from-black p-4 shadow hover:underline"
+              className="group via-accent/40 to-accent flex cursor-pointer justify-between rounded bg-gradient-to-br from-black p-4 shadow"
             >
-              <h3 className="mt-2 text-lg font-semibold">{playlist.name}</h3>
+              <div>
+                <h3 className="mt-2 text-lg font-semibold group-hover:underline">
+                  {playlist.name}
+                </h3>
+                <span className="text-dark-fg2 text-sm">
+                  {playlist.trackCount} tracks
+                </span>
+              </div>
               <TrashButton handleClick={(e) => handleDelete(e, playlist.id)} />
             </div>
           ))}
