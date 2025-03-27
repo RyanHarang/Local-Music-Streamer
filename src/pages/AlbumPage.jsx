@@ -7,7 +7,9 @@ const AlbumPage = () => {
     useNavigation();
   return (
     <div className="p-4">
-      <BackButton goBack={previousPage ? goToPreviousPage : goToLibraryPage} />
+      <BackButton
+        handleClick={previousPage ? goToPreviousPage : goToLibraryPage}
+      />
       <Album album={selectedAlbum} onAlbumPage={true} />
     </div>
   );

@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import { usePlayer } from "../../context/PlayerContext.jsx";
 
 const AudioPlayer = () => {
-  const audioRef = useRef(null);
   const {
     currentTrack,
     isPlaying,
@@ -12,6 +11,7 @@ const AudioPlayer = () => {
     volume,
     isMuted,
   } = usePlayer();
+  const audioRef = useRef(null);
 
   useEffect(() => {
     if (audioRef.current && currentTrack?.path) {

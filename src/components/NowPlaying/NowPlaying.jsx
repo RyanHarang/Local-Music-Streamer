@@ -10,7 +10,6 @@ const NowPlaying = () => {
   const { goToAlbumPage } = useNavigation();
   const { currentTrack } = usePlayer();
   const { albums } = libraryData;
-
   const album = currentTrack ? albums[currentTrack.albumId] : null;
   const albumCover = album?.cover;
 

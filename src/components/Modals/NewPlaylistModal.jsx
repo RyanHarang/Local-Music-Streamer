@@ -2,8 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { usePlaylists } from "../../context/PlaylistContext.jsx";
 
 const NewPlaylistModal = ({ closeModal }) => {
-  const [playlistName, setPlaylistName] = useState("");
   const { createPlaylist } = usePlaylists();
+  const [playlistName, setPlaylistName] = useState("");
   const dialogRef = useRef(null);
   const inputRef = useRef(null);
 

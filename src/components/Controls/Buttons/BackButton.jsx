@@ -1,9 +1,9 @@
 import BackIcon from "../../../assets/svg/navigation/BackIcon.jsx";
 
-const BackButton = ({ goBack }) => {
+const BackButton = ({ handleClick }) => {
   return (
     <button
-      onClick={goBack}
+      onClick={handleClick}
       className="group text-accent mb-6 flex items-center justify-center gap-2 hover:underline"
     >
       <BackIcon /> Back

@@ -35,7 +35,9 @@ const PlaylistPage = () => {
   };
   return (
     <div className="p-4">
-      <BackButton goBack={previousPage ? goToPreviousPage : goToHomePage} />
+      <BackButton
+        handleClick={previousPage ? goToPreviousPage : goToHomePage}
+      />
 
       <div>
         {isEditing ? (
