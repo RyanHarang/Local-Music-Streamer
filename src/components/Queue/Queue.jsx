@@ -7,7 +7,7 @@ const Queue = () => {
   const { queue, removeFromQueue, clearQueue, setQueue } = usePlayer();
 
   const renderQueueItem = ({ item: track, index, dragHandleProps }) => (
-    <div className="hover:bg-dark-bg3 h-12 cursor-grab overflow-hidden rounded px-2 py-1 transition active:cursor-grabbing">
+    <div className="hover:bg-dark-bg3 h-12 cursor-grab overflow-hidden rounded py-1 pr-2 pl-1 transition active:cursor-grabbing">
       <div className="flex h-full items-center justify-between">
         <div className="flex w-4/5 items-center gap-2 overflow-hidden">
           <span className="text-dark-fg2 flex-shrink-0" {...dragHandleProps}>
