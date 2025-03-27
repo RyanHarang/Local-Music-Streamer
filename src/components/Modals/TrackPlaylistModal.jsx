@@ -6,19 +6,23 @@ const TrackPlaylistModal = ({ track, closeModal }) => {
     usePlaylists();
   const [selectedPlaylists, setSelectedPlaylists] = useState([]);
   const [initialPlaylists, setInitialPlaylists] = useState([]);
+  const [isInitialized, setIsInitialized] = useState(false);
   const dialogRef = useRef(null);
 
   useEffect(() => {
     const dialogElement = dialogRef.current;
     if (dialogElement) dialogElement.showModal();
 
-    const trackPlaylists = playlists
-      .filter((playlist) => playlist.tracks.some((t) => t.id === track.id))
-      .map((playlist) => playlist.id);
+    if (!isInitialized) {
+      const trackPlaylists = playlists
+        .filter((playlist) => playlist.tracks.some((t) => t.id === track.id))
+        .map((playlist) => playlist.id);
 
-    setSelectedPlaylists(trackPlaylists);
-    setInitialPlaylists(trackPlaylists);
-  }, [closeModal, track, playlists]);
+      setSelectedPlaylists(trackPlaylists);
+      setInitialPlaylists(trackPlaylists);
+      setIsInitialized(true);
+    }
+  }, [closeModal, track, playlists, isInitialized]);
 
   const handleCheckboxChange = (playlistId) => {
     setSelectedPlaylists((prev) =>
