@@ -47,6 +47,8 @@ const formatDate = (dateStr) => {
   if (!dateStr) return null;
   const date = new Date(dateStr);
   if (isNaN(date.getTime())) return null;
+  date.setDate(date.getDate() + 1);
+
   return date.toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
