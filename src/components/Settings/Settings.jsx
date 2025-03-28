@@ -42,9 +42,9 @@ const Settings = () => {
   return (
     <section className="space-y-8 p-4">
       <h2 className="mb-4 text-2xl font-bold">Settings</h2>
-      <div className="mx-auto flex h-full w-full max-w-md flex-col gap-4 p-4">
+      <div className="mx-auto flex h-full w-full max-w-lg flex-col gap-4 p-4">
         <div className="flex items-center justify-between py-2">
-          <span className="text-sm font-medium">Rebuild Music Library</span>
+          <span className="text-lg">Rebuild Music Library</span>
           <button
             onClick={buildLibrary}
             disabled={isBuilding}
@@ -55,8 +55,8 @@ const Settings = () => {
         </div>
 
         <div className="flex items-center justify-between py-2">
-          <span className="text-sm font-medium">Version</span>
-          <span className="text-xs text-gray-500">v1.0.0</span>
+          <span className="text-lg font-medium">Version</span>
+          <span className="text-gray-500">v1.0.0</span>
         </div>
       </div>
 
