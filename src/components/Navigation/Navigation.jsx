@@ -4,7 +4,7 @@ const Navigation = () => {
   const { currentPage, goToHomePage, goToLibraryPage, goToSettingsPage } =
     useNavigation();
   const linkClasses = (page) =>
-    `relative transition-colors ${
+    `relative transition-colors cursor-pointer ${
       currentPage === page ? "text-accent underline" : "hover:underline"
     }`;
 
