@@ -32,8 +32,9 @@ dist-ssr
 *.jpg
 
 # json Database
-*/library.json
-*/playlists.json
+src/data/playlists.json
+src/data/library.json
 
 # organizational scripts
 *.py
+
