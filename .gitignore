@@ -31,7 +31,8 @@ dist-ssr
 *.jpg
 
 # json Database
-*.json
+*/library.json
+*/playlists.json
 
 # organizational scripts
 *.py
