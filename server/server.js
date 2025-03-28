@@ -2,6 +2,7 @@ const express = require("express");
 const fs = require("fs").promises;
 const path = require("path");
 const cors = require("cors");
+const { exec } = require("child_process");
 const app = express();
 const PORT = 3000;
 
@@ -9,6 +10,10 @@ app.use(cors());
 app.use(express.json());
 
 const PLAYLISTS_FILE = path.join(__dirname, "../src/data/playlists.json");
+const LIBRARY_BUILD_SCRIPT = path.join(
+  __dirname,
+  "../src/data/build-library.js",
+);
 
 const getPlaylists = async () => {
   try {
@@ -197,6 +202,32 @@ app.delete("/playlists/:playlistId/tracks/:trackId", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Error removing track from playlist" });
   }
+});
+
+app.post("/build-library", (req, res) => {
+  exec(`node ${LIBRARY_BUILD_SCRIPT}`, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Execution error: ${error}`);
+      return res.status(500).json({
+        message: "Failed to build library",
+        error: error.message,
+      });
+    }
+
+    if (stderr) {
+      console.error(`Script stderr: ${stderr}`);
+      return res.status(500).json({
+        message: "Library build encountered errors",
+        error: stderr,
+      });
+    }
+
+    console.log(`Library build output: ${stdout}`);
+    res.status(200).json({
+      message: "Library built successfully!",
+      output: stdout,
+    });
+  });
 });
 
 app.listen(PORT, () => {

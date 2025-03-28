@@ -34,17 +34,21 @@ const Playlists = () => {
             <div
               key={playlist.id}
               onClick={() => goToPlaylistPage(playlist)}
-              className="group via-accent/40 to-accent flex cursor-pointer justify-between rounded bg-gradient-to-br from-black p-4 shadow"
+              className="via-accent/40 to-accent hover:bg-accent flex cursor-pointer items-center justify-center rounded bg-gradient-to-br from-black px-3 py-1 shadow transition-all duration-200"
             >
-              <div>
-                <h3 className="mt-2 text-lg font-semibold group-hover:underline">
-                  {playlist.name}
-                </h3>
-                <span className="text-dark-fg2 text-sm">
-                  {playlist.trackCount} tracks
-                </span>
+              <div className="flex w-full justify-between">
+                <div>
+                  <h3 className="mt-2 text-lg font-semibold group-hover:underline">
+                    {playlist.name}
+                  </h3>
+                  <span className="text-dark-fg2 text-sm">
+                    {playlist.trackCount} tracks
+                  </span>
+                </div>
+                <TrashButton
+                  handleClick={(e) => handleDelete(e, playlist.id)}
+                />
               </div>
-              <TrashButton handleClick={(e) => handleDelete(e, playlist.id)} />
             </div>
           ))}
         </div>
