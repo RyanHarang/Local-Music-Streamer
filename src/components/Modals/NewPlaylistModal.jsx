@@ -52,7 +52,7 @@ const NewPlaylistModal = ({ closeModal }) => {
           <button
             onClick={handleSubmit}
             disabled={!playlistName.trim()}
-            className="bg-accent hover:bg-accent/80 rounded-md px-6 py-2 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+            className="disabled:hover:bg-accent bg-accent hover:bg-accent/80 rounded-md px-6 py-2 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
           >
             Save
           </button>

@@ -1,6 +1,9 @@
 const express = require("express");
-const fs = require("fs").promises;
+const fs = require("fs");
+const fsPromises = require("fs").promises;
 const path = require("path");
+const mm = require("music-metadata");
+const multer = require("multer");
 const cors = require("cors");
 const { exec } = require("child_process");
 const app = express();
@@ -19,7 +22,7 @@ const getPlaylists = async () => {
   try {
     await ensurePlaylistFileExists();
 
-    const data = await fs.readFile(PLAYLISTS_FILE, "utf8");
+    const data = await fsPromises.readFile(PLAYLISTS_FILE, "utf8");
     const parsedData = JSON.parse(data);
 
     return parsedData.playlists ? parsedData : { playlists: [] };
@@ -31,9 +34,9 @@ const getPlaylists = async () => {
 
 const ensurePlaylistFileExists = async () => {
   try {
-    await fs.access(PLAYLISTS_FILE);
+    await fsPromises.access(PLAYLISTS_FILE);
   } catch {
-    await fs.writeFile(
+    await fsPromises.writeFile(
       PLAYLISTS_FILE,
       JSON.stringify({ playlists: [] }, null, 2),
     );
@@ -43,12 +46,88 @@ const ensurePlaylistFileExists = async () => {
 const savePlaylists = async (playlists) => {
   try {
     const playlistsData = { playlists };
-    await fs.writeFile(PLAYLISTS_FILE, JSON.stringify(playlistsData, null, 2));
+    await fsPromises.writeFile(
+      PLAYLISTS_FILE,
+      JSON.stringify(playlistsData, null, 2),
+    );
   } catch (error) {
     console.error("Error saving playlists:", error);
     throw error;
   }
 };
+
+// const upload = multer({
+//   storage: multer.diskStorage({
+//     destination: (req, file, cb) => {
+//       const uploadPath = path.join(__dirname, "../public/music");
+
+//       if (!fs.existsSync(uploadPath)) {
+//         fs.mkdirSync(uploadPath, { recursive: true });
+//       }
+
+//       cb(null, uploadPath);
+//     },
+//     filename: (req, file, cb) => {
+//       // Generate unique filename to prevent overwrites
+//       const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+//       cb(
+//         null,
+//         `${file.fieldname}-${uniqueSuffix}${path.extname(file.originalname)}`,
+//       );
+//     },
+//   }),
+//   fileFilter: (req, file, cb) => {
+//     const allowedTypes = [
+//       "audio/mpeg",
+//       "audio/wav",
+//       "audio/flac",
+//       "audio/m4a",
+//       "audio/aac",
+//     ];
+
+//     if (allowedTypes.includes(file.mimetype)) {
+//       cb(null, true);
+//     } else {
+//       cb(new Error("Invalid file type. Only audio files are allowed."), false);
+//     }
+//   },
+//   limits: {
+//     fileSize: 50 * 1024 * 1024, // 50MB max file size
+//   },
+// });
+const uploadPath = path.join(__dirname, "../public/music");
+if (!fs.existsSync(uploadPath)) {
+  fs.mkdirSync(uploadPath, { recursive: true });
+}
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadPath);
+  },
+  filename: (req, file, cb) => {
+    const tempFilename = Date.now() + path.extname(file.originalname);
+    cb(null, tempFilename);
+  },
+});
+
+const upload = multer({
+  storage,
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = [
+      "audio/mpeg",
+      "audio/wav",
+      "audio/flac",
+      "audio/m4a",
+      "audio/aac",
+    ];
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error("Invalid file type. Only audio files are allowed."), false);
+    }
+  },
+  limits: { fileSize: 50 * 1024 * 1024 }, // 50MB max file size
+});
 
 // Get all playlists
 app.get("/playlists", async (req, res) => {
@@ -228,6 +307,71 @@ app.post("/build-library", (req, res) => {
       output: stdout,
     });
   });
+});
+
+// app.post("/upload-music", upload.array("musicFiles"), async (req, res) => {
+//   try {
+//     if (!req.files || req.files.length === 0) {
+//       return res.status(400).json({ message: "No files uploaded" });
+//     }
+
+//     // Extract original filenames and new paths
+//     const uploadedFiles = req.files.map((file) => ({
+//       originalName: file.originalname,
+//       newPath: file.path,
+//     }));
+
+//     res.status(200).json({
+//       message: "Files uploaded successfully",
+//       files: uploadedFiles,
+//     });
+//   } catch (error) {
+//     console.error("Upload error:", error);
+//     res.status(500).json({ message: "Upload failed", error: error.message });
+//   }
+// });
+app.post("/upload-music", upload.array("musicFiles"), async (req, res) => {
+  try {
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ message: "No files uploaded" });
+    }
+
+    const renamedFiles = [];
+
+    for (const file of req.files) {
+      try {
+        const metadata = await mm.parseFile(file.path);
+        const trackNumber = metadata.common.track
+          ? String(metadata.common.track.no).padStart(2, "0")
+          : "00";
+        const title =
+          metadata.common.title ||
+          path.basename(file.originalname, path.extname(file.originalname));
+        const sanitizedTitle = title.replace(/[^a-zA-Z0-9 \-]/g, "").trim();
+        const newFilename = `${trackNumber} - ${sanitizedTitle}${path.extname(file.originalname)}`;
+
+        // Rename the file with extracted metadata
+        const newPath = path.join(uploadPath, newFilename);
+        await fsPromises.rename(file.path, newPath);
+
+        renamedFiles.push({ originalName: file.originalname, newPath });
+      } catch (error) {
+        console.error("Metadata extraction failed:", error);
+        renamedFiles.push({
+          originalName: file.originalname,
+          newPath: file.path,
+        });
+      }
+    }
+
+    res.status(200).json({
+      message: "Files uploaded successfully",
+      files: renamedFiles,
+    });
+  } catch (error) {
+    console.error("Upload error:", error);
+    res.status(500).json({ message: "Upload failed", error: error.message });
+  }
 });
 
 app.listen(PORT, () => {
