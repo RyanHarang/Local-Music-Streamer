@@ -58,7 +58,7 @@ const NewPlaylistModal = ({ closeModal }) => {
           </button>
           <button
             onClick={closeModal}
-            className="rounded-md px-6 py-2 transition-colors hover:bg-gray-700"
+            className="hover:bg-dark-bg2 rounded-md px-6 py-2 transition-colors"
           >
             Close
           </button>
