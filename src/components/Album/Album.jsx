@@ -30,13 +30,11 @@ const Album = ({ album, onAlbumClick, onAlbumPage }) => {
           <h3 className="group-hover:decoration-accent pb-2 text-xl font-semibold decoration-3 underline-offset-6 group-hover:underline">
             {album.title}
           </h3>
-          <p className="text-sm text-gray-500">Tracks: {album.trackCount}</p>
-          <p className="text-sm text-gray-500">
+          <p className="text-dark-fg3">Tracks: {album.trackCount}</p>
+          <p className="text-dark-fg3">
             Duration: {formatDuration(album.albumDuration)}
           </p>
-          <p className="text-sm text-gray-500">
-            Released: {album.albumReleaseDate}
-          </p>
+          <p className="text-dark-fg3">Released: {album.albumReleaseDate}</p>
         </div>
       </div>
 

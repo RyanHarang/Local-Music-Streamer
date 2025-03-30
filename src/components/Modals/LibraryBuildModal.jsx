@@ -18,8 +18,8 @@ const LibraryBuildModal = ({ buildOutput, closeModal }) => {
         <h3 className="mb-4 text-center text-2xl font-semibold">
           Library Build Results
         </h3>
-        <div className="mb-4 max-h-64 overflow-y-auto rounded bg-gray-800 p-4">
-          <pre className="text-sm break-words whitespace-pre-wrap text-gray-300">
+        <div className="bg-dark-bg2 mb-4 max-h-64 overflow-y-auto rounded p-4">
+          <pre className="text-dark-fg2 text-sm break-words whitespace-pre-wrap">
             {buildOutput || "No output available"}
           </pre>
         </div>

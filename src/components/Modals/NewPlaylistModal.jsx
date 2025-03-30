@@ -44,7 +44,7 @@ const NewPlaylistModal = ({ closeModal }) => {
             onChange={(e) => setPlaylistName(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Enter playlist name"
-            className="focus:ring-accent w-full rounded border bg-gray-700 p-2 text-white focus:ring-4 focus:outline-none"
+            className="focus:ring-accent bg-dark-bg3 w-full rounded border p-2 focus:ring-4 focus:outline-none"
           />
         </div>
 

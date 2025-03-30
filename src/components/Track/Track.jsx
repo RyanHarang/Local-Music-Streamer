@@ -72,10 +72,10 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
           {track.albumName}
         </span>
       </div>
-      <div className="flex w-1/5 items-center justify-end gap-8 text-sm">
+      <div className="flex w-1/5 items-center justify-end gap-8">
         <QueueButton handleClick={() => addToQueue(track)} />
         <PlaylistButton handleClick={() => setShowModal(true)} />
-        <span className="text-dark-fg2 w-6">
+        <span className="text-dark-fg2 w-1/5">
           {formatDuration(track.duration)}
         </span>
       </div>

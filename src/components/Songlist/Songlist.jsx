@@ -28,7 +28,7 @@ const Songlist = ({ tracks }) => {
       </div>
       <div className="border-dark-fg2 flex w-full flex-col overflow-hidden rounded-md border">
         {!tracks || tracks.length === 0 ? (
-          <div className="p-4 text-center text-gray-500">
+          <div className="text-dark-fg3 p-4 text-center">
             No songs available
           </div>
         ) : (

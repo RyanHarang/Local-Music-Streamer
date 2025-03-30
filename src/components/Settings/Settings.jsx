@@ -46,7 +46,7 @@ const Settings = () => {
       <h2 className="mb-4 text-2xl font-bold">Settings</h2>
       <div className="mx-auto flex h-full w-full max-w-lg flex-col gap-4 p-4">
         <div className="flex items-center justify-between py-2">
-          <span className="text-sm font-medium">Upload Music</span>
+          <span className="text-lg">Upload Music</span>
           <button
             onClick={() => setShowUploadModal(true)}
             className="bg-accent hover:bg-accent/80 rounded px-4 py-2 disabled:cursor-not-allowed disabled:opacity-50"
@@ -67,7 +67,7 @@ const Settings = () => {
 
         <div className="flex items-center justify-between py-2">
           <span className="text-lg font-medium">Version</span>
-          <span className="text-gray-500">v1.0.0</span>
+          <span className="text-dark-fg3">v1.0.0</span>
         </div>
       </div>
 

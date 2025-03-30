@@ -132,7 +132,7 @@ const FileUploadModal = ({ closeModal }) => {
           onDragLeave={handleDrag}
           onDragOver={handleDrag}
           onDrop={handleDrop}
-          className={`rounded-lg border-2 border-dashed p-6 text-center transition-colors ${dragActive ? "border-blue-500 bg-blue-100/10" : "border-gray-300"} `}
+          className={`rounded-lg border-2 border-dashed p-6 text-center transition-colors ${dragActive ? "border-accent bg-dark-bg3" : "border-dark-fg2"} `}
         >
           <input
             type="file"
@@ -143,16 +143,16 @@ const FileUploadModal = ({ closeModal }) => {
             className="hidden"
           />
           <div className="flex flex-col items-center justify-center">
-            <p className="mb-2 text-gray-600">
+            <p className="text-dark-fg mb-2">
               Drag and drop files here or
               <button
                 onClick={() => fileInputRef.current.click()}
-                className="ml-2 text-blue-500 hover:underline"
+                className="text-accent ml-2 cursor-pointer hover:underline"
               >
                 browse
               </button>
             </p>
-            <p className="text-xs text-gray-500">
+            <p className="text-dark-fg3 text-xs">
               Supported formats: {ALLOWED_EXTENSIONS.join(", ")}
               <br />
               Max file size: 50MB

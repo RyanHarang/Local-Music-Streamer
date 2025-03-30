@@ -39,10 +39,10 @@ const PlaylistPage = () => {
         handleClick={previousPage ? goToPreviousPage : goToHomePage}
       />
 
-      <div>
+      <div className="mb-2">
         {isEditing ? (
           <input
-            className="border-b-2 border-gray-400 text-3xl font-bold focus:outline-none"
+            className="border-dark-fg3 border-b-2 text-3xl font-bold focus:outline-none"
             value={newName}
             onChange={(e) => setNewName(e.target.value)}
             onBlur={handleRename}
@@ -57,9 +57,8 @@ const PlaylistPage = () => {
             {currentPlaylist.name}
           </h1>
         )}
-        <p className="text-gray-500">Tracks: {currentPlaylist.trackCount}</p>
+        <p className="text-dark-fg3">Tracks: {currentPlaylist.trackCount}</p>
       </div>
-
       <Songlist tracks={sortedPlaylistTracks} />
     </div>
   );

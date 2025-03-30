@@ -15,7 +15,7 @@ const Queue = () => {
           </span>
           <div className="flex flex-grow flex-col overflow-hidden">
             <span className="truncate text-sm font-medium">{track.title}</span>
-            <span className="truncate text-xs text-gray-500">
+            <span className="text-dark-fg3 truncate text-xs">
               {track.artists}
             </span>
           </div>
