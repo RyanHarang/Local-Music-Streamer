@@ -91,6 +91,7 @@ export const NavigationProvider = ({ children }) => {
     selectedAlbum,
     selectedPlaylist,
     initialQuery,
+    setInitialQuery,
     goToPreviousPage,
     goToHomePage,
     goToLibraryPage,

@@ -1,7 +1,11 @@
+import { useNavigation } from "../../context/NavigationContext.jsx";
 import { usePlayer } from "../../context/PlayerContext.jsx";
+import libraryData from "../../data/library.json";
 
 const UpcomingSongs = () => {
+  const { goToAlbumPage, goToLibraryPage } = useNavigation();
   const { getUpcomingSongs } = usePlayer();
+  const { albums } = libraryData;
   const upcomingTracks = getUpcomingSongs();
 
   return (
@@ -18,11 +22,29 @@ const UpcomingSongs = () => {
           upcomingTracks.map((track, index) => (
             <div
               key={index}
-              className="hover:bg-dark-bg3 cursor-pointer rounded px-2 py-1 transition"
+              className="hover:bg-dark-bg3 rounded px-1 py-1 transition"
             >
-              <div className="flex items-center justify-between">
-                <span className="p-1 text-sm font-medium">{track.title}</span>
-                <span className="text-xs text-gray-500">{track.artist}</span>
+              <div className="flex flex-col justify-center">
+                <span
+                  onClick={() => goToAlbumPage(albums[track.albumId])}
+                  className="cursor-pointer hover:underline"
+                >
+                  {track.title}
+                </span>
+                <span className="text-dark-fg3 text-xs">
+                  {track &&
+                    Array.isArray(track.artists) &&
+                    track.artists.map((artist, index) => (
+                      <span
+                        key={`${artist}-${index}`}
+                        className="hover:text-dark-fg text-dark-fg2 mr-1 cursor-pointer hover:underline"
+                        onClick={() => goToLibraryPage(artist)}
+                      >
+                        {artist}
+                        {index < track.artists.length - 1 && ", "}
+                      </span>
+                    ))}
+                </span>
               </div>
             </div>
           ))}

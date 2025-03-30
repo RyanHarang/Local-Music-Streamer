@@ -1,15 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigation } from "../../context/NavigationContext.jsx";
 import Album from "../Album/Album.jsx";
 import libraryData from "../../data/library.json";
 
 const Library = () => {
-  const { goToAlbumPage, initialQuery } = useNavigation();
+  const { goToAlbumPage, initialQuery, setInitialQuery } = useNavigation();
   const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [searchMode, setSearchMode] = useState("artist");
   const { albums } = libraryData;
-
   const albumsByArtist = {};
+
+  useEffect(() => {
+    setSearchQuery(initialQuery);
+  }, [initialQuery]);
+
   Object.values(albums).forEach((album) => {
     if (!albumsByArtist[album.albumArtist]) {
       albumsByArtist[album.albumArtist] = [];
@@ -39,18 +43,21 @@ const Library = () => {
         } else if (searchMode === "album") {
           return album.title.toLowerCase().includes(searchQuery.toLowerCase());
         }
-
         return true;
       });
 
       if (filteredAlbums.length > 0) {
         acc[artistName] = filteredAlbums;
       }
-
       return acc;
     },
     {},
   );
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+    setInitialQuery(e.target.value);
+  };
 
   return (
     <div className="p-4">
@@ -59,7 +66,7 @@ const Library = () => {
           type="text"
           placeholder={`Search by ${searchMode}`}
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={(e) => handleSearch(e)}
           className="focus:ring-accent w-4/5 rounded border p-2 focus:ring-4 focus:outline-none"
         />
         <button
