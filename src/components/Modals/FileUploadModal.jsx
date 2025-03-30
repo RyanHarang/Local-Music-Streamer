@@ -6,7 +6,6 @@ const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
 const FileUploadModal = ({ closeModal }) => {
   const [dragActive, setDragActive] = useState(false);
   const [files, setFiles] = useState([]);
-  const [uploadProgress, setUploadProgress] = useState(0);
   const [isUploading, setIsUploading] = useState(false);
   const fileInputRef = useRef(null);
   const dialogRef = useRef(null);
@@ -20,11 +19,8 @@ const FileUploadModal = ({ closeModal }) => {
 
   const validateFiles = (fileList) => {
     const validFiles = Array.from(fileList).filter((file) => {
-      // Check file extension
       const extension = "." + file.name.split(".").pop().toLowerCase();
       const isAllowedType = ALLOWED_EXTENSIONS.includes(extension);
-
-      // Check file size
       const isAllowedSize = file.size <= MAX_FILE_SIZE;
 
       return isAllowedType && isAllowedSize;
@@ -36,7 +32,6 @@ const FileUploadModal = ({ closeModal }) => {
   const handleFiles = (fileList) => {
     const validFiles = validateFiles(fileList);
     setFiles((prevFiles) => {
-      // Prevent duplicates
       const newFiles = validFiles.filter(
         (newFile) =>
           !prevFiles.some((existingFile) => existingFile.name === newFile.name),
@@ -88,29 +83,12 @@ const FileUploadModal = ({ closeModal }) => {
         body: formData,
       });
 
-      if (!response.ok) {
-        throw new Error("Upload failed");
-      }
+      if (!response.ok) throw new Error("Upload failed");
 
-      const result = await response.json();
-
-      // Reset state after successful upload
       setFiles([]);
-      setUploadProgress(0);
-
-      // Optionally trigger library rebuild
-      // await fetch("http://localhost:3000/build-library", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   body: JSON.stringify({ mode: "incremental" }),
-      // });
-
       closeModal();
     } catch (error) {
       console.error("Upload error:", error);
-      // Handle error (maybe show error message)
     } finally {
       setIsUploading(false);
     }

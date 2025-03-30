@@ -17,9 +17,7 @@ const AudioPlayer = () => {
     if (audioRef.current && currentTrack?.path) {
       if (audioRef.current.src !== currentTrack.path) {
         audioRef.current.src = currentTrack.path;
-        if (isPlaying) {
-          audioRef.current.play();
-        }
+        if (isPlaying) audioRef.current.play();
       }
     }
   }, [currentTrack]);
