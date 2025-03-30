@@ -56,45 +56,6 @@ const savePlaylists = async (playlists) => {
   }
 };
 
-// const upload = multer({
-//   storage: multer.diskStorage({
-//     destination: (req, file, cb) => {
-//       const uploadPath = path.join(__dirname, "../public/music");
-
-//       if (!fs.existsSync(uploadPath)) {
-//         fs.mkdirSync(uploadPath, { recursive: true });
-//       }
-
-//       cb(null, uploadPath);
-//     },
-//     filename: (req, file, cb) => {
-//       // Generate unique filename to prevent overwrites
-//       const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-//       cb(
-//         null,
-//         `${file.fieldname}-${uniqueSuffix}${path.extname(file.originalname)}`,
-//       );
-//     },
-//   }),
-//   fileFilter: (req, file, cb) => {
-//     const allowedTypes = [
-//       "audio/mpeg",
-//       "audio/wav",
-//       "audio/flac",
-//       "audio/m4a",
-//       "audio/aac",
-//     ];
-
-//     if (allowedTypes.includes(file.mimetype)) {
-//       cb(null, true);
-//     } else {
-//       cb(new Error("Invalid file type. Only audio files are allowed."), false);
-//     }
-//   },
-//   limits: {
-//     fileSize: 50 * 1024 * 1024, // 50MB max file size
-//   },
-// });
 const uploadPath = path.join(__dirname, "../public/music");
 if (!fs.existsSync(uploadPath)) {
   fs.mkdirSync(uploadPath, { recursive: true });
@@ -309,27 +270,6 @@ app.post("/build-library", (req, res) => {
   });
 });
 
-// app.post("/upload-music", upload.array("musicFiles"), async (req, res) => {
-//   try {
-//     if (!req.files || req.files.length === 0) {
-//       return res.status(400).json({ message: "No files uploaded" });
-//     }
-
-//     // Extract original filenames and new paths
-//     const uploadedFiles = req.files.map((file) => ({
-//       originalName: file.originalname,
-//       newPath: file.path,
-//     }));
-
-//     res.status(200).json({
-//       message: "Files uploaded successfully",
-//       files: uploadedFiles,
-//     });
-//   } catch (error) {
-//     console.error("Upload error:", error);
-//     res.status(500).json({ message: "Upload failed", error: error.message });
-//   }
-// });
 app.post("/upload-music", upload.array("musicFiles"), async (req, res) => {
   try {
     if (!req.files || req.files.length === 0) {
