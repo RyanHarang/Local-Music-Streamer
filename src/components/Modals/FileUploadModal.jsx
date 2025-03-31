@@ -22,8 +22,9 @@ const FileUploadModal = ({ closeModal }) => {
       const extension = "." + file.name.split(".").pop().toLowerCase();
       const isAllowedType = ALLOWED_EXTENSIONS.includes(extension);
       const isAllowedSize = file.size <= MAX_FILE_SIZE;
+      const isMimeTypeValid = file.type.startsWith("audio/");
 
-      return isAllowedType && isAllowedSize;
+      return isAllowedType && isAllowedSize && isMimeTypeValid;
     });
 
     return validFiles;
@@ -69,21 +70,20 @@ const FileUploadModal = ({ closeModal }) => {
 
   const uploadFiles = async () => {
     if (files.length === 0) return;
-
     setIsUploading(true);
-    const formData = new FormData();
-
-    files.forEach((file) => {
-      formData.append("musicFiles", file);
-    });
-
     try {
-      const response = await fetch("http://localhost:3000/upload-music", {
-        method: "POST",
-        body: formData,
-      });
+      // Upload files one by one
+      for (const file of files) {
+        const formData = new FormData();
+        formData.append("file", file);
 
-      if (!response.ok) throw new Error("Upload failed");
+        const response = await fetch("http://localhost:3000/upload-music", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!response.ok) throw new Error("Upload failed");
+      }
 
       setFiles([]);
       closeModal();
@@ -93,6 +93,28 @@ const FileUploadModal = ({ closeModal }) => {
       setIsUploading(false);
     }
   };
+  // const formData = new FormData();
+
+  //   files.forEach((file) => {
+  //     formData.append("musicFiles", file);
+  //   });
+
+  //   try {
+  //     const response = await fetch("http://localhost:3000/upload-music", {
+  //       method: "POST",
+  //       body: formData,
+  //     });
+
+  //     if (!response.ok) throw new Error("Upload failed");
+
+  //     setFiles([]);
+  //     closeModal();
+  //   } catch (error) {
+  //     console.error("Upload error:", error);
+  //   } finally {
+  //     setIsUploading(false);
+  //   }
+  // };
 
   return (
     <dialog
