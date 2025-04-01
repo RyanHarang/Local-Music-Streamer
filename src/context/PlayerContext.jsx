@@ -69,7 +69,9 @@ export const PlayerProvider = ({ children }) => {
    * Moves seek head to 0
    */
   const restart = () => {
-    if (seekToFn) seekToFn(0);
+    if (seekToFn) {
+      seekToFn(0);
+    }
   };
 
   /**
@@ -144,8 +146,11 @@ export const PlayerProvider = ({ children }) => {
    * @param {Object} nextTrack - Track to check
    */
   const checkNextTrack = (nextTrack) => {
-    if (nextTrack === currentTrack) replay();
-    else play(nextTrack);
+    if (nextTrack === currentTrack) {
+      replay();
+    } else {
+      play(nextTrack);
+    }
   };
 
   /**
@@ -216,7 +221,9 @@ export const PlayerProvider = ({ children }) => {
    * @param {number} [index=0] - Index of track to start playing
    */
   const startSonglist = (songlist, index = 0) => {
-    if (!songlist || songlist.length === 0) return;
+    if (!songlist || songlist.length === 0) {
+      return;
+    }
 
     setActiveSonglist(songlist);
     setSonglistIndex(index);
@@ -259,7 +266,9 @@ export const PlayerProvider = ({ children }) => {
    * @returns {Array} Array of upcoming tracks
    */
   const getUpcomingSongs = () => {
-    if (!activeSonglist || activeSonglist.length === 0) return [];
+    if (!activeSonglist || activeSonglist.length === 0) {
+      return [];
+    }
 
     if (isShuffle && shufflePath) {
       const nextIndexes = shufflePath.slice(shufflePathIndex + 1);
@@ -304,7 +313,9 @@ export const PlayerProvider = ({ children }) => {
    * Handles creation of shuffle path
    */
   const handleShufflePath = (index = songlistIndex) => {
-    if (!activeSonglist || activeSonglist.length === 0) return;
+    if (!activeSonglist || activeSonglist.length === 0) {
+      return;
+    }
     if (!isShuffle) {
       setShufflePath(null);
       return;
@@ -334,7 +345,9 @@ export const PlayerProvider = ({ children }) => {
    */
   const updateTime = (time, dur) => {
     setCurrentTime(time);
-    if (dur && !isNaN(dur)) setDuration(dur);
+    if (dur && !isNaN(dur)) {
+      setDuration(dur);
+    }
   };
 
   /**
@@ -360,7 +373,9 @@ export const PlayerProvider = ({ children }) => {
    * Updates shuffle path when active songlist changes
    */
   useEffect(() => {
-    if (!activeSonglist || activeSonglist.length === 0) return;
+    if (!activeSonglist || activeSonglist.length === 0) {
+      return;
+    }
     if (isShuffle) {
       handleShufflePath();
     } else {

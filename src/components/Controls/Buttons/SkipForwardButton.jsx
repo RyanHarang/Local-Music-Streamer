@@ -5,7 +5,9 @@ const SkipForwardButton = ({ disabled = false }) => {
   const { skipNext } = usePlayer();
 
   const handleClick = () => {
-    if (disabled) return;
+    if (disabled) {
+      return;
+    }
     skipNext();
   };
 

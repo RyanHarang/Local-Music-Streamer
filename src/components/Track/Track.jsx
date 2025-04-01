@@ -25,11 +25,17 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
 
   const handlePlay = () => {
     if (isCurrentTrack) {
-      if (isPlaying) pause();
-      else play(track);
+      if (isPlaying) {
+        pause();
+      } else {
+        play(track);
+      }
     } else {
-      if (inSonglist) startSonglist(songlist, index);
-      else play(track);
+      if (inSonglist) {
+        startSonglist(songlist, index);
+      } else {
+        play(track);
+      }
     }
   };
 

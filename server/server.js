@@ -57,19 +57,6 @@ const savePlaylists = async (playlists) => {
   }
 };
 
-// if (!fs.existsSync(uploadPath)) {
-//   fs.mkdirSync(UPLOAD_PATH, { recursive: true });
-// }
-
-// const storage = multer.diskStorage({
-//   destination: async (req, file, cb) => {
-//     cb(null, uploadPath);
-//   },
-//   filename: (req, file, cb) => {
-//     const tempFilename = Date.now() + path.extname(file.originalname);
-//     cb(null, tempFilename);
-//   },
-// });
 const storage = multer.diskStorage({
   destination: async (req, file, cb) => {
     const filePath = path.join(UPLOAD_PATH, "temp");
@@ -186,7 +173,6 @@ app.put("/playlists/:playlistId/tracks/:trackId", async (req, res) => {
       return res.status(404).json({ message: "Playlist not found" });
     }
 
-    // Check if track already exists
     const trackExists = playlist.tracks.some((track) => track.id === trackId);
     if (trackExists) {
       return res
@@ -200,7 +186,6 @@ app.put("/playlists/:playlistId/tracks/:trackId", async (req, res) => {
         ? Math.max(...playlist.tracks.map((t) => t.order)) + 1
         : 1;
 
-    // Add the new track
     const newTrack = {
       id: trackId,
       order: nextOrder,
@@ -282,52 +267,11 @@ app.post("/build-library", (req, res) => {
   });
 });
 
-// app.post("/upload-music", upload.array("musicFiles"), async (req, res) => {
-//   try {
-//     if (!req.files || req.files.length === 0) {
-//       return res.status(400).json({ message: "No files uploaded" });
-//     }
-
-//     const renamedFiles = [];
-
-//     for (const file of req.files) {
-//       try {
-//         const metadata = await mm.parseFile(file.path);
-//         const trackNumber = metadata.common.track
-//           ? String(metadata.common.track.no).padStart(2, "0")
-//           : "00";
-//         const title =
-//           metadata.common.title ||
-//           path.basename(file.originalname, path.extname(file.originalname));
-//         const sanitizedTitle = title.replace(/[^a-zA-Z0-9 \-]/g, "").trim();
-//         const newFilename = `${trackNumber} - ${sanitizedTitle}${path.extname(file.originalname)}`;
-
-//         // Rename the file with extracted metadata
-//         const newPath = path.join(uploadPath, newFilename);
-//         await fsPromises.rename(file.path, newPath);
-
-//         renamedFiles.push({ originalName: file.originalname, newPath });
-//       } catch (error) {
-//         console.error("Metadata extraction failed:", error);
-//         renamedFiles.push({
-//           originalName: file.originalname,
-//           newPath: file.path,
-//         });
-//       }
-//     }
-
-//     res.status(200).json({
-//       message: "Files uploaded successfully",
-//       files: renamedFiles,
-//     });
-//   } catch (error) {
-//     console.error("Upload error:", error);
-//     res.status(500).json({ message: "Upload failed", error: error.message });
-//   }
-// });
 app.post("/upload-music", upload.single("file"), async (req, res) => {
   try {
-    if (!req.file) return res.status(400).json({ error: "No file uploaded" });
+    if (!req.file) {
+      return res.status(400).json({ error: "No file uploaded" });
+    }
 
     const tempFilePath = req.file.path;
     const metadata = await mm.parseFile(tempFilePath).catch(() => ({}));
@@ -337,8 +281,12 @@ app.post("/upload-music", upload.single("file"), async (req, res) => {
     const artistDir = path.join(UPLOAD_PATH, artist);
     const albumDir = path.join(artistDir, albumFolderName);
 
-    if (!fs.existsSync(artistDir)) fs.mkdirSync(artistDir, { recursive: true });
-    if (!fs.existsSync(albumDir)) fs.mkdirSync(albumDir, { recursive: true });
+    if (!fs.existsSync(artistDir)) {
+      fs.mkdirSync(artistDir, { recursive: true });
+    }
+    if (!fs.existsSync(albumDir)) {
+      fs.mkdirSync(albumDir, { recursive: true });
+    }
 
     const title =
       metadata.common.title ||

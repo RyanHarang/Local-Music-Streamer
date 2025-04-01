@@ -25,7 +25,9 @@ const DraggableList = ({
   const containerRef = useRef(null);
 
   useEffect(() => {
-    if (draggedIndex === null) return;
+    if (draggedIndex === null) {
+      return;
+    }
 
     const handleDocumentDragOver = (e) => {
       e.preventDefault();

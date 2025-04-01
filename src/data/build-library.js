@@ -28,7 +28,9 @@ const walkDir = (dir, fileCallback) => {
 };
 
 const saveCoverImage = (picture) => {
-  if (!picture) return null;
+  if (!picture) {
+    return null;
+  }
 
   const hash = crypto.createHash("sha1").update(picture.data).digest("hex");
   const ext = picture.format === "image/png" ? "png" : "jpg";
@@ -44,9 +46,13 @@ const saveCoverImage = (picture) => {
 };
 
 const formatDate = (dateStr) => {
-  if (!dateStr) return null;
+  if (!dateStr) {
+    return null;
+  }
   const date = new Date(dateStr);
-  if (isNaN(date.getTime())) return null;
+  if (isNaN(date.getTime())) {
+    return null;
+  }
   date.setDate(date.getDate() + 1);
 
   return date.toLocaleDateString("en-US", {

@@ -36,7 +36,9 @@ const Library = () => {
   const filteredArtistsAndAlbums = Object.keys(albumsByArtist).reduce(
     (acc, artistName) => {
       const filteredAlbums = albumsByArtist[artistName].filter((album) => {
-        if (searchQuery.trim() === "") return true;
+        if (searchQuery.trim() === "") {
+          return true;
+        }
 
         if (searchMode === "artist") {
           return artistName.toLowerCase().includes(searchQuery.toLowerCase());

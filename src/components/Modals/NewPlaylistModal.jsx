@@ -23,7 +23,9 @@ const NewPlaylistModal = ({ closeModal }) => {
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") handleSubmit();
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
   };
 
   return (

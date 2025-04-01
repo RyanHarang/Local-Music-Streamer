@@ -13,7 +13,9 @@ const ProgressBar = () => {
   };
 
   const formatTime = (time) => {
-    if (isNaN(time)) return "0:00";
+    if (isNaN(time)) {
+      return "0:00";
+    }
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60)
       .toString()

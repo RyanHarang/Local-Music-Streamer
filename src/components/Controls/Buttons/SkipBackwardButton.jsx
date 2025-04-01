@@ -5,7 +5,9 @@ const SkipBackwardButton = ({ disabled = false }) => {
   const { skipPrev } = usePlayer();
 
   const handleClick = () => {
-    if (disabled) return;
+    if (disabled) {
+      return;
+    }
     skipPrev();
   };
 

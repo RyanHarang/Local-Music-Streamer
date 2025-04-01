@@ -5,7 +5,9 @@ const LibraryBuildModal = ({ buildOutput, closeModal }) => {
 
   useEffect(() => {
     const dialogElement = dialogRef.current;
-    if (dialogElement) dialogElement.showModal();
+    if (dialogElement) {
+      dialogElement.showModal();
+    }
   }, [buildOutput]);
 
   return (

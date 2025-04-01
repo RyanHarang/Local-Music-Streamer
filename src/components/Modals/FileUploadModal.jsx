@@ -69,10 +69,11 @@ const FileUploadModal = ({ closeModal }) => {
   };
 
   const uploadFiles = async () => {
-    if (files.length === 0) return;
+    if (files.length === 0) {
+      return;
+    }
     setIsUploading(true);
     try {
-      // Upload files one by one
       for (const file of files) {
         const formData = new FormData();
         formData.append("file", file);
@@ -82,7 +83,9 @@ const FileUploadModal = ({ closeModal }) => {
           body: formData,
         });
 
-        if (!response.ok) throw new Error("Upload failed");
+        if (!response.ok) {
+          throw new Error("Upload failed");
+        }
       }
 
       setFiles([]);
@@ -93,28 +96,6 @@ const FileUploadModal = ({ closeModal }) => {
       setIsUploading(false);
     }
   };
-  // const formData = new FormData();
-
-  //   files.forEach((file) => {
-  //     formData.append("musicFiles", file);
-  //   });
-
-  //   try {
-  //     const response = await fetch("http://localhost:3000/upload-music", {
-  //       method: "POST",
-  //       body: formData,
-  //     });
-
-  //     if (!response.ok) throw new Error("Upload failed");
-
-  //     setFiles([]);
-  //     closeModal();
-  //   } catch (error) {
-  //     console.error("Upload error:", error);
-  //   } finally {
-  //     setIsUploading(false);
-  //   }
-  // };
 
   return (
     <dialog

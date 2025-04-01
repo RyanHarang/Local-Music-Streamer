@@ -34,7 +34,9 @@ export const PlaylistProvider = ({ children }) => {
   const fetchPlaylists = async () => {
     try {
       const response = await fetch("http://localhost:3000/playlists");
-      if (!response.ok) throw new Error("Failed to fetch playlists");
+      if (!response.ok) {
+        throw new Error("Failed to fetch playlists");
+      }
       const data = await response.json();
       setPlaylists(data.playlists || []);
     } catch (error) {
@@ -54,7 +56,9 @@ export const PlaylistProvider = ({ children }) => {
         body: JSON.stringify({ name }),
       });
 
-      if (!response.ok) throw new Error("Failed to create playlist");
+      if (!response.ok) {
+        throw new Error("Failed to create playlist");
+      }
 
       const newPlaylist = await response.json();
       setPlaylists([...playlists, newPlaylist]);
@@ -73,7 +77,9 @@ export const PlaylistProvider = ({ children }) => {
         method: "DELETE",
       });
 
-      if (!response.ok) throw new Error("Failed to delete playlist");
+      if (!response.ok) {
+        throw new Error("Failed to delete playlist");
+      }
 
       setPlaylists(playlists.filter((playlist) => playlist.id !== id));
     } catch (error) {
@@ -94,7 +100,9 @@ export const PlaylistProvider = ({ children }) => {
         body: JSON.stringify({ name: newName }),
       });
 
-      if (!response.ok) throw new Error("Failed to rename playlist");
+      if (!response.ok) {
+        throw new Error("Failed to rename playlist");
+      }
 
       const updatedPlaylist = await response.json();
       setPlaylists(
@@ -122,7 +130,9 @@ export const PlaylistProvider = ({ children }) => {
         },
       );
 
-      if (!response.ok) throw new Error("Failed to update playlist tracks");
+      if (!response.ok) {
+        throw new Error("Failed to update playlist tracks");
+      }
 
       const { playlist: updatedPlaylist } = await response.json();
 
@@ -153,7 +163,9 @@ export const PlaylistProvider = ({ children }) => {
         },
       );
 
-      if (!response.ok) throw new Error("Failed to remove track from playlist");
+      if (!response.ok) {
+        throw new Error("Failed to remove track from playlist");
+      }
 
       const { playlist: updatedPlaylist } = await response.json();
 

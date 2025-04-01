@@ -17,13 +17,17 @@ const AudioPlayer = () => {
     if (audioRef.current && currentTrack?.path) {
       if (audioRef.current.src !== currentTrack.path) {
         audioRef.current.src = currentTrack.path;
-        if (isPlaying) audioRef.current.play();
+        if (isPlaying) {
+          audioRef.current.play();
+        }
       }
     }
   }, [currentTrack]);
 
   useEffect(() => {
-    if (!audioRef.current) return;
+    if (!audioRef.current) {
+      return;
+    }
     if (isPlaying) {
       audioRef.current.play().catch((error) => {
         console.error("Error playing audio:", error);
@@ -34,7 +38,9 @@ const AudioPlayer = () => {
   }, [isPlaying]);
 
   useEffect(() => {
-    if (audioRef.current) audioRef.current.volume = isMuted ? 0 : volume / 100;
+    if (audioRef.current) {
+      audioRef.current.volume = isMuted ? 0 : volume / 100;
+    }
   }, [volume, isMuted]);
 
   useEffect(() => {

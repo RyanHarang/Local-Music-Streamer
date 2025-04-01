@@ -6,7 +6,9 @@ const Songlist = ({ tracks }) => {
   const { startSonglist, addToQueue } = usePlayer();
 
   const handlePlay = () => {
-    if (tracks && tracks.length > 0) startSonglist(tracks, 0);
+    if (tracks && tracks.length > 0) {
+      startSonglist(tracks, 0);
+    }
   };
 
   const handleAddToQueue = () => {

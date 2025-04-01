@@ -26,8 +26,9 @@ const ButtonControls = () => {
         activeElement instanceof HTMLTextAreaElement ||
         activeElement instanceof HTMLSelectElement ||
         disabled
-      )
+      ) {
         return;
+      }
 
       switch (e.code) {
         case "Space":

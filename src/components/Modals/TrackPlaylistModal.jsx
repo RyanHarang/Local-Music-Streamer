@@ -11,7 +11,9 @@ const TrackPlaylistModal = ({ track, closeModal }) => {
 
   useEffect(() => {
     const dialogElement = dialogRef.current;
-    if (dialogElement) dialogElement.showModal();
+    if (dialogElement) {
+      dialogElement.showModal();
+    }
 
     if (!isInitialized) {
       const trackPlaylists = playlists

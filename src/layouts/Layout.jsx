@@ -12,15 +12,20 @@ const Layout = ({ children }) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (mainRef.current)
+      if (mainRef.current) {
         saveScrollPosition(currentPage, mainRef.current.scrollTop);
+      }
     };
 
     const mainElement = mainRef.current;
-    if (mainElement) mainElement.addEventListener("scroll", handleScroll);
+    if (mainElement) {
+      mainElement.addEventListener("scroll", handleScroll);
+    }
 
     return () => {
-      if (mainElement) mainElement.removeEventListener("scroll", handleScroll);
+      if (mainElement) {
+        mainElement.removeEventListener("scroll", handleScroll);
+      }
     };
   }, [currentPage, saveScrollPosition]);
 
