@@ -18,6 +18,7 @@ export const NavigationProvider = ({ children }) => {
   const [selectedAlbum, setSelectedAlbum] = useState(null);
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
   const [initialQuery, setInitialQuery] = useState("");
+  const [scrollPositions, setScrollPositions] = useState({});
 
   /**
    * Navigates to previous page
@@ -82,6 +83,27 @@ export const NavigationProvider = ({ children }) => {
   };
 
   /**
+   * Saves scroll position for a specific page
+   * @param {string} page - Page identifier
+   * @param {number} position - Scroll position to save
+   */
+  const saveScrollPosition = (page, position) => {
+    setScrollPositions((prev) => ({
+      ...prev,
+      [page]: position,
+    }));
+  };
+
+  /**
+   * Gets saved scroll position for a specific page
+   * @param {string} page - Page identifier
+   * @returns {number} Saved scroll position or 0
+   */
+  const getScrollPosition = (page) => {
+    return scrollPositions[page] || 0;
+  };
+
+  /**
    * Context value object containing all externally accessible navigation state and methods
    * @type {Object}
    */
@@ -98,6 +120,8 @@ export const NavigationProvider = ({ children }) => {
     goToSettingsPage,
     goToAlbumPage,
     goToPlaylistPage,
+    saveScrollPosition,
+    getScrollPosition,
   };
 
   return (

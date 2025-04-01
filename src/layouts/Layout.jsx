@@ -5,16 +5,50 @@ import NowPlaying from "../components/NowPlaying/NowPlaying.jsx";
 import Navigation from "../components/Navigation/Navigation.jsx";
 
 const Layout = ({ children }) => {
-  const { currentPage } = useNavigation();
+  const { currentPage, getScrollPosition, saveScrollPosition } =
+    useNavigation();
   const mainRef = useRef(null);
+  const previousPageRef = useRef(null);
 
   useEffect(() => {
-    if (
-      mainRef.current &&
-      (currentPage === "album" || currentPage === "playlist")
-    )
-      mainRef.current.scrollTop = 0;
-  }, [currentPage]);
+    const handleScroll = () => {
+      if (mainRef.current)
+        saveScrollPosition(currentPage, mainRef.current.scrollTop);
+    };
+
+    const mainElement = mainRef.current;
+    if (mainElement) mainElement.addEventListener("scroll", handleScroll);
+
+    return () => {
+      if (mainElement) mainElement.removeEventListener("scroll", handleScroll);
+    };
+  }, [currentPage, saveScrollPosition]);
+
+  useEffect(() => {
+    if (previousPageRef.current !== currentPage) {
+      const isNavigatingToLibrary = currentPage === "library";
+      const shouldRestoreScroll =
+        isNavigatingToLibrary &&
+        previousPageRef.current !== null &&
+        previousPageRef.current !== "library";
+
+      if (shouldRestoreScroll && mainRef.current) {
+        requestAnimationFrame(() => {
+          if (mainRef.current) {
+            mainRef.current.scrollTop = getScrollPosition(currentPage);
+          }
+        });
+      } else if (currentPage === "album" || currentPage === "playlist") {
+        if (mainRef.current) {
+          mainRef.current.scrollTop = 0;
+        }
+      } else if (mainRef.current) {
+        mainRef.current.scrollTop = getScrollPosition(currentPage);
+      }
+
+      previousPageRef.current = currentPage;
+    }
+  }, [currentPage, getScrollPosition]);
 
   return (
     <div className="flex h-screen flex-col">
