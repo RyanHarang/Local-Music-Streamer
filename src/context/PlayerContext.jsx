@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import libraryData from "../data/library.json";
 
 /**
  * Context for music player functionality across application
@@ -21,6 +22,8 @@ export const usePlayer = () => useContext(PlayerContext);
 export const PlayerProvider = ({ children }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(null);
+  const [currentAlbum, setCurrentAlbum] = useState(null);
+  const [currentCover, setCurrentCover] = useState(null);
 
   const [isRepeat, setIsRepeat] = useState(false);
   const [isShuffle, setIsShuffle] = useState(false);
@@ -37,6 +40,30 @@ export const PlayerProvider = ({ children }) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [seekToFn, setSeekToFn] = useState(() => () => {});
+
+  const { albums } = libraryData;
+
+  /** Updates cover path and current album when current track changes */
+  useEffect(() => {
+    if (currentTrack) {
+      setCurrentCover(albums[currentTrack.albumId].cover);
+    }
+    setCurrentAlbum(currentTrack ? albums[currentTrack.albumId] : null);
+  }, [currentTrack]);
+
+  /**
+   * Updates shuffle path when active songlist changes
+   */
+  useEffect(() => {
+    if (!activeSonglist || activeSonglist.length === 0) {
+      return;
+    }
+    if (isShuffle) {
+      handleShufflePath();
+    } else {
+      setShufflePath(null);
+    }
+  }, [activeSonglist, isShuffle]);
 
   /**
    * Starts playing a track
@@ -370,20 +397,6 @@ export const PlayerProvider = ({ children }) => {
   };
 
   /**
-   * Updates shuffle path when active songlist changes
-   */
-  useEffect(() => {
-    if (!activeSonglist || activeSonglist.length === 0) {
-      return;
-    }
-    if (isShuffle) {
-      handleShufflePath();
-    } else {
-      setShufflePath(null);
-    }
-  }, [activeSonglist, isShuffle]);
-
-  /**
    * Context value object containing all externally accessible player state and methods
    * @type {Object}
    */
@@ -397,6 +410,8 @@ export const PlayerProvider = ({ children }) => {
     isMuted,
     currentTime,
     duration,
+    currentCover,
+    currentAlbum,
     play,
     pause,
     skipNext,

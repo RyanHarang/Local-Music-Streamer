@@ -1,10 +1,10 @@
 import { useEffect, useRef } from "react";
 import { usePlayer } from "../../context/PlayerContext.jsx";
-import libraryData from "../../data/library.json";
 
 const AudioPlayer = () => {
   const {
     currentTrack,
+    currentCover,
     isMuted,
     isPlaying,
     play,
@@ -16,9 +16,6 @@ const AudioPlayer = () => {
     updateTime,
     volume,
   } = usePlayer();
-  const { albums } = libraryData;
-  const album = currentTrack ? albums[currentTrack.albumId] : null;
-  const albumCover = album?.cover;
   const audioRef = useRef(null);
 
   useEffect(() => {
@@ -63,7 +60,7 @@ const AudioPlayer = () => {
         album: currentTrack?.albumName || "Unknown Album",
         artwork: [
           {
-            src: albumCover || "",
+            src: currentCover || "",
             sizes: "512x512",
             type: "image/png",
           },

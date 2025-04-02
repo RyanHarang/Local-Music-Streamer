@@ -4,22 +4,18 @@ import ButtonControls from "../Controls/ButtonControls.jsx";
 import VolumeControls from "../Controls/VolumeControls.jsx";
 import ProgressBar from "../Controls/ProgressBar.jsx";
 import AudioPlayer from "../AudioPlayer/AudioPlayer.jsx";
-import libraryData from "../../data/library.json";
 
 const NowPlaying = () => {
   const { goToAlbumPage, goToLibraryPage } = useNavigation();
-  const { currentTrack } = usePlayer();
-  const { albums } = libraryData;
-  const album = currentTrack ? albums[currentTrack.albumId] : null;
-  const albumCover = album?.cover;
+  const { currentTrack, currentAlbum, currentCover } = usePlayer();
 
   return (
     <footer className="bg-dark-bg2 flex h-20 w-full items-center justify-between p-4">
       <div className="flex w-1/3 items-center gap-4">
         {currentTrack ? (
           <img
-            src={albumCover}
-            alt={`Cover of ${album?.title}`}
+            src={currentCover}
+            alt={`Cover of ${currentTrack.title}`}
             className="h-18 w-18 overflow-hidden rounded"
           />
         ) : (
@@ -27,8 +23,8 @@ const NowPlaying = () => {
         )}
         <div>
           <div
-            onClick={() => album && goToAlbumPage(album)}
-            className={`${album && "cursor-pointer hover:underline"} text-xl font-semibold`}
+            onClick={() => currentAlbum && goToAlbumPage(currentAlbum)}
+            className={`${currentAlbum && "cursor-pointer hover:underline"} text-xl font-semibold`}
           >
             {currentTrack?.title || "No track playing"}
           </div>
