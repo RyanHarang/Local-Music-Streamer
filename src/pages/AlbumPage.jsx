@@ -3,12 +3,21 @@ import Album from "../components/Album/Album.jsx";
 import BackButton from "../components/Controls/Buttons/BackButton.jsx";
 
 const AlbumPage = () => {
-  const { selectedAlbum, previousPage, goToPreviousPage, goToLibraryPage } =
-    useNavigation();
+  const {
+    selectedAlbum,
+    currentPage,
+    previousPage,
+    goToPreviousPage,
+    goToLibraryPage,
+  } = useNavigation();
   return (
     <div className="p-4">
       <BackButton
-        handleClick={previousPage ? goToPreviousPage : goToLibraryPage}
+        handleClick={
+          previousPage && previousPage !== currentPage
+            ? goToPreviousPage
+            : () => goToLibraryPage()
+        }
       />
       <Album album={selectedAlbum} onAlbumPage={true} />
     </div>

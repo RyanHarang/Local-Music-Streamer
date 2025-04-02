@@ -24,8 +24,20 @@ export const NavigationProvider = ({ children }) => {
    * Navigates to previous page
    */
   const goToPreviousPage = () => {
-    if (previousPage) {
-      setCurrentPage(previousPage);
+    if (previousPage && previousPage !== currentPage) {
+      switch (previousPage) {
+        case "home":
+          goToHomePage();
+          break;
+        case "library":
+          goToLibraryPage();
+          break;
+        case "settings":
+          goToSettingsPage();
+          break;
+        default:
+          setCurrentPage(previousPage);
+      }
       setPreviousPage(null);
     }
   };
@@ -42,7 +54,7 @@ export const NavigationProvider = ({ children }) => {
 
   /**
    * Navigates to library page
-   * * @param {Object} initialQuery - Query to filter library
+   * * @param {String} initialQuery - Query to filter library
    */
   const goToLibraryPage = (initialQuery = "") => {
     setInitialQuery(initialQuery);
