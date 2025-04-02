@@ -1,16 +1,24 @@
 import { useEffect, useRef } from "react";
 import { usePlayer } from "../../context/PlayerContext.jsx";
+import libraryData from "../../data/library.json";
 
 const AudioPlayer = () => {
   const {
     currentTrack,
-    isPlaying,
-    updateTime,
-    setSeekToFn,
-    playNextTrack,
-    volume,
     isMuted,
+    isPlaying,
+    play,
+    pause,
+    playNextTrack,
+    setSeekToFn,
+    skipNext,
+    skipPrev,
+    updateTime,
+    volume,
   } = usePlayer();
+  const { albums } = libraryData;
+  const album = currentTrack ? albums[currentTrack.albumId] : null;
+  const albumCover = album?.cover;
   const audioRef = useRef(null);
 
   useEffect(() => {
@@ -46,6 +54,28 @@ const AudioPlayer = () => {
   useEffect(() => {
     setSeekToFn(() => seekTo);
   }, [setSeekToFn]);
+
+  useEffect(() => {
+    if ("mediaSession" in navigator) {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: currentTrack?.title || "Unknown Title",
+        artist: currentTrack?.artists?.join(", ") || "Unknown Artist",
+        album: currentTrack?.albumName || "Unknown Album",
+        artwork: [
+          {
+            src: albumCover || "",
+            sizes: "512x512",
+            type: "image/png",
+          },
+        ],
+      });
+
+      navigator.mediaSession.setActionHandler("play", () => play(currentTrack));
+      navigator.mediaSession.setActionHandler("pause", pause);
+      navigator.mediaSession.setActionHandler("previoustrack", skipPrev);
+      navigator.mediaSession.setActionHandler("nexttrack", skipNext);
+    }
+  }, [currentTrack, isPlaying, play, pause, skipPrev, skipNext]);
 
   const handleTimeUpdate = () => {
     const current = audioRef.current.currentTime;
