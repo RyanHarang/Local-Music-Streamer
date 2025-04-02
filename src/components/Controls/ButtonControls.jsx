@@ -36,10 +36,14 @@ const ButtonControls = () => {
           isPlaying ? pause() : play(currentTrack);
           break;
         case "ArrowRight":
-          skipNext();
+          if (e.ctrlKey) {
+            skipNext();
+          }
           break;
         case "ArrowLeft":
-          skipPrev();
+          if (e.ctrlKey) {
+            skipPrev();
+          }
           break;
         case "KeyM":
           toggleMute();
