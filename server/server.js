@@ -83,6 +83,7 @@ const upload = multer({
     ];
     if (allowedTypes.includes(file.mimetype)) {
       cb(null, true);
+      console.log("Saving ", file.originalname);
     } else {
       cb(new Error("Invalid file type. Only audio files are allowed."), false);
     }
