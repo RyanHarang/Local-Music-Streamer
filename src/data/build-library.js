@@ -11,6 +11,18 @@ const MUSIC_DIR = path.join(__dirname, "../../public/music");
 const COVER_DIR = path.join(__dirname, "../../public/covers");
 const OUTPUT_FILE = path.join(__dirname, "./library.json");
 
+if (!fs.existsSync(MUSIC_DIR)) {
+  console.log(`Music directory not found at ${MUSIC_DIR}. Creating directory.`);
+  try {
+    fs.mkdirSync(MUSIC_DIR, { recursive: true });
+    console.log("Music directory created successfully.");
+  } catch (error) {
+    console.error(`Failed to create music directory: ${error.message}`);
+    console.log("Exiting script.");
+    process.exit(1);
+  }
+}
+
 if (!fs.existsSync(COVER_DIR)) {
   fs.mkdirSync(COVER_DIR);
 }
