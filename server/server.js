@@ -77,6 +77,7 @@ const upload = multer({
       "audio/mpeg",
       "audio/wav",
       "audio/flac",
+      "audio/x-flac",
       "audio/m4a",
       "audio/aac",
     ];
