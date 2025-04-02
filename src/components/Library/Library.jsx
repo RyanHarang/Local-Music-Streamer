@@ -63,7 +63,7 @@ const Library = () => {
 
   return (
     <div className="px-4">
-      <div className="bg-accent/70 sticky top-0 mb-6 flex w-full items-center gap-4 rounded p-2">
+      <div className="bg-accent/70 sticky -top-4 mb-6 flex w-full items-center gap-4 rounded p-2">
         <input
           type="text"
           placeholder={`Search by ${searchMode}`}
