@@ -30,7 +30,7 @@ const ProgressBar = () => {
         onClick={handleSeek}
       >
         <div
-          className="bg-accent h-2 rounded"
+          className="bg-accent h-2 rounded transition-all duration-200 ease-linear"
           style={{ width: `${progressPercent}%` }}
         />
       </div>
