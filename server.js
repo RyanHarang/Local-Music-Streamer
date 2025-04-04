@@ -67,12 +67,10 @@ const ensureLikedSongsFileExists = async () => {
     await fsPromises.access(LIKED_SONGS_FILE);
   } catch {
     const initialData = {
-      likedSongs: {
-        id: "liked-songs",
-        name: "Liked Songs",
-        tracks: [],
-        trackCount: 0,
-      },
+      id: "liked-songs",
+      name: "Liked Songs",
+      tracks: [],
+      trackCount: 0,
     };
 
     await fsPromises.writeFile(
