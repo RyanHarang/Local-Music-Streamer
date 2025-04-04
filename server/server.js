@@ -13,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 const PLAYLISTS_FILE = path.join(__dirname, "../src/data/playlists.json");
+const LIKED_SONGS_FILE = path.join(__dirname, "../src/data/likedSongs.json");
 const LIBRARY_BUILD_SCRIPT = path.join(
   __dirname,
   "../src/data/build-library.js",
@@ -53,6 +54,49 @@ const savePlaylists = async (playlists) => {
     );
   } catch (error) {
     console.error("Error saving playlists:", error);
+    throw error;
+  }
+};
+
+const ensureLikedSongsFileExists = async () => {
+  try {
+    await fsPromises.access(LIKED_SONGS_FILE);
+  } catch {
+    const initialData = {
+      likedSongs: {
+        id: "liked-songs",
+        name: "Liked Songs",
+        tracks: [],
+        trackCount: 0,
+      },
+    };
+
+    await fsPromises.writeFile(
+      LIKED_SONGS_FILE,
+      JSON.stringify(initialData, null, 2),
+    );
+  }
+};
+
+const getLikedSongs = async () => {
+  try {
+    await ensureLikedSongsFileExists();
+    const data = await fsPromises.readFile(LIKED_SONGS_FILE, "utf8");
+    return JSON.parse(data);
+  } catch (error) {
+    console.error("Error reading liked songs:", error);
+    return { likedSongs: {} };
+  }
+};
+
+const saveLikedSongs = async (likedSongs) => {
+  try {
+    await fsPromises.writeFile(
+      LIKED_SONGS_FILE,
+      JSON.stringify(likedSongs, null, 2),
+    );
+  } catch (error) {
+    console.error("Error saving liked songs:", error);
     throw error;
   }
 };
@@ -240,6 +284,36 @@ app.delete("/playlists/:playlistId/tracks/:trackId", async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ message: "Error removing track from playlist" });
+  }
+});
+
+app.get("/liked-songs", async (req, res) => {
+  try {
+    const likedSongsData = await getLikedSongs();
+    res.json(likedSongsData);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching liked songs" });
+  }
+});
+
+app.post("/liked-songs/:trackId", async (req, res) => {
+  try {
+    const { trackId } = req.params;
+    const likedSongs = await getLikedSongs();
+    const trackIndex = likedSongs.tracks.findIndex(
+      (track) => track.id === trackId,
+    );
+    if (trackIndex !== -1) {
+      likedSongs.tracks.splice(trackIndex, 1);
+    } else {
+      likedSongs.tracks.push({ id: trackId });
+    }
+
+    likedSongs.trackCount = likedSongs.tracks.length;
+    await saveLikedSongs(likedSongs);
+    res.json(likedSongs);
+  } catch (error) {
+    res.status(500).json({ message: "Error updating liked songs" });
   }
 });
 

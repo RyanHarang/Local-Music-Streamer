@@ -38,3 +38,4 @@ src/data/library.json
 # organizational scripts
 *.py
 
+src/data/likedSongs.json

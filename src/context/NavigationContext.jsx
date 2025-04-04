@@ -95,6 +95,16 @@ export const NavigationProvider = ({ children }) => {
   };
 
   /**
+   * Navigates to liked songs page
+   * @param {Object} playlist - Playlist object
+   */
+  const goToLikedSongPage = (playlist) => {
+    setSelectedPlaylist(playlist);
+    setPreviousPage(currentPage);
+    setCurrentPage("liked-songs");
+  };
+
+  /**
    * Saves scroll position for a specific page
    * @param {string} page - Page identifier
    * @param {number} position - Scroll position to save
@@ -132,6 +142,7 @@ export const NavigationProvider = ({ children }) => {
     goToSettingsPage,
     goToAlbumPage,
     goToPlaylistPage,
+    goToLikedSongPage,
     saveScrollPosition,
     getScrollPosition,
   };

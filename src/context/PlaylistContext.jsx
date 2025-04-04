@@ -20,16 +20,24 @@ export const usePlaylists = () => useContext(PlaylistContext);
  */
 export const PlaylistProvider = ({ children }) => {
   const [playlists, setPlaylists] = useState([]);
+  const [likedSongs, setLikedSongs] = useState({});
 
   /**
-   * Fetches playlists from the server on load
+   * Fetches playlists on load
    */
   useEffect(() => {
     fetchPlaylists();
   }, []);
 
   /**
-   * Fetches playlists from the server
+   * Fetches liked songs on load
+   */
+  useEffect(() => {
+    fetchLikedSongs();
+  }, []);
+
+  /**
+   * Fetches playlists
    */
   const fetchPlaylists = async () => {
     try {
@@ -39,6 +47,22 @@ export const PlaylistProvider = ({ children }) => {
       }
       const data = await response.json();
       setPlaylists(data.playlists || []);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  /**
+   * Fetches liked songs
+   */
+  const fetchLikedSongs = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/liked-songs");
+      if (!response.ok) {
+        throw new Error("Failed to fetch liked songs");
+      }
+      const data = await response.json();
+      setLikedSongs(data);
     } catch (error) {
       console.error(error);
     }
@@ -182,16 +206,88 @@ export const PlaylistProvider = ({ children }) => {
   };
 
   /**
+   * Toggles a song's liked status
+   * @param {string} trackId - ID of song to toggle
+   */
+  const toggleLikedSong = async (trackId) => {
+    const isCurrentlyLiked = isSongLiked(trackId);
+    const updatedTracks = isCurrentlyLiked
+      ? likedSongs.tracks.filter((track) => track.id !== trackId)
+      : [...likedSongs.tracks, { id: trackId }];
+
+    setLikedSongs((prev) => ({
+      ...prev,
+      tracks: updatedTracks,
+      trackCount: updatedTracks.length,
+    }));
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/liked-songs/${trackId}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        },
+      );
+
+      if (!response.ok) throw new Error("Failed to update liked song");
+
+      const data = await response.json();
+      setLikedSongs(data);
+    } catch (error) {
+      console.error(error);
+      setLikedSongs((prev) => ({
+        ...prev,
+        tracks: isCurrentlyLiked
+          ? [...prev.tracks, { id: trackId }]
+          : prev.tracks.filter((track) => track.id !== trackId),
+        trackCount: isCurrentlyLiked
+          ? prev.tracks.length + 1
+          : prev.tracks.length - 1,
+      }));
+    }
+  };
+  // const toggleLikedSong = async (trackId) => {
+  //   try {
+  //     const response = await fetch(
+  //       `http://localhost:3000/liked-songs/${trackId}`,
+  //       {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //       },
+  //     );
+
+  //     if (!response.ok) throw new Error("Failed to update liked song");
+  //     const data = await response.json();
+  //     setLikedSongs(data);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  /**
+   * Checks if a song is liked
+   * @param {string} trackId - ID of song to check
+   * @returns {boolean} - True if song is liked, false otherwise
+   */
+  const isSongLiked = (trackId) => {
+    return likedSongs.tracks.some((track) => track.id === trackId);
+  };
+
+  /**
    * Context value object containing all externally accessible playlist state and methods
    * @type {Object}
    */
   const value = {
     playlists,
+    likedSongs,
     createPlaylist,
     deletePlaylist,
     renamePlaylist,
     addTrackToPlaylist,
     removeTrackFromPlaylist,
+    toggleLikedSong,
+    isSongLiked,
   };
 
   return (

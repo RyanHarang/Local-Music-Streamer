@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useNavigation } from "../../context/NavigationContext.jsx";
 import { usePlayer } from "../../context/PlayerContext.jsx";
+import { usePlaylists } from "../../context/PlaylistContext.jsx";
 import PlayButton from "../Controls/Buttons/PlayButton.jsx";
+import HeartButton from "../Controls/Buttons/HeartButton.jsx";
 import QueueButton from "../Controls/Buttons/QueueButton.jsx";
 import PlaylistButton from "../Controls/Buttons/PlaylistButton.jsx";
 import TrackPlaylistModal from "../Modals/TrackPlaylistModal.jsx";
@@ -18,6 +20,7 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
     formatDuration,
     addToQueue,
   } = usePlayer();
+  const { toggleLikedSong, isSongLiked } = usePlaylists();
   const { albums } = libraryData;
   const [showModal, setShowModal] = useState(false);
   const isCurrentTrack = currentTrack?.id === track.id;
@@ -79,6 +82,10 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
         </span>
       </div>
       <div className="flex w-1/5 items-center justify-end gap-8">
+        <HeartButton
+          handleClick={() => toggleLikedSong(track.id)}
+          isLiked={isSongLiked(track.id)}
+        />
         <QueueButton handleClick={() => addToQueue(track)} />
         <PlaylistButton handleClick={() => setShowModal(true)} />
         <span className="text-dark-fg2 w-1/5">
