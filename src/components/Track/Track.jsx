@@ -7,7 +7,6 @@ import HeartButton from "../Controls/Buttons/HeartButton.jsx";
 import QueueButton from "../Controls/Buttons/QueueButton.jsx";
 import PlaylistButton from "../Controls/Buttons/PlaylistButton.jsx";
 import TrackPlaylistModal from "../Modals/TrackPlaylistModal.jsx";
-import libraryData from "../../data/library.json";
 
 const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
   const { goToAlbumPage, goToLibraryPage } = useNavigation();
@@ -19,9 +18,10 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
     startSonglist,
     formatDuration,
     addToQueue,
+    library,
   } = usePlayer();
   const { toggleLikedSong, isSongLiked } = usePlaylists();
-  const { albums } = libraryData;
+  const albums = library.albums;
   const [showModal, setShowModal] = useState(false);
   const isCurrentTrack = currentTrack?.id === track.id;
   const album = track ? albums[track.albumId] : null;

@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigation } from "../../context/NavigationContext.jsx";
+import { usePlayer } from "../../context/PlayerContext.jsx";
 import Album from "../Album/Album.jsx";
-import libraryData from "../../data/library.json";
 
 const Library = () => {
   const { goToAlbumPage, initialQuery, setInitialQuery } = useNavigation();
+  const { library } = usePlayer();
   const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [searchMode, setSearchMode] = useState("artist");
-  const { albums } = libraryData;
+  const albums = library.albums;
   const albumsByArtist = {};
 
   useEffect(() => {

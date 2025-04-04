@@ -30,6 +30,7 @@ dist-ssr
 
 # Cover Art
 *.jpg
+*.png
 
 # json Database
 src/data/playlists.json

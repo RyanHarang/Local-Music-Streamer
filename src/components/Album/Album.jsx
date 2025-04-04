@@ -1,10 +1,9 @@
 import { usePlayer } from "../../context/PlayerContext.jsx";
 import Songlist from "../Songlist/Songlist.jsx";
-import libraryData from "../../data/library.json";
 
 const Album = ({ album, onAlbumClick, onAlbumPage }) => {
-  const { formatDuration } = usePlayer();
-  const { tracks } = libraryData;
+  const { formatDuration, library } = usePlayer();
+  const tracks = library.tracks;
   const albumTracks = album.tracks
     .map((trackId) => tracks[trackId])
     .filter((track) => track);

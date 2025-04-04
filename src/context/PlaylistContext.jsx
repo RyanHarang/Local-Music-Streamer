@@ -1,4 +1,6 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
+import playlistData from "../data/playlists.json";
+import likedSongsData from "../data/likedSongs.json";
 
 /**
  * Context for playlist functionality across application
@@ -19,54 +21,8 @@ export const usePlaylists = () => useContext(PlaylistContext);
  * @returns {JSX.Element} Provider component with playlist context
  */
 export const PlaylistProvider = ({ children }) => {
-  const [playlists, setPlaylists] = useState([]);
-  const [likedSongs, setLikedSongs] = useState({});
-
-  /**
-   * Fetches playlists on load
-   */
-  useEffect(() => {
-    fetchPlaylists();
-  }, []);
-
-  /**
-   * Fetches liked songs on load
-   */
-  useEffect(() => {
-    fetchLikedSongs();
-  }, []);
-
-  /**
-   * Fetches playlists
-   */
-  const fetchPlaylists = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/playlists");
-      if (!response.ok) {
-        throw new Error("Failed to fetch playlists");
-      }
-      const data = await response.json();
-      setPlaylists(data.playlists || []);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  /**
-   * Fetches liked songs
-   */
-  const fetchLikedSongs = async () => {
-    try {
-      const response = await fetch("http://localhost:3000/liked-songs");
-      if (!response.ok) {
-        throw new Error("Failed to fetch liked songs");
-      }
-      const data = await response.json();
-      setLikedSongs(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const [playlists, setPlaylists] = useState(playlistData.playlists || []);
+  const [likedSongs, setLikedSongs] = useState(likedSongsData);
 
   /**
    * Creates a new playlist
@@ -247,23 +203,6 @@ export const PlaylistProvider = ({ children }) => {
       }));
     }
   };
-  // const toggleLikedSong = async (trackId) => {
-  //   try {
-  //     const response = await fetch(
-  //       `http://localhost:3000/liked-songs/${trackId}`,
-  //       {
-  //         method: "POST",
-  //         headers: { "Content-Type": "application/json" },
-  //       },
-  //     );
-
-  //     if (!response.ok) throw new Error("Failed to update liked song");
-  //     const data = await response.json();
-  //     setLikedSongs(data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   /**
    * Checks if a song is liked

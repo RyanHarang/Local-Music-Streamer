@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import { useNavigation } from "../context/NavigationContext.jsx";
+import { usePlayer } from "../context/PlayerContext.jsx";
 import { usePlaylists } from "../context/PlaylistContext";
 import Songlist from "../components/Songlist/Songlist.jsx";
 import BackButton from "../components/Controls/Buttons/BackButton.jsx";
-import libraryData from "../data/library.json";
 
 const PlaylistPage = () => {
   const { selectedPlaylist, previousPage, goToPreviousPage, goToHomePage } =
     useNavigation();
+  const { library } = usePlayer();
   const { playlists, renamePlaylist } = usePlaylists();
   const [currentPlaylist, setCurrentPlaylist] = useState(selectedPlaylist);
   const [newName, setNewName] = useState(selectedPlaylist.name);
   const [isEditing, setIsEditing] = useState(false);
-  const { tracks } = libraryData;
+  const tracks = library.tracks;
 
   useEffect(() => {
     setCurrentPlaylist(playlists.find((p) => p.id === selectedPlaylist.id));

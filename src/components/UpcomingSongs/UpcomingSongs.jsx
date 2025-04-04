@@ -1,11 +1,10 @@
 import { useNavigation } from "../../context/NavigationContext.jsx";
 import { usePlayer } from "../../context/PlayerContext.jsx";
-import libraryData from "../../data/library.json";
 
 const UpcomingSongs = () => {
   const { goToAlbumPage, goToLibraryPage } = useNavigation();
-  const { getUpcomingSongs } = usePlayer();
-  const { albums } = libraryData;
+  const { getUpcomingSongs, library } = usePlayer();
+  const albums = library.albums;
   const upcomingTracks = getUpcomingSongs();
 
   return (

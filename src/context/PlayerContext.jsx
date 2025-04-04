@@ -41,14 +41,14 @@ export const PlayerProvider = ({ children }) => {
   const [duration, setDuration] = useState(0);
   const [seekToFn, setSeekToFn] = useState(() => () => {});
 
-  const { albums } = libraryData;
+  const [library] = useState(libraryData);
 
   /** Updates cover path and current album when current track changes */
   useEffect(() => {
     if (currentTrack) {
-      setCurrentCover(albums[currentTrack.albumId].cover);
+      setCurrentCover(library.albums[currentTrack.albumId].cover);
     }
-    setCurrentAlbum(currentTrack ? albums[currentTrack.albumId] : null);
+    setCurrentAlbum(currentTrack ? library.albums[currentTrack.albumId] : null);
   }, [currentTrack]);
 
   /**
@@ -412,6 +412,7 @@ export const PlayerProvider = ({ children }) => {
     duration,
     currentCover,
     currentAlbum,
+    library,
     play,
     pause,
     skipNext,
