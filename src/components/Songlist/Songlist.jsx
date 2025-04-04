@@ -3,11 +3,12 @@ import Track from "../Track/Track.jsx";
 import QueueButton from "../Controls/Buttons/QueueButton.jsx";
 
 const Songlist = ({ tracks }) => {
-  const { startSonglist, addToQueue } = usePlayer();
+  const { startSonglist, addToQueue, isShuffle } = usePlayer();
 
   const handlePlay = () => {
+    let index = isShuffle ? Math.floor(Math.random() * tracks.length) : 0;
     if (tracks && tracks.length > 0) {
-      startSonglist(tracks, 0);
+      startSonglist(tracks, index);
     }
   };
 
