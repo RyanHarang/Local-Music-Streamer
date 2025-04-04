@@ -1,24 +1,28 @@
-const express = require("express");
-const fs = require("fs");
-const fsPromises = require("fs").promises;
-const path = require("path");
-const mm = require("music-metadata");
-const multer = require("multer");
-const cors = require("cors");
-const { exec } = require("child_process");
+import express from "express";
+import fs from "fs";
+import fsPromises from "fs/promises";
+import path from "path";
+import * as mm from "music-metadata";
+import multer from "multer";
+import cors from "cors";
+import { exec } from "child_process";
+import { fileURLToPath } from "url";
 const app = express();
 const PORT = 3000;
 
 app.use(cors());
 app.use(express.json());
 
-const PLAYLISTS_FILE = path.join(__dirname, "../src/data/playlists.json");
-const LIKED_SONGS_FILE = path.join(__dirname, "../src/data/likedSongs.json");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const PLAYLISTS_FILE = path.join(__dirname, "./src/data/playlists.json");
+const LIKED_SONGS_FILE = path.join(__dirname, "./src/data/likedSongs.json");
 const LIBRARY_BUILD_SCRIPT = path.join(
   __dirname,
-  "../src/data/build-library.js",
+  "./src/data/build-library.js",
 );
-const UPLOAD_PATH = path.join(__dirname, "../public/music");
+const UPLOAD_PATH = path.join(__dirname, "./public/music");
 
 const getPlaylists = async () => {
   try {
@@ -409,4 +413,4 @@ app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
 
-module.exports = app;
+export default app;

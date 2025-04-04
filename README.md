@@ -13,8 +13,6 @@ git clone https://github.com/RyanHarang/Local-Music-Streamer.git
 ```bash
 cd Local-Music-Streamer
 npm install
-cd server
-npm install
 ```
 
 3. Run library build script
