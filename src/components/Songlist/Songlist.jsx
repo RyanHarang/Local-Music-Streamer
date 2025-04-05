@@ -6,8 +6,8 @@ const Songlist = ({ tracks }) => {
   const { startSonglist, addToQueue, isShuffle } = usePlayer();
 
   const handlePlay = () => {
-    let index = isShuffle ? Math.floor(Math.random() * tracks.length) : 0;
     if (tracks && tracks.length > 0) {
+      let index = isShuffle ? Math.floor(Math.random() * tracks.length) : 0;
       startSonglist(tracks, index);
     }
   };
