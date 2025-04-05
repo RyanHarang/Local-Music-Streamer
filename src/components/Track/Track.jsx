@@ -43,18 +43,18 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
   };
 
   return (
-    <div className="hover:bg-dark-bg3 flex items-center justify-between rounded px-4 py-2">
-      <div className="flex w-2/5 items-center gap-4">
-        <span className="w-6 text-center text-sm">{index + 1}</span>
+    <div className="hover:bg-dark-bg3 flex h-14 items-center justify-between rounded px-2 py-2">
+      <div className="flex h-full w-2/5 items-center gap-4">
+        <span className="w-6 shrink-0 text-center text-sm">{index + 1}</span>
         <PlayButton
           track={track}
           isCurrentTrack={isCurrentTrack}
           isPlaying={isPlaying}
           handleClick={handlePlay}
         />
-        <div className="flex flex-col">
+        <div className="flex flex-col overflow-hidden">
           <span
-            className={`font-medium ${isCurrentTrack ? "text-accent" : ""}`}
+            className={`truncate font-medium ${isCurrentTrack ? "text-accent" : ""}`}
           >
             {track.title}
           </span>
@@ -73,22 +73,22 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
           </span>
         </div>
       </div>
-      <div className="align-center flex max-w-2/5 truncate overflow-hidden">
+      <div className="flex h-full w-3/10 justify-center overflow-hidden">
         <span
           onClick={() => album && goToAlbumPage(album)}
-          className="text-dark-fg2 hover:text-dark-fg cursor-pointer text-nowrap hover:underline"
+          className="text-dark-fg2 hover:text-dark-fg flex h-full cursor-pointer items-center truncate text-nowrap hover:underline"
         >
           {track.albumName}
         </span>
       </div>
-      <div className="flex w-1/5 items-center justify-end gap-8">
+      <div className="flex h-full w-3/10 items-center justify-end gap-8 pr-2">
         <HeartButton
           handleClick={() => toggleLikedSong(track.id)}
           isLiked={isSongLiked(track.id)}
         />
         <QueueButton handleClick={() => addToQueue(track)} />
         <PlaylistButton handleClick={() => setShowModal(true)} />
-        <span className="text-dark-fg2 w-1/5">
+        <span className="text-dark-fg2 w-6">
           {formatDuration(track.duration)}
         </span>
       </div>
