@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import libraryData from "../data/library.json";
 
 /**
  * Context for music player functionality across application
@@ -41,7 +40,11 @@ export const PlayerProvider = ({ children }) => {
   const [duration, setDuration] = useState(0);
   const [seekToFn, setSeekToFn] = useState(() => () => {});
 
-  const [library] = useState(libraryData);
+  const [library, setLibrary] = useState({});
+
+  useEffect(() => {
+    fetchLibrary();
+  }, []);
 
   /** Updates cover path and current album when current track changes */
   useEffect(() => {
@@ -64,6 +67,19 @@ export const PlayerProvider = ({ children }) => {
       setShufflePath(null);
     }
   }, [activeSonglist, isShuffle]);
+
+  const fetchLibrary = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/library");
+      if (!response.ok) {
+        throw new Error("Failed to fetch library");
+      }
+      const data = await response.json();
+      setLibrary(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   /**
    * Starts playing a track

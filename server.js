@@ -16,6 +16,7 @@ app.use(express.json());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const LIBRARY_FILE = path.join(__dirname, "./src/data/library.json");
 const PLAYLISTS_FILE = path.join(__dirname, "./src/data/playlists.json");
 const LIKED_SONGS_FILE = path.join(__dirname, "./src/data/likedSongs.json");
 const LIBRARY_BUILD_SCRIPT = path.join(
@@ -23,6 +24,28 @@ const LIBRARY_BUILD_SCRIPT = path.join(
   "./src/data/build-library.js",
 );
 const UPLOAD_PATH = path.join(__dirname, "./public/music");
+
+const getLibrary = async () => {
+  try {
+    await ensureLibraryFileExists();
+    const data = await fsPromises.readFile(LIBRARY_FILE, "utf8");
+    return JSON.parse(data);
+  } catch (error) {
+    console.error("Error reading library:", error);
+    return { library: {} };
+  }
+};
+
+const ensureLibraryFileExists = async () => {
+  try {
+    await fsPromises.access(LIBRARY_FILE);
+  } catch {
+    await fsPromises.writeFile(
+      LIBRARY_FILE,
+      JSON.stringify({ library: {} }, null, 2),
+    );
+  }
+};
 
 const getPlaylists = async () => {
   try {
@@ -135,6 +158,16 @@ const upload = multer({
     }
   },
   limits: { fileSize: 50 * 1024 * 1024 }, // 50MB max file size
+});
+
+// Get library
+app.get("/library", async (req, res) => {
+  try {
+    const library = await getLibrary();
+    res.json(library);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching library" });
+  }
 });
 
 // Get all playlists
