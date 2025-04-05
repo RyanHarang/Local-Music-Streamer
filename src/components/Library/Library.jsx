@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigation } from "../../context/NavigationContext.jsx";
 import { usePlayer } from "../../context/PlayerContext.jsx";
 import Album from "../Album/Album.jsx";
+import Loading from "../Loading/Loading.jsx";
 
 const Library = () => {
   const { goToAlbumPage, initialQuery, setInitialQuery } = useNavigation();
@@ -14,6 +15,10 @@ const Library = () => {
   useEffect(() => {
     setSearchQuery(initialQuery);
   }, [initialQuery]);
+
+  if (!library || !library.albums) {
+    return <Loading />;
+  }
 
   Object.values(albums).forEach((album) => {
     if (!albumsByArtist[album.albumArtist]) {

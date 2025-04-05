@@ -3,6 +3,7 @@ import { useNavigation } from "../../context/NavigationContext.jsx";
 import { usePlaylists } from "../../context/PlaylistContext.jsx";
 import TrashButton from "../Controls/Buttons/TrashButton.jsx";
 import NewPlaylistModal from "../Modals/NewPlaylistModal.jsx";
+import Loading from "../Loading/Loading.jsx";
 
 const Playlists = () => {
   const { goToPlaylistPage } = useNavigation();
@@ -13,6 +14,10 @@ const Playlists = () => {
     e.stopPropagation();
     deletePlaylist(id);
   };
+
+  if (!playlists) {
+    return <Loading />;
+  }
 
   return (
     <section className="space-y-8 p-4">
@@ -26,7 +31,7 @@ const Playlists = () => {
         </button>
       </div>
 
-      {!playlists || playlists.length === 0 ? (
+      {playlists.length === 0 ? (
         <p>No playlists yet. Create one!</p>
       ) : (
         <div className="grid grid-cols-3 gap-4">
@@ -34,7 +39,7 @@ const Playlists = () => {
             <div
               key={playlist.id}
               onClick={() => goToPlaylistPage(playlist)}
-              className="via-accent/40 to-accent hover:bg-accent flex cursor-pointer items-center justify-center rounded bg-gradient-to-br from-black px-3 py-1 shadow transition-all duration-200"
+              className="via-accent/40 to-accent hover:bg-accent flex h-16 cursor-pointer items-center justify-center rounded bg-gradient-to-br from-black px-3 py-1 shadow transition-all duration-200"
             >
               <div className="flex w-full justify-between">
                 <div>

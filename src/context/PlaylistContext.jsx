@@ -19,8 +19,8 @@ export const usePlaylists = () => useContext(PlaylistContext);
  * @returns {JSX.Element} Provider component with playlist context
  */
 export const PlaylistProvider = ({ children }) => {
-  const [playlists, setPlaylists] = useState([]);
-  const [likedSongs, setLikedSongs] = useState({});
+  const [playlists, setPlaylists] = useState(null);
+  const [likedSongs, setLikedSongs] = useState(null);
 
   /**
    * Fetches playlists on load
