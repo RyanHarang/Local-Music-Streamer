@@ -26,7 +26,7 @@ const UpcomingSongs = () => {
               <div className="flex flex-col justify-center">
                 <span
                   onClick={() => goToAlbumPage(albums[track.albumId])}
-                  className="cursor-pointer hover:underline"
+                  className="w-fit cursor-pointer hover:underline"
                 >
                   {track.title}
                 </span>
