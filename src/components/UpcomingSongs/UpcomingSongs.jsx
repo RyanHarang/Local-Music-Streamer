@@ -16,14 +16,14 @@ const UpcomingSongs = () => {
           <h2 className="text-md font-semibold">Upcoming Songs</h2>
         </div>
       )}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1">
         {upcomingTracks &&
           upcomingTracks.map((track, index) => (
             <div
               key={index}
-              className="hover:bg-dark-bg3 rounded px-1 py-1 transition"
+              className="hover:bg-dark-bg3 no-scrollbar h-12 truncate overflow-x-scroll rounded px-1 py-1 transition"
             >
-              <div className="flex flex-col justify-center">
+              <div className="flex w-full flex-col justify-center">
                 <span
                   onClick={() => goToAlbumPage(albums[track.albumId])}
                   className="w-fit cursor-pointer hover:underline"

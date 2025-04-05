@@ -21,14 +21,14 @@ const Sidebar = () => {
 
   return (
     <aside
-      className={`relative flex flex-col border-r p-4 transition-all duration-300 ${
-        isCollapsed ? "w-2" : "w-64"
+      className={`relative flex flex-col border-r py-4 pl-2 transition-all duration-300 ${
+        isCollapsed ? "w-8" : "w-64"
       }`}
     >
       <button
         onClick={toggleSidebar}
         aria-label="Toggle sidebar"
-        className="group absolute right-2 bottom-2 flex cursor-pointer items-center justify-center"
+        className="group absolute right-0 bottom-0 flex cursor-pointer items-center justify-center p-2"
       >
         {isCollapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
       </button>
