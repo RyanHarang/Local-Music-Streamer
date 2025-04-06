@@ -31,9 +31,7 @@ const LikedSongsPage = () => {
       />
 
       <div className="mb-2">
-        <h1 className="cursor-pointer text-3xl font-bold">
-          {currentPlaylist.name}
-        </h1>
+        <h1 className="text-3xl font-bold">{currentPlaylist.name}</h1>
 
         <p className="text-dark-fg3">Tracks: {currentPlaylist.trackCount}</p>
       </div>
