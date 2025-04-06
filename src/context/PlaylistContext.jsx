@@ -73,6 +73,17 @@ export const PlaylistProvider = ({ children }) => {
    * @param {string} name - Name of new playlist
    */
   const createPlaylist = async (name) => {
+    // const tempId = `temp-${Date.now()}`;
+    // const optimisticPlaylist = {
+    //   id: tempId,
+    //   name,
+    //   tracks: [],
+    //   trackCount: 0,
+    //   duration: 0,
+    // };
+
+    // setPlaylists((prev) => [...prev, optimisticPlaylist]);
+
     try {
       const response = await fetch("http://localhost:3000/playlists", {
         method: "POST",
@@ -86,8 +97,12 @@ export const PlaylistProvider = ({ children }) => {
 
       const newPlaylist = await response.json();
       setPlaylists([...playlists, newPlaylist]);
+      // setPlaylists((prev) =>
+      //   prev.map((p) => (p.id === tempId ? newPlaylist : p)),
+      // );
     } catch (error) {
       console.error(error);
+      // setPlaylists((prev) => prev.filter((p) => p.id !== tempId));
     }
   };
 
@@ -96,6 +111,9 @@ export const PlaylistProvider = ({ children }) => {
    * @param {string} id - ID of playlist to delete
    */
   const deletePlaylist = async (id) => {
+    const prevPlaylists = [...playlists];
+    setPlaylists(playlists.filter((p) => p.id !== id));
+
     try {
       const response = await fetch(`http://localhost:3000/playlists/${id}`, {
         method: "DELETE",
@@ -108,6 +126,7 @@ export const PlaylistProvider = ({ children }) => {
       setPlaylists(playlists.filter((playlist) => playlist.id !== id));
     } catch (error) {
       console.error(error);
+      setPlaylists(prevPlaylists);
     }
   };
 
@@ -178,6 +197,19 @@ export const PlaylistProvider = ({ children }) => {
    * @param {string} trackId - ID of track to remove from playlist
    */
   const removeTrackFromPlaylist = async (playlistId, trackId) => {
+    const prevPlaylists = [...playlists];
+    setPlaylists((prev) =>
+      prev.map((playlist) =>
+        playlist.id === playlistId
+          ? {
+              ...playlist,
+              tracks: playlist.tracks.filter((track) => track.id !== trackId),
+              trackCount: Math.max(playlist.trackCount - 1, 0),
+            }
+          : playlist,
+      ),
+    );
+
     try {
       const response = await fetch(
         `http://localhost:3000/playlists/${playlistId}/tracks/${trackId}`,
@@ -202,6 +234,7 @@ export const PlaylistProvider = ({ children }) => {
       );
     } catch (error) {
       console.error(error);
+      setPlaylists(prevPlaylists);
     }
   };
 
