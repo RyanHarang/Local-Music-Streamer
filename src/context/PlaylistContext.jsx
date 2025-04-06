@@ -73,16 +73,16 @@ export const PlaylistProvider = ({ children }) => {
    * @param {string} name - Name of new playlist
    */
   const createPlaylist = async (name) => {
-    // const tempId = `temp-${Date.now()}`;
-    // const optimisticPlaylist = {
-    //   id: tempId,
-    //   name,
-    //   tracks: [],
-    //   trackCount: 0,
-    //   duration: 0,
-    // };
+    const tempId = crypto.randomUUID();
+    const optimisticPlaylist = {
+      id: tempId,
+      name,
+      tracks: [],
+      trackCount: 0,
+      isPending: true,
+    };
 
-    // setPlaylists((prev) => [...prev, optimisticPlaylist]);
+    setPlaylists((prev) => [...prev, optimisticPlaylist]);
 
     try {
       const response = await fetch("http://localhost:3000/playlists", {
@@ -96,13 +96,13 @@ export const PlaylistProvider = ({ children }) => {
       }
 
       const newPlaylist = await response.json();
-      setPlaylists([...playlists, newPlaylist]);
-      // setPlaylists((prev) =>
-      //   prev.map((p) => (p.id === tempId ? newPlaylist : p)),
-      // );
+      setPlaylists((prev) =>
+        prev.map((pl) => (pl.id === tempId ? newPlaylist : pl)),
+      );
+      // setPlaylists([...playlists, newPlaylist]);
     } catch (error) {
       console.error(error);
-      // setPlaylists((prev) => prev.filter((p) => p.id !== tempId));
+      setPlaylists((prev) => prev.filter((pl) => pl.id !== tempId));
     }
   };
 

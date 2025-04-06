@@ -38,11 +38,14 @@ const Playlists = () => {
           {playlists.map((playlist) => (
             <div
               key={playlist.id}
-              onClick={() => goToPlaylistPage(playlist)}
+              onClick={() => {
+                if (!playlist.isPending) goToPlaylistPage(playlist);
+              }}
               className="via-accent/40 to-accent hover:bg-accent flex h-16 w-full cursor-pointer items-center justify-center overflow-hidden rounded bg-gradient-to-br from-black px-3 py-1 shadow transition-all duration-200"
             >
               <div className="flex w-full justify-between">
                 <div className="w-7/8 truncate text-ellipsis">
+                  {playlist.isPending && <Loading />}
                   <h3 className="mt-2 text-lg font-semibold group-hover:underline">
                     {playlist.name}
                   </h3>
