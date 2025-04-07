@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { usePlayer } from "../../context/PlayerContext.jsx";
 import ButtonControls from "../Controls/ButtonControls.jsx";
+import ProgressBar from "../Controls/ProgressBar.jsx";
 
 const PlayingCoverModal = ({ closeModal }) => {
   const { currentTrack, currentCover } = usePlayer();
@@ -31,11 +32,11 @@ const PlayingCoverModal = ({ closeModal }) => {
     <dialog
       ref={dialogRef}
       onClose={closeModal}
-      className="text-dark-fg fixed z-50 m-auto overflow-hidden rounded bg-transparent p-0 backdrop:bg-black"
+      className="text-dark-fg m-auto overflow-hidden rounded bg-transparent backdrop:bg-black"
     >
       <div
         ref={contentRef}
-        className="flex flex-col items-center justify-center gap-1"
+        className="flex flex-col items-center justify-center gap-2"
       >
         <img
           src={currentCover}
@@ -56,6 +57,7 @@ const PlayingCoverModal = ({ closeModal }) => {
             ))}
         </div>
         <ButtonControls />
+        <ProgressBar />
       </div>
     </dialog>
   );

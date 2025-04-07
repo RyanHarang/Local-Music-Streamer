@@ -14,7 +14,7 @@ const LibraryBuildModal = ({ buildOutput, closeModal }) => {
     <dialog
       ref={dialogRef}
       onClose={closeModal}
-      className="bg-dark-bg text-dark-fg fixed z-50 m-auto w-11/12 max-w-md overflow-hidden rounded p-0 shadow-xl backdrop:bg-black/50"
+      className="bg-dark-bg text-dark-fg m-auto w-11/12 max-w-md overflow-hidden rounded shadow-xl backdrop:bg-black/50"
     >
       <div className="p-6">
         <h3 className="mb-4 text-center text-2xl font-semibold">
