@@ -43,18 +43,20 @@ const PlayingCoverModal = ({ closeModal }) => {
           alt={`Cover of ${currentTrack.title}`}
           className="h-128 w-128 rounded object-cover"
         />
-        <div className="text-xl font-semibold">
-          {currentTrack?.title || "No track playing"}
-        </div>
-        <div className="text-md">
-          {currentTrack &&
-            Array.isArray(currentTrack.artists) &&
-            currentTrack.artists.map((artist, index) => (
-              <span key={`${artist}-${index}`} className="text-dark-fg2 mr-1">
-                {artist}
-                {index < currentTrack.artists.length - 1 && ", "}
-              </span>
-            ))}
+        <div className="flex flex-col items-center justify-center">
+          <span className="text-xl font-semibold">
+            {currentTrack?.title || "No track playing"}
+          </span>
+          <div className="text-md">
+            {currentTrack &&
+              Array.isArray(currentTrack.artists) &&
+              currentTrack.artists.map((artist, index) => (
+                <span key={`${artist}-${index}`} className="text-dark-fg2 mr-1">
+                  {artist}
+                  {index < currentTrack.artists.length - 1 && ", "}
+                </span>
+              ))}
+          </div>
         </div>
         <ButtonControls />
         <ProgressBar />
