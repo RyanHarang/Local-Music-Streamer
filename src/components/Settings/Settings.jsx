@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { usePlayer } from "../../context/PlayerContext.jsx";
 import LibraryBuildModal from "../Modals/LibraryBuildModal.jsx";
 import FileUploadModal from "../Modals/FileUploadModal.jsx";
 
 const Settings = () => {
+  const { fetchLibrary } = usePlayer();
   const [isBuilding, setIsBuilding] = useState(false);
   const [buildOutput, setBuildOutput] = useState(null);
   const [showBuildModal, setShowBuildModal] = useState(false);
@@ -25,6 +27,7 @@ const Settings = () => {
       }
 
       const data = await response.json();
+      fetchLibrary();
       setBuildOutput(data.output);
       setShowBuildModal(true);
     } catch (error) {

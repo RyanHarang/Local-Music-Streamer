@@ -68,6 +68,9 @@ export const PlayerProvider = ({ children }) => {
     }
   }, [activeSonglist, isShuffle]);
 
+  /**
+   * Fetches library from server
+   */
   const fetchLibrary = async () => {
     try {
       const response = await fetch("http://localhost:3000/library");
@@ -429,6 +432,7 @@ export const PlayerProvider = ({ children }) => {
     currentCover,
     currentAlbum,
     library,
+    fetchLibrary,
     play,
     pause,
     skipNext,
