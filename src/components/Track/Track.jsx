@@ -5,7 +5,7 @@ import { usePlaylists } from "../../context/PlaylistContext.jsx";
 import PlayButton from "../Controls/Buttons/PlayButton.jsx";
 import HeartButton from "../Controls/Buttons/HeartButton.jsx";
 import QueueButton from "../Controls/Buttons/QueueButton.jsx";
-import PlaylistButton from "../Controls/Buttons/PlaylistButton.jsx";
+import AddToPlaylistButton from "../Controls/Buttons/AddToPlaylistButton.jsx";
 import TrackPlaylistModal from "../Modals/TrackPlaylistModal.jsx";
 
 const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
@@ -87,7 +87,7 @@ const Track = ({ track, index, inSonglist = false, songlist = [] }) => {
           isLiked={isSongLiked(track.id)}
         />
         <QueueButton handleClick={() => addToQueue(track)} />
-        <PlaylistButton handleClick={() => setShowModal(true)} />
+        <AddToPlaylistButton handleClick={() => setShowModal(true)} />
         <span className="text-dark-fg2 w-6">
           {formatDuration(track.duration)}
         </span>

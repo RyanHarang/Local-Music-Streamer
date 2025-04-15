@@ -1,6 +1,6 @@
 import PlaylistIcon from "../../../assets/svg/controls/PlaylistIcon.jsx";
 
-const PlaylistButton = ({ handleClick }) => {
+const AddToPlaylistButton = ({ handleClick }) => {
   return (
     <button
       onClick={handleClick}
@@ -12,4 +12,4 @@ const PlaylistButton = ({ handleClick }) => {
   );
 };
 
-export default PlaylistButton;
+export default AddToPlaylistButton;
