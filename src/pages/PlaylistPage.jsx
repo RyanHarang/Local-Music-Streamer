@@ -1,7 +1,4 @@
-import { useEffect, useState } from "react";
 import { useNavigation } from "../context/NavigationContext.jsx";
-import { usePlayer } from "../context/PlayerContext.jsx";
-import { usePlaylists } from "../context/PlaylistContext";
 import Playlist from "../components/Playlists/Playlist.jsx";
 import BackButton from "../components/Controls/Buttons/BackButton.jsx";
 
