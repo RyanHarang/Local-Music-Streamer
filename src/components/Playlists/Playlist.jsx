@@ -2,7 +2,6 @@ import { useState } from "react";
 import { usePlayer } from "../../context/PlayerContext.jsx";
 import { usePlaylists } from "../../context/PlaylistContext.jsx";
 import Songlist from "../Songlist/Songlist.jsx";
-import Loading from "../Loading/Loading.jsx";
 import TrashButton from "../Controls/Buttons/TrashButton.jsx";
 
 const Playlist = ({ playlist, onPlaylistClick, onPlaylistPage }) => {
@@ -60,7 +59,6 @@ const Playlist = ({ playlist, onPlaylistClick, onPlaylistPage }) => {
         )}
         <div className="flex w-full flex-col">
           <div className="flex w-full flex-row items-center justify-between pr-3 @xl:flex-col @xl:items-start @xl:justify-center @xl:pr-0">
-            {playlist.isPending && <Loading />}
             {onPlaylistPage ? (
               <>
                 {isEditing ? (
