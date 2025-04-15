@@ -35,12 +35,13 @@ const Playlist = ({ playlist, onPlaylistClick, onPlaylistPage }) => {
   const handleRename = async () => {
     if (newName.trim() && newName !== playlist.name) {
       await renamePlaylist(playlist.id, newName);
+      playlist.name = newName;
     }
     setIsEditing(false);
   };
 
   return (
-    <div className="@container mb-4 relative">
+    <div className="@container relative mb-4">
       <div
         onClick={() => {
           if (!playlist.isPending) onPlaylistClick && onPlaylistClick(playlist);
@@ -55,7 +56,7 @@ const Playlist = ({ playlist, onPlaylistClick, onPlaylistPage }) => {
             className="h-32 w-32 rounded object-cover"
           />
         ) : (
-          <div className="via-accent/40 to-accent h-32 w-32 aspect-square rounded bg-gradient-to-br from-black" />
+          <div className="via-accent/40 to-accent aspect-square h-32 w-32 rounded bg-gradient-to-br from-black" />
         )}
         <div className="flex w-full flex-col">
           <div className="flex w-full flex-row items-center justify-between pr-3 @xl:flex-col @xl:items-start @xl:justify-center @xl:pr-0">
@@ -95,9 +96,11 @@ const Playlist = ({ playlist, onPlaylistClick, onPlaylistPage }) => {
           <p className="text-dark-fg3">Tracks: {playlist.trackCount}</p>
         </div>
       </div>
-      <div className="absolute left-1 top-1 h-4 w-4 aspect-square">
-        <TrashButton handleClick={(e) => handleDelete(e, playlist.id)} />
-      </div>
+      {!onPlaylistPage && (
+        <div className="absolute top-1 left-1 aspect-square h-4 w-4">
+          <TrashButton handleClick={(e) => handleDelete(e, playlist.id)} />
+        </div>
+      )}
       {onPlaylistPage && <Songlist tracks={sortedPlaylistTracks} />}
     </div>
   );
