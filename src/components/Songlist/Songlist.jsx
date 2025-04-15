@@ -3,14 +3,7 @@ import Track from "../Track/Track.jsx";
 import QueueButton from "../Controls/Buttons/QueueButton.jsx";
 
 const Songlist = ({ tracks }) => {
-  const { startSonglist, addToQueue, isShuffle } = usePlayer();
-
-  const handlePlay = () => {
-    if (tracks && tracks.length > 0) {
-      let index = isShuffle ? Math.floor(Math.random() * tracks.length) : 0;
-      startSonglist(tracks, index);
-    }
-  };
+  const { addToQueue } = usePlayer();
 
   const handleAddToQueue = () => {
     if (tracks && tracks.length > 0) {
@@ -21,12 +14,6 @@ const Songlist = ({ tracks }) => {
   return (
     <>
       <div className="mb-2 flex items-center gap-4">
-        <button
-          onClick={handlePlay}
-          className="bg-accent hover:bg-accent/80 rounded px-4 py-2"
-        >
-          Play
-        </button>
         <QueueButton handleClick={handleAddToQueue} />
       </div>
       <div className="border-dark-fg2 flex w-full flex-col overflow-hidden rounded-md border">
