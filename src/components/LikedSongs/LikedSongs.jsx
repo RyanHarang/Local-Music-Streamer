@@ -1,14 +1,9 @@
 import { useNavigation } from "../../context/NavigationContext.jsx";
 import { usePlaylists } from "../../context/PlaylistContext.jsx";
-import Loading from "../Loading/Loading.jsx";
 
 const LikedSongs = () => {
   const { goToLikedSongPage } = useNavigation();
   const { likedSongs } = usePlaylists();
-
-  if (!likedSongs) {
-    return <Loading />;
-  }
 
   return (
     <section className="space-y-8 p-4">

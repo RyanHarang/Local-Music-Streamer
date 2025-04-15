@@ -1,20 +1,13 @@
 import { useState } from "react";
 import { useNavigation } from "../../context/NavigationContext.jsx";
 import { usePlaylists } from "../../context/PlaylistContext.jsx";
-import { usePlayer } from "../../context/PlayerContext.jsx";
 import Playlist from "./Playlist.jsx";
 import NewPlaylistModal from "../Modals/NewPlaylistModal.jsx";
-import Loading from "../Loading/Loading.jsx";
 
 const Playlists = () => {
   const { goToPlaylistPage } = useNavigation();
   const { playlists } = usePlaylists();
-  const { library } = usePlayer();
   const [showModal, setShowModal] = useState(false);
-
-  if (!playlists || !library || !library.tracks) {
-    return <Loading />;
-  }
 
   return (
     <section className="space-y-8 p-4">
