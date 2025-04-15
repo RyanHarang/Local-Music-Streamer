@@ -1,4 +1,4 @@
-import { usePlayer } from "../../context/PlayerContext.jsx";
+import { usePlayer } from "../../../context/PlayerContext.jsx";
 
 const StartSonglistButton = ({ songlist }) => {
   const { isShuffle, startSonglist } = usePlayer();
