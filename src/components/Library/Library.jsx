@@ -59,7 +59,7 @@ const Library = () => {
       }
       return acc;
     },
-    {}
+    {},
   );
 
   const handleSearch = (e) => {
@@ -69,7 +69,7 @@ const Library = () => {
 
   return (
     <div className="px-4">
-      <div className="bg-accent/70 sticky -top-4 mb-6 flex w-full items-center gap-4 rounded p-2 z-50">
+      <div className="bg-accent/70 sticky -top-4 z-50 mb-6 flex w-full items-center gap-4 rounded p-2">
         <input
           type="text"
           placeholder={`Search by ${searchMode}`}
@@ -93,15 +93,15 @@ const Library = () => {
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 2xl:grid-cols-3">
               {artistAlbums.map((album) => (
                 <Album
-                  onAlbumClick={() => goToAlbumPage(album)}
                   key={album.id}
+                  onAlbumClick={() => goToAlbumPage(album)}
                   onAlbumPage={false}
                   album={album}
                 />
               ))}
             </div>
           </div>
-        )
+        ),
       )}
     </div>
   );
