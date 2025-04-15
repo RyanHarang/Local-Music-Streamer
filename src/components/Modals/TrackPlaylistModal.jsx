@@ -97,13 +97,13 @@ const TrackPlaylistModal = ({ track, closeModal }) => {
           <button
             onClick={handleSubmit}
             disabled={!hasChanges}
-            className="bg-accent hover:bg-accent/80 disabled:hover:bg-accent rounded-md px-6 py-2 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
+            className="bg-accent hover:bg-accent/80 disabled:hover:bg-accent cursor-pointer rounded-md px-6 py-2 text-white transition-colors disabled:cursor-not-allowed disabled:opacity-50"
           >
             Save Changes
           </button>
           <button
             onClick={closeModal}
-            className="hover:bg-dark-bg2 rounded-md px-6 py-2 transition-colors"
+            className="hover:bg-dark-bg2 cursor-pointer rounded-md px-6 py-2 transition-colors"
           >
             Close
           </button>

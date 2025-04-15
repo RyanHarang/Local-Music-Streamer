@@ -28,7 +28,7 @@ const LibraryBuildModal = ({ buildOutput, closeModal }) => {
         <div className="flex justify-center border-t pt-4">
           <button
             onClick={closeModal}
-            className="hover:bg-dark-bg2 rounded-md px-6 py-2 transition-colors"
+            className="hover:bg-dark-bg2 cursor-pointer rounded-md px-6 py-2 transition-colors"
           >
             Close
           </button>
