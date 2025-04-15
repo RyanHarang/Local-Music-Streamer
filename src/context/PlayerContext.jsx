@@ -271,6 +271,7 @@ export const PlayerProvider = ({ children }) => {
       return;
     }
 
+    setShufflePathIndex(0);
     setActiveSonglist(songlist);
     setSonglistIndex(index);
 
