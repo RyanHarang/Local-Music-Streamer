@@ -1,8 +1,9 @@
 import { usePlayer } from "../../context/PlayerContext.jsx";
 import Songlist from "../Songlist/Songlist.jsx";
+import StartSonglistButton from "../Controls/Buttons/StartSongListButton.jsx";
 
 const Album = ({ album, onAlbumClick, onAlbumPage }) => {
-  const { formatDuration, library, isShuffle, startSonglist } = usePlayer();
+  const { formatDuration, library } = usePlayer();
   const tracks = library.tracks;
   const albumTracks = album.tracks
     .map((trackId) => tracks[trackId])
@@ -10,17 +11,6 @@ const Album = ({ album, onAlbumClick, onAlbumPage }) => {
   const sortedAlbumTracks = albumTracks.sort(
     (a, b) => a.trackNumber - b.trackNumber,
   );
-
-  const handlePlay = (event) => {
-    event.stopPropagation();
-    if (albumTracks && albumTracks.length > 0) {
-      let index =
-        isShuffle && albumTracks.length > 1
-          ? Math.floor(Math.random() * albumTracks.length)
-          : 0;
-      startSonglist(albumTracks, index);
-    }
-  };
 
   return (
     <div className="@container mb-4">
@@ -41,12 +31,7 @@ const Album = ({ album, onAlbumClick, onAlbumPage }) => {
             <h3 className="group-hover:decoration-accent text-xl font-semibold decoration-3 underline-offset-6 group-hover:underline">
               {album.title}
             </h3>
-            <button
-              onClick={(event) => handlePlay(event)}
-              className="bg-accent hover:bg-accent/80 cursor-pointer rounded px-4 py-2 @xl:my-2"
-            >
-              Play
-            </button>
+            <StartSonglistButton songlist={sortedAlbumTracks} />
           </div>
           <p className="text-dark-fg3">Tracks: {album.trackCount}</p>
           <p className="text-dark-fg3">

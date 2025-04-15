@@ -2,10 +2,11 @@ import { useNavigation } from "../../context/NavigationContext.jsx";
 import { usePlayer } from "../../context/PlayerContext.jsx";
 import { usePlaylists } from "../../context/PlaylistContext.jsx";
 import Songlist from "../Songlist/Songlist.jsx";
+import StartSonglistButton from "../Controls/Buttons/StartSongListButton.jsx";
 
 const LikedSongs = ({ onLikedSongsPage }) => {
   const { goToLikedSongPage } = useNavigation();
-  const { library, isShuffle, startSonglist } = usePlayer();
+  const { library } = usePlayer();
   const { likedSongs } = usePlaylists();
   const tracks = library.tracks;
 
@@ -16,17 +17,6 @@ const LikedSongs = ({ onLikedSongsPage }) => {
     })
     .filter(Boolean);
 
-  const handlePlay = (event) => {
-    event.stopPropagation();
-    if (likedSongTracks && likedSongTracks.length > 0) {
-      let index =
-        isShuffle && likedSongTracks.length > 1
-          ? Math.floor(Math.random() * likedSongTracks.length)
-          : 0;
-      startSonglist(likedSongTracks, index);
-    }
-  };
-
   return (
     <div className="@container relative mb-4">
       <div
@@ -35,13 +25,8 @@ const LikedSongs = ({ onLikedSongsPage }) => {
       >
         <div className="flex w-full flex-col">
           <div className="flex w-full flex-row items-center justify-between pr-3 @xl:flex-col @xl:items-start @xl:justify-center @xl:pr-0">
-            <h3 className="text-xl font-semibold">{likedSongs.name}</h3>
-            <button
-              onClick={(event) => handlePlay(event)}
-              className="bg-accent hover:bg-accent/80 cursor-pointer rounded px-4 py-2 @xl:my-2"
-            >
-              Play
-            </button>
+            <h3 className="text-2xl font-semibold">{likedSongs.name}</h3>
+            <StartSonglistButton songlist={likedSongTracks} />
           </div>
           <span className="text-dark-fg2 text-md">
             {likedSongs.trackCount} tracks

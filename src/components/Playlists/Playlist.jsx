@@ -2,11 +2,12 @@ import { useState } from "react";
 import { usePlayer } from "../../context/PlayerContext.jsx";
 import { usePlaylists } from "../../context/PlaylistContext.jsx";
 import Songlist from "../Songlist/Songlist.jsx";
+import StartSonglistButton from "../Controls/Buttons/StartSongListButton.jsx";
 import TrashButton from "../Controls/Buttons/TrashButton.jsx";
 
 const Playlist = ({ playlist, onPlaylistClick, onPlaylistPage }) => {
   const { deletePlaylist, renamePlaylist } = usePlaylists();
-  const { library, isShuffle, startSonglist } = usePlayer();
+  const { library } = usePlayer();
   const [newName, setNewName] = useState(playlist.name);
   const [isEditing, setIsEditing] = useState(false);
   const tracks = library.tracks;
@@ -14,17 +15,6 @@ const Playlist = ({ playlist, onPlaylistClick, onPlaylistPage }) => {
     .map((track) => tracks[track.id])
     .filter((track) => track);
   const sortedPlaylistTracks = playlistTracks.sort((a, b) => a.order - b.order);
-
-  const handlePlay = (event) => {
-    event.stopPropagation();
-    if (playlistTracks && playlistTracks.length > 0) {
-      let index =
-        isShuffle && playlistTracks.length > 1
-          ? Math.floor(Math.random() * playlistTracks.length)
-          : 0;
-      startSonglist(playlistTracks, index);
-    }
-  };
 
   const handleDelete = (e, id) => {
     e.stopPropagation();
@@ -84,12 +74,7 @@ const Playlist = ({ playlist, onPlaylistClick, onPlaylistPage }) => {
                 {playlist.name}
               </h3>
             )}
-            <button
-              onClick={(event) => handlePlay(event)}
-              className="bg-accent hover:bg-accent/80 cursor-pointer rounded px-4 py-2 @xl:my-2"
-            >
-              Play
-            </button>
+            <StartSonglistButton songlist={sortedPlaylistTracks} />
           </div>
           <p className="text-dark-fg3">Tracks: {playlist.trackCount}</p>
         </div>
