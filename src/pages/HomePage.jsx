@@ -14,7 +14,7 @@ const HomePage = () => {
 
   return (
     <>
-      <LikedSongs />
+      <LikedSongs onLikedSongsPage={false} />
       <Playlists />
     </>
   );

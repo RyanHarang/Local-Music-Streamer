@@ -8,7 +8,7 @@ const Album = ({ album, onAlbumClick, onAlbumPage }) => {
     .map((trackId) => tracks[trackId])
     .filter((track) => track);
   const sortedAlbumTracks = albumTracks.sort(
-    (a, b) => a.trackNumber - b.trackNumber
+    (a, b) => a.trackNumber - b.trackNumber,
   );
 
   const handlePlay = (event) => {
@@ -38,12 +38,12 @@ const Album = ({ album, onAlbumClick, onAlbumPage }) => {
         )}
         <div className="flex w-full flex-col">
           <div className="flex w-full flex-row items-center justify-between pr-3 @xl:flex-col @xl:items-start @xl:justify-center @xl:pr-0">
-            <h3 className="group-hover:decoration-accent pb-2 text-xl font-semibold decoration-3 underline-offset-6 group-hover:underline">
+            <h3 className="group-hover:decoration-accent text-xl font-semibold decoration-3 underline-offset-6 group-hover:underline">
               {album.title}
             </h3>
             <button
               onClick={(event) => handlePlay(event)}
-              className="bg-accent hover:bg-accent/80 cursor-pointer rounded px-4 py-2 @xl:mb-2"
+              className="bg-accent hover:bg-accent/80 cursor-pointer rounded px-4 py-2 @xl:my-2"
             >
               Play
             </button>

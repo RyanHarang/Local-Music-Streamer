@@ -1,34 +1,55 @@
 import { useNavigation } from "../../context/NavigationContext.jsx";
+import { usePlayer } from "../../context/PlayerContext.jsx";
 import { usePlaylists } from "../../context/PlaylistContext.jsx";
+import Songlist from "../Songlist/Songlist.jsx";
 
-const LikedSongs = () => {
+const LikedSongs = ({ onLikedSongsPage }) => {
   const { goToLikedSongPage } = useNavigation();
+  const { library, isShuffle, startSonglist } = usePlayer();
   const { likedSongs } = usePlaylists();
+  const tracks = library.tracks;
+
+  const likedSongTracks = likedSongs.tracks
+    .map((track) => {
+      const fullTrack = tracks[track.id];
+      return fullTrack ? { ...fullTrack } : null;
+    })
+    .filter(Boolean);
+
+  const handlePlay = (event) => {
+    event.stopPropagation();
+    if (likedSongTracks && likedSongTracks.length > 0) {
+      let index =
+        isShuffle && likedSongTracks.length > 1
+          ? Math.floor(Math.random() * likedSongTracks.length)
+          : 0;
+      startSonglist(likedSongTracks, index);
+    }
+  };
 
   return (
-    <section className="space-y-8 p-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold">Liked Songs</h2>
-      </div>
-
-      <div className="w-full">
-        <div
-          onClick={() => goToLikedSongPage(likedSongs)}
-          className="via-accent/40 hover:bg-accent from-accent flex cursor-pointer items-center justify-center rounded bg-gradient-to-b to-black p-3 shadow transition-all duration-200"
-        >
-          <div className="flex w-full justify-between">
-            <div>
-              <h3 className="mt-2 text-lg font-semibold group-hover:underline">
-                {likedSongs.name}
-              </h3>
-              <span className="text-dark-fg2 text-sm">
-                {likedSongs.trackCount} tracks
-              </span>
-            </div>
+    <div className="@container relative mb-4">
+      <div
+        onClick={() => goToLikedSongPage(likedSongs)}
+        className={`flex items-center gap-4 ${!onLikedSongsPage && "via-accent/40 hover:bg-accent from-accent cursor-pointer rounded bg-gradient-to-bl to-black p-3 shadow transition-all duration-200"}`}
+      >
+        <div className="flex w-full flex-col">
+          <div className="flex w-full flex-row items-center justify-between pr-3 @xl:flex-col @xl:items-start @xl:justify-center @xl:pr-0">
+            <h3 className="text-xl font-semibold">{likedSongs.name}</h3>
+            <button
+              onClick={(event) => handlePlay(event)}
+              className="bg-accent hover:bg-accent/80 cursor-pointer rounded px-4 py-2 @xl:my-2"
+            >
+              Play
+            </button>
           </div>
+          <span className="text-dark-fg2 text-md">
+            {likedSongs.trackCount} tracks
+          </span>
         </div>
       </div>
-    </section>
+      {onLikedSongsPage && <Songlist tracks={likedSongTracks} />}
+    </div>
   );
 };
 
