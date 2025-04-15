@@ -8,7 +8,7 @@ const Album = ({ album, onAlbumClick, onAlbumPage }) => {
     .map((trackId) => tracks[trackId])
     .filter((track) => track);
   const sortedAlbumTracks = albumTracks.sort(
-    (a, b) => a.trackNumber - b.trackNumber,
+    (a, b) => a.trackNumber - b.trackNumber
   );
 
   const handlePlay = (event) => {
@@ -43,7 +43,7 @@ const Album = ({ album, onAlbumClick, onAlbumPage }) => {
             </h3>
             <button
               onClick={(event) => handlePlay(event)}
-              className="bg-accent hover:bg-accent/80 cursor-pointer rounded px-4 py-2 @lg:mb-2"
+              className="bg-accent hover:bg-accent/80 cursor-pointer rounded px-4 py-2 @xl:mb-2"
             >
               Play
             </button>
