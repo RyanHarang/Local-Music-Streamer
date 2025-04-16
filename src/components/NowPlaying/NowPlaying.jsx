@@ -5,7 +5,7 @@ import ButtonControls from "../Controls/ButtonControls.jsx";
 import VolumeControls from "../Controls/VolumeControls.jsx";
 import ProgressBar from "../Controls/ProgressBar.jsx";
 import AudioPlayer from "../AudioPlayer/AudioPlayer.jsx";
-import PlayingCoverModal from "../Modals/PlayingCoverModal.jsx";
+import NowPlayingModal from "../Modals/NowPlayingModal.jsx";
 
 const NowPlaying = () => {
   const { goToAlbumPage, goToLibraryPage } = useNavigation();
@@ -54,9 +54,7 @@ const NowPlaying = () => {
         <AudioPlayer />
       </div>
       <VolumeControls />
-      {showModal && (
-        <PlayingCoverModal closeModal={() => setShowModal(false)} />
-      )}
+      {showModal && <NowPlayingModal closeModal={() => setShowModal(false)} />}
     </footer>
   );
 };

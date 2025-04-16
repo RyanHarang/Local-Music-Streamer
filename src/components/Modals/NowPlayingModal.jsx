@@ -3,7 +3,7 @@ import { usePlayer } from "../../context/PlayerContext.jsx";
 import ButtonControls from "../Controls/ButtonControls.jsx";
 import ProgressBar from "../Controls/ProgressBar.jsx";
 
-const PlayingCoverModal = ({ closeModal }) => {
+const NowPlayingModal = ({ closeModal }) => {
   const { currentTrack, currentCover } = usePlayer();
   const dialogRef = useRef(null);
   const contentRef = useRef(null);
@@ -65,4 +65,4 @@ const PlayingCoverModal = ({ closeModal }) => {
   );
 };
 
-export default PlayingCoverModal;
+export default NowPlayingModal;
