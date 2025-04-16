@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useNavigation } from "../../context/NavigationContext.jsx";
 import { usePlayer } from "../../context/PlayerContext.jsx";
+import { usePlaylists } from "../../context/PlaylistContext.jsx";
 import ButtonControls from "../Controls/ButtonControls.jsx";
 import VolumeControls from "../Controls/VolumeControls.jsx";
+import HeartButton from "../Controls/Buttons/HeartButton.jsx";
 import ProgressBar from "../Controls/ProgressBar.jsx";
 import AudioPlayer from "../AudioPlayer/AudioPlayer.jsx";
 import NowPlayingModal from "../Modals/NowPlayingModal.jsx";
@@ -10,6 +12,7 @@ import NowPlayingModal from "../Modals/NowPlayingModal.jsx";
 const NowPlaying = () => {
   const { goToAlbumPage, goToLibraryPage } = useNavigation();
   const { currentTrack, currentAlbum, currentCover } = usePlayer();
+  const { toggleLikedSong, isSongLiked } = usePlaylists();
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -25,7 +28,7 @@ const NowPlaying = () => {
         ) : (
           <div className="from-accent via-accent/70 h-18 w-18 overflow-hidden rounded bg-gradient-to-br to-black" />
         )}
-        <div>
+        <div className="flex flex-col justify-center">
           <div
             onClick={() => currentAlbum && goToAlbumPage(currentAlbum)}
             className={`${currentAlbum && "cursor-pointer hover:underline"} text-xl font-semibold`}
@@ -47,6 +50,12 @@ const NowPlaying = () => {
               ))}
           </div>
         </div>
+        {currentTrack && (
+          <HeartButton
+            handleClick={() => toggleLikedSong(currentTrack.id)}
+            isLiked={isSongLiked(currentTrack.id)}
+          />
+        )}
       </div>
       <div className="h-full w-1/3 flex-col items-center justify-center space-y-2">
         <ButtonControls />
