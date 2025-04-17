@@ -99,7 +99,6 @@ export const PlaylistProvider = ({ children }) => {
       setPlaylists((prev) =>
         prev.map((pl) => (pl.id === tempId ? newPlaylist : pl)),
       );
-      // setPlaylists([...playlists, newPlaylist]);
     } catch (error) {
       console.error(error);
       setPlaylists((prev) => prev.filter((pl) => pl.id !== tempId));
