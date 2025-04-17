@@ -17,7 +17,7 @@ const PlaylistPage = () => {
         handleClick={
           previousPage && previousPage !== currentPage
             ? goToPreviousPage
-            : () => goToHomePage
+            : goToHomePage
         }
       />
       <Playlist playlist={selectedPlaylist} onPlaylistPage={true} />

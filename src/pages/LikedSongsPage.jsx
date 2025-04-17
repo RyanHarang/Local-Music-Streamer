@@ -12,7 +12,7 @@ const LikedSongsPage = () => {
         handleClick={
           previousPage && previousPage !== currentPage
             ? goToPreviousPage
-            : () => goToHomePage
+            : goToHomePage
         }
       />
       <LikedSongs onLikedSongsPage={true} />

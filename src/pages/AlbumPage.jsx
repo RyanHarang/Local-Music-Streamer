@@ -16,7 +16,7 @@ const AlbumPage = () => {
         handleClick={
           previousPage && previousPage !== currentPage
             ? goToPreviousPage
-            : () => goToLibraryPage()
+            : goToLibraryPage
         }
       />
       <Album album={selectedAlbum} onAlbumPage={true} />
