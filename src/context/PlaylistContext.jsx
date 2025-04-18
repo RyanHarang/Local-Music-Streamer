@@ -23,16 +23,10 @@ export const PlaylistProvider = ({ children }) => {
   const [likedSongs, setLikedSongs] = useState(null);
 
   /**
-   * Fetches playlists on load
+   * Fetches playlists and liked songs on load
    */
   useEffect(() => {
     fetchPlaylists();
-  }, []);
-
-  /**
-   * Fetches liked songs on load
-   */
-  useEffect(() => {
     fetchLikedSongs();
   }, []);
 
