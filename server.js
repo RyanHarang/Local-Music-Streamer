@@ -166,7 +166,7 @@ app.get("/library", async (req, res) => {
     const library = await getLibrary();
     res.json(library);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching library" });
+    res.status(500).json({ message: "Error fetching library", error });
   }
 });
 
@@ -176,7 +176,7 @@ app.get("/playlists", async (req, res) => {
     const playlistsData = await getPlaylists();
     res.json(playlistsData);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching playlists" });
+    res.status(500).json({ message: "Error fetching playlists", error });
   }
 });
 
@@ -196,7 +196,7 @@ app.post("/playlists", async (req, res) => {
 
     res.status(201).json(newPlaylist);
   } catch (error) {
-    res.status(500).json({ message: "Error creating playlist" });
+    res.status(500).json({ message: "Error creating playlist", error });
   }
 });
 
@@ -218,7 +218,7 @@ app.delete("/playlists/:id", async (req, res) => {
 
     res.json({ message: "Playlist deleted" });
   } catch (error) {
-    res.status(500).json({ message: "Error deleting playlist" });
+    res.status(500).json({ message: "Error deleting playlist", error });
   }
 });
 
@@ -239,7 +239,7 @@ app.put("/playlists/:id", async (req, res) => {
 
     res.json(playlist);
   } catch (error) {
-    res.status(500).json({ message: "Error renaming playlist" });
+    res.status(500).json({ message: "Error renaming playlist", error });
   }
 });
 
@@ -282,7 +282,7 @@ app.put("/playlists/:playlistId/tracks/:trackId", async (req, res) => {
       playlist,
     });
   } catch (error) {
-    res.status(500).json({ message: "Error adding track to playlist" });
+    res.status(500).json({ message: "Error adding track to playlist", error });
   }
 });
 
@@ -318,7 +318,7 @@ app.delete("/playlists/:playlistId/tracks/:trackId", async (req, res) => {
       playlist,
     });
   } catch (error) {
-    res.status(500).json({ message: "Error removing track from playlist" });
+    res.status(500).json({ message: "Error removing track from playlist", error });
   }
 });
 
@@ -327,7 +327,7 @@ app.get("/liked-songs", async (req, res) => {
     const likedSongsData = await getLikedSongs();
     res.json(likedSongsData);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching liked songs" });
+    res.status(500).json({ message: "Error fetching liked songs", error });
   }
 });
 
@@ -348,7 +348,7 @@ app.post("/liked-songs/:trackId", async (req, res) => {
     await saveLikedSongs(likedSongs);
     res.json(likedSongs);
   } catch (error) {
-    res.status(500).json({ message: "Error updating liked songs" });
+    res.status(500).json({ message: "Error updating liked songs", error });
   }
 });
 
