@@ -5,7 +5,7 @@
 1. Clone the repository
 
 ```bash
-git clone https://github.com/RyanHarang/Local-Music-Streamer.git
+git clone <repository link>
 ```
 
 2. Install dependencies
